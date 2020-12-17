@@ -117,7 +117,8 @@ Remember — A story must be registered by including all the fields mentioned ab
 
 ## Edit Story
 
-> Please ensure you URL encode the storyId passed in the Path Parameters
+> Please ensure you URL encode the storyId in the Path Parameters
+> Replace the {storyId} in the API path with your actual Story Id
 
 ```python
 ```
@@ -161,11 +162,12 @@ axios(config)
 ```json
 [
   {
-    "message": "New Story Created!",
-    "story": {
-        "title": "Test story for API functionality",
-        "price": 0.1,
-        "storyId": "testingID For Client"
+    "message": "Story Edited Successfully",
+    "editedStory": {
+        "title": "Client Story Id Test Edit",
+        "storyId": "Client Story Id 11",
+        "price": 1,
+        "duration": 2
     }
   },
 ]
@@ -197,5 +199,71 @@ duration | optional | Free story access time for user once the user has purchase
 
 <aside class="success">
 Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body.
+</aside>
+
+# Validate Story Read
+
+## Validate Story Details By Read ID
+
+> Replace the {readId} in the API path with the actual value/string of the readId recieved
+
+```python
+```
+
+```shell
+curl -X POST 'http://stage.tsbdev.co/api/v1/story/read/{readId}'
+```
+
+```javascript
+var axios = require('axios');
+
+var config = {
+  method: 'post',
+  url: 'http://stage.tsbdev.co/api/v1/story/read/{readId}',
+  headers: { }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "message": "Story Read Confirmed",
+    "payload": {
+        "clientId": "5fbb40b07dd98b0e89d90a25",
+        "storyId": "Client Story Id",
+        "transactionAmount": 1,
+        "createdAt": "2020-11-15T13:55:36.659Z"
+    },
+    "readId": "11c369df-2a30-4a0d-90dc-5a45797dacdd"
+  },
+]
+```
+
+This endpoint allows the Client to Validate the Story Details anytime a User Purchases a Story of the Client using Conscent - with the Client passing the Story ID in the request and recieving details regarding the Story Id, Transaction Amount and Date of Purchase of the Story by the User, as well as matching the unique Read Id to ensure it cannot be reused. 
+
+### HTTP Request
+
+`POST stage.tsbdev.co/api/v1/story/read/{readId}`
+
+The client will recieve a payload when a story is purchased via Conscent - providing the details of the story such as the ClientId to identify which client the story belongs to as well as the Client Story ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Read ID - by passing the Read ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage. 
+
+### URL Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+readId | required | readId recieved by the client for each unique transaction on any of the Client's Story registered with Conscent
+
+<aside class="success">
+Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with Conscent. 
 </aside>
 
