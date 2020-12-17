@@ -3,12 +3,10 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
   - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -21,80 +19,62 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Conscent Client API! You can use our APIs to access Conscent Client API endpoints, which can help you get information on various tasks such as how to create stories, verify story payment etc.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have language bindings in Shell (cURL), Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
-> To authorize, use this code:
+Conscent uses API keys to allow access to the API for the Client to Create and Register a Story with Conscent. You can view your API Key and Secret by logging in to your Conscent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://conscent.vercel.app/client/dashboard/integration). The Login Credentials for the Client Dashboard are provided on your official email address registered with Conscent. 
 
-```ruby
-require 'kittn'
+Conscent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Create Story API utilised by the Client).
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</code> with your personal Client API Key and Secret
 </aside>
 
-# Kittens
+# Client Story
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
+## Create Story
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+curl -X POST 'http://stage.tsbdev.co/api/v1/story/' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "storyId" : "testingID For Client",
+    "title" : "Test story for API functionality",
+    "price" : 0.10,
+    "duration" : 2
+}'
 ```
 
 ```javascript
-const kittn = require('kittn');
+var axios = require('axios');
+var data = JSON.stringify({"storyId":"testingID For Client","title":"Test story for API functionality","price":0.1,"duration":2});
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+var config = {
+  method: 'post',
+  url: 'http://stage.tsbdev.co/api/v1/story/',
+  headers: { 
+    'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
 ```
 
 > The above command returns JSON structured like this:
@@ -102,101 +82,124 @@ let kittens = api.kittens.get();
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "message": "New Story Created!",
+    "story": {
+        "title": "Test story for API functionality",
+        "price": 0.1,
+        "storyId": "testingID For Client"
+    }
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint allows the Client to Register their Story on Conscent - with the Story Title, StoryId and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on Conscent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`POST stage.tsbdev.co/api/v1/story`
 
-### Query Parameters
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password. 
+
+### Request Body
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+storyId | required | Story Id by which the Story has been registered on the Client CMS
+title | required | Title of the Story 
+price | required | Story Price to be charged for a Pay per View basis (Micro-priced)
+duration | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — A story must be registered by including all the fields mentioned above!
 </aside>
 
-## Get a Specific Kitten
+## Edit Story
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
+> Please ensure you URL encode the storyId passed in the Path Parameters
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+curl -X PATCH 'http://stage.tsbdev.co/api/v1/story/{storyId}' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "title": "Client Story Id Test Edit",
+    "price": 1,
+    "duration": 2
+}'
 ```
 
 ```javascript
-const kittn = require('kittn');
+var axios = require('axios');
+var data = JSON.stringify({"title":"Client Story Id Test Edit","price":1,"duration":2});
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+var config = {
+  method: 'patch',
+  url: 'http://stage.tsbdev.co/api/v1/story/{storyId}',
+  headers: { 
+    'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==', 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
+[
+  {
+    "message": "New Story Created!",
+    "story": {
+        "title": "Test story for API functionality",
+        "price": 0.1,
+        "storyId": "testingID For Client"
+    }
+  },
+]
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint allows the Client to Edit their Registered Story on Conscent - with the editable fields being the Story title, price and duration. Story ID CANNOT be edited!
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`PATCH stage.tsbdev.co/api/v1/story/{storyId}`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+storyId | The ID of the Story you wish to edit ( Ensure its URL Encoded)
+
+### Request Body
+
+Parameter | Default | Description
+--------- | ------- | -----------
+title | optional | Title of the Story 
+price | optional | Story Price to be charged for a Pay per View basis (Micro-priced)
+duration | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);
+
+<aside class="success">
+Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body.
+</aside>
 
 ## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
 
 ```python
 import kittn
