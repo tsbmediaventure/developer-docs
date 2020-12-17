@@ -17,7 +17,107 @@ search: true
 code_clipboard: true
 ---
 
-# Introduction
+# Getting Started
+
+Welcome to Conscent! Now you can begin micropricing your stories and create a whole new revenue stream. This documentation covers all the steps for you to get set up - starting from registering your premium stories with Conscent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages to and initialising the overlay to ensure all premium content is paid for.
+
+You can start by registering your stories on Conscent following the steps mentioned in the [Registration Page](#registration).
+
+Once you have registered your stories on Conscent, you need to integrate the paywall on all your Premium Content Pages. Follow the steps in the [Web Integration Section](#web-integration) to add the Conscent paywall to all your story pages that have been micropriced. Ensuring that the paywall appears each time a premium story is opened as well as to allow users to purchase this story via Conscent. 
+
+Integrating the paywall allows the users to purchase the Client's Stories via Conscent at Microprices rates. The Web Integration section includes the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall as well as validating each unique transaction incurred by a user on the any of the Clients Stories registered with Conscent. 
+
+# Registration
+
+The first step is registering your client with Conscent. This is done by the Conscent Team and you will recieve your login credenitals (email & password) for the Conscent Client Dashboard on the email you chose to register with. 
+
+By logging in to your Conscent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://conscent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret. 
+
+In order to start creating stories on Conscent you need to ensure you follow the [Authentication Guidelines](#authentication). Conscent will only allow authorised clients to create and edit stories. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password. 
+
+Now you can start registering your premium content stories with Conscent! Call the [Create Story API](#create-story) for any story that you wish to register with Conscent. Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it. 
+
+Moreover, you can edit any story registered with Conscent using the [Edit Story API](#edit-story). Editable fields include the title, price and duration of the story. However, once the story is registered - it's Story Id cannot be changed.
+
+# Web Integration
+
+> Conscent Paywall Initalisation Script:
+
+```
+<script>
+  const clientId = '5f92a62013332e0f667794dc';
+  (function (w, d, s, o, f, cid) {
+    if (!w[o]) {
+      w[o] = function () {
+        w[o].q.push(arguments);
+      };
+      w[o].q = [];
+    }
+    (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+    js.id = o;
+    js.src = f;
+    js.async = 1;
+    js.title = cid;
+    fjs.parentNode.insertBefore(js, fjs);
+  })(window, document, 'script', '_csc', 'https://csc-sdk.netlify.app/', clientId);
+</script>
+```
+
+Integrating Conscent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
+
+You can get your Conscent Client Id from the [Client Integrations Page](https://conscent.vercel.app/client/dashboard/integration) of the Conscent Client Dashboard - as mentioned in the [Registration Section](#registration).
+
+Including this code in the header section allows the Conscent Paywall to be initalised and further used whenever required on a Premium Content Story Page. 
+
+Finally, In order to ensure the the Conscent Paywall appears on all Story Pages which contain Premium Content. You need to implement the following function on the story page - included on the right hand side which calls the initalisation function '_csc' of the Conscent Paywall and enables a user to purchase the particular premium story at a Micropriced value through Conscent. 
+
+> Include Conscent Paywall on Premium Content Story Page:
+
+```
+const csc = window._csc as any;
+csc('init', {
+  debug: true,
+  storyId: storyId,
+  subscriptionUrl: {clientSubscriptionUrl},
+  clientId: clientId,
+  isMobile: 'false',
+  successCallback: async (payload: any) => {
+    // Function to show the premium content to the User since they have paid for it via Conscent
+  },
+```
+
+We import the initalisation script using the unique '_csc' identifier and run the 'init' function by passing a number of parameters:
+
+ The 'clientId' which is retrieved from the [Client Integrations Page](https://conscent.vercel.app/client/dashboard/integration) of the Conscent Client Dashboard. 
+
+ The 'storyId' which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client. 
+
+ The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered. 
+
+ Once the Conscent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via Conscent - the client side needs to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. 
+
+<code> 
+{
+  "message": "Story Purchased Successfully",
+  "accessTimeLeft": 86397686,
+  "payload": {
+      "clientId": "5fbb40b07dd98b0e89d90a25",
+      "storyId": "Client Story Id 5",
+      "transactionAmount": 0.01,
+      "createdAt": "2020-12-17T10:58:51.828Z"
+  },
+  "readId": "c697833f-f473-4135-9f7c-ce92892d46d9",
+}
+</code>
+
+The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via Conscent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on Conscent. 
+
+Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories. The response payload includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via Conscent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction);
+ 
+If the case arrives when the user tries to purchase a story via Conscent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes. 
+
+Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story. 
+# API Introduction
 
 Welcome to the Conscent Client API! You can use our APIs to access Conscent Client API endpoints, which can help you get information on various tasks such as how to create stories, verify story payment etc.
 
@@ -261,7 +361,7 @@ The client will recieve a payload when a story is purchased via Conscent - provi
 
 Parameter | Default | Description
 --------- | ------- | -----------
-readId | required | readId recieved by the client for each unique transaction on any of the Client's Story registered with Conscent
+readId | required | readId recieved by the client for each unique transaction on any of the Client's Stories registered with Conscent
 
 <aside class="success">
 Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with Conscent. 
