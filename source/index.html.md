@@ -188,7 +188,7 @@ axios(config)
 ]
 ```
 
-This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration.
+This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
 
 ### HTTP Request
 
@@ -204,7 +204,7 @@ Parameter | Default | Description
 --------- | ------- | -----------
 storyId | required | Story Id by which the Story has been registered on the Client CMS
 title | required | Title of the Story 
-price | required | Story Price to be charged for a Pay per View basis (Micro-priced)
+price | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.
 duration | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);
 
 <aside class="notice">
