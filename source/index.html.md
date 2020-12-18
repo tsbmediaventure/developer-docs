@@ -4,6 +4,7 @@ title: API Reference
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
   - javascript
+  - php
 
 includes:
   - errors
@@ -135,7 +136,31 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 
 ## Create Story
 
-```python
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "http://localhost:3001/api/v1/story/",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2\n}",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
 ```
 
 ```shell
@@ -216,7 +241,32 @@ Remember — A story must be registered by including all the fields mentioned ab
 > Please ensure you URL encode the storyId in the Path Parameters
 > Replace the {storyId} in the API path with your actual Story Id
 
-```python
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "http://localhost:3001/api/v1/story/Client%20Story%20Id%2011",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "PATCH",
+  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2\n}",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
 ```
 
 ```shell
@@ -303,7 +353,27 @@ Remember — Either/All of the fields of a story - title, price and duration - c
 
 > Replace the {readId} in the API path with the actual value/string of the readId recieved
 
-```python
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "http://localhost:3001/api/v1/story/read/11c369df-2a30-4a0d-90dc-5a45797dacdd",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
 ```
 
 ```shell
