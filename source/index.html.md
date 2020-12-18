@@ -65,7 +65,7 @@ You can get your ConsCent Client Id from the [Client Integrations Page](https://
 
 <p class = 'instruction-bg'>Including this code in the header section allows the ConsCent Paywall to be initalised and further used whenever required on a Premium Content Story Page. </p>
 
-<p class = 'instruction-bg'>Finally, In order to ensure the the ConsCent Paywall appears on all Story Pages which contain Premium Content. You need to implement the following function on the story page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium story at a Micropriced value through ConsCent. </p>
+<p class = 'instruction-bg'>Finally, In order to ensure the the ConsCent Paywall appears on all Story Pages which contain Premium Content. You need to implement the following function on the story page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium story at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your story page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
 
 > Include ConsCent Paywall on Premium Content Story Page:
 
@@ -290,11 +290,11 @@ storyId | The ID of the Story you wish to edit ( Ensure its URL Encoded)
 Parameter | Default | Description
 --------- | ------- | -----------
 title | optional | Title of the Story 
-price | optional | Story Price to be charged for a Pay per View basis (Micro-priced)
+price | optional | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.
 duration | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body.
+Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
 </aside>
 
 # Validate Story Read
