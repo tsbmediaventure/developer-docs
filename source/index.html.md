@@ -16,7 +16,7 @@ code_clipboard: true
 
 # Getting Started
 
-Welcome to ConsCent! Now you can begin micropricing your stories and create a whole new revenue stream. This documentation covers all the steps for you to get set up - starting from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages to and initialising the overlay to ensure all premium content is paid for.
+Welcome to ConsCent! Now you can begin micropricing your stories and create a whole new revenue stream. This documentation covers all the steps for you to get set up - starting from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
 
 You can start by registering your stories on ConsCent following the steps mentioned in the [Registration Page](#registration).
 
@@ -26,7 +26,7 @@ Integrating the paywall allows the users to purchase the Client's Stories via Co
 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team and you will recieve your login credenitals (email & password) for the ConsCent Client Dashboard on the email you chose to register with. 
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and you will recieve your login credenitals (email & password) for the ConsCent Client Dashboard on the email you chose to register with. 
 
 By logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret. 
 
