@@ -1,3 +1,5 @@
+# To Deploy and changes - Make the changes in the master branch, commit them and push to the repository. Then run the './deploy.sh' command from your local terminal and go to the Docs Link to see the changes. 
+
 #!/usr/bin/env bash
 set -o errexit #abort if any command fails
 me=$(basename "$0")
