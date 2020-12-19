@@ -1,3 +1,6 @@
+<!-- DEPLOYMENT INSTRUCTIONS
+To Deploy any changes - Make the changes in the master branch, commit them and push to the repository and wait for all the tests to pass. Then run the './deploy.sh' command from your local terminal and go to the Docs Link to see the changes.  -->
+
 <p align="center">
   <!-- <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226"> -->
   <br>
