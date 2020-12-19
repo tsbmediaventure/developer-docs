@@ -26,7 +26,7 @@ Integrating the paywall allows the users to purchase the Client's Stories via Co
 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team and you will recieve your login credenitals (email & password) for the ConsCent Client Dashboard on the email you chose to register with. 
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and you will recieve your login credenitals (email & password) for the ConsCent Client Dashboard on the email you chose to register with. 
 
 By logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret. 
 
