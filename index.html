@@ -313,6 +313,14 @@
             <a href="#web-integration" class="toc-h1 toc-link" data-title="Web Integration">Web Integration</a>
           </li>
           <li>
+            <a href="#react-native-integration" class="toc-h1 toc-link" data-title="React Native Integration">React Native Integration</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#function-parameters" class="toc-h2 toc-link" data-title="Function Parameters">Function Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#api-introduction" class="toc-h1 toc-link" data-title="API Introduction">API Introduction</a>
           </li>
           <li>
@@ -368,7 +376,7 @@
 
 <p>Now you can start registering your premium content stories with ConsCent! Call the <a href="#create-story">Create Story API</a> for any story that you wish to register with ConsCent. Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it. </p>
 
-<p>Moreover, you can edit any story registered with ConsCent using the <a href="#edit-story">Edit Story API</a>. Editable fields include the title, price and duration of the story. However, once the story is registered - it&#39;s Story Id cannot be changed.</p>
+<p>Moreover, you can view a list of all the client&#39;s stories registered on ConsCent via the <a href="#view-all-stories">View All Stories API</a>. Alongside, to view the details of an individual client story you can call the <a href="#view-story-details">View Story Details API</a>. And Lastly, you can edit any story registered with ConsCent using the <a href="#edit-story">Edit Story API</a>. Editable fields include the title, price and duration of the story. However, once the story is registered - it&#39;s Story Id cannot be changed.</p>
 <h1 id='web-integration'>Web Integration</h1>
 <blockquote>
 <p>ConsCent Paywall Initalisation Script:</p>
@@ -422,6 +430,98 @@ csc('init', {
 </ul>
 
 <p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the client side needs to implement a &#39;successCallback&#39; function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p></p>
+
+<p><code> 
+{
+  &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
+  &quot;accessTimeLeft&quot;: 86397686,
+  &quot;payload&quot;: {
+      &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
+      &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
+      &quot;transactionAmount&quot;: 0.01,
+      &quot;createdAt&quot;: &quot;2020-12-17T10:58:51.828Z&quot;
+  },
+  &quot;readId&quot;: &quot;c697833f-f473-4135-9f7c-ce92892d46d9&quot;,
+}
+</code></p>
+
+<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. </p>
+
+<p class = 'instruction-bg'>Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories. The response payload includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
+ 
+
+<p>If the case arrives when the user tries to purchase a story via ConsCent on the client&#39;s website and the transaction fails. The client can handle that case as well in a &#39;failedCallback&#39; function or redirect to any page - as the Client wishes. </p>
+
+<p>Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story. </p>
+<h1 id='react-native-integration'>React Native Integration</h1>
+<p>This section covers integrating the ConsCent paywall into your react native application. This works in a similar way for both iOS and Android. </p>
+
+<p>You start by including ConsCent&#39;s React Native plugin. Using the following command </p>
+
+<p class = 'instruction-bg'>
+npm i -S react-native-ConsCent
+</p>
+
+<p>This is a package written in react-native with no native code, it is a pure javascript implementation and can be used in both iOS and Android version with no extra configuration.</p>
+
+<blockquote>
+<p>Include ConsCent Paywall on Premium Content Story Page of your Android/iOS Application:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight plaintext"><code>import ConsCent from 'react-native-ConsCent';
+
+export default function App() {
+  return (
+    // When you want to render ConsCent's paywall, simply use the ConsCent component
+    &lt;View style={{ flex: 1 }}&gt;
+      &lt;ConsCent
+        clientId="your-client-id"
+        storyId="your-story-id"
+        successCallback={successCallback}
+        subscriptionUrl="https://www.google.com"
+        subscriptionCallback={subscriptioncallback}
+        mode="sandbox"
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+</code></pre></div>
+<p>You can get your ConsCent Client Id from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard - as mentioned in the <a href="#registration">Registration Section</a>.</p>
+<h3 id='function-parameters'>Function Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>Retrieved from the Integrations Page on the Client Dashboard</td>
+</tr>
+<tr>
+<td>storyId</td>
+<td>Story Id by which the Story has been registered on the Client CMS</td>
+</tr>
+<tr>
+<td>successCallback</td>
+<td>Function which will receive the success payload. See the success payload structure in the complete documentation.</td>
+</tr>
+<tr>
+<td>subscriptionUrl</td>
+<td>You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked</td>
+</tr>
+<tr>
+<td>subscriptionCallback</td>
+<td>function which receives no arguments. This function is called when the user clicks the subscribe button</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>either &#39;sandbox&#39; or &#39;production&#39; based on your credentials</td>
+</tr>
+</tbody></table>
+
+<p class = 'instruction-bg'>In order to ensure the the ConsCent Paywall appears on all Story Pages of your application which contain Premium Content. You need to implement the following function on the story page - included on the right hand side. This function enables a user to purchase the particular premium story at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your application's story page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
+
+<p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the client side needs to implement a &#39;successCallback&#39; function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. Moreover, you can set either the Subscription URL or the Subscription Callback function to determine the flow if the user clicks on the &#39;Subscribe&#39; button on the paywall and chooses not to go through ConsCent.  </p></p>
 
 <p><code> 
 {
@@ -686,7 +786,7 @@ Remember — Either/All of the fields of a story - title, price and duration - c
 </aside>
 <h2 id='view-all-stories'>View All Stories</h2>
 <blockquote>
-<p>API to retrieve all of the client&#39;s stories registered on Conscent.</p>
+<p>API to retrieve all of the client&#39;s stories registered on ConsCent.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
@@ -844,7 +944,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story suh as the Story ID, title, price, and duration.</p>
+<p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, and duration.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET http://stage.tsbdev.co/api/v1/story/client/{storyId}</code></p>
 <h3 id='authorization-4'>Authorization</h3>
@@ -861,6 +961,10 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <td>The ID of the Story you wish to retrieve (Please ensure its URL Encoded)</td>
 </tr>
 </tbody></table>
+
+<aside class="notice">
+API to retrieve the details of an individual story registered by the client on ConsCent. 
+</aside>
 <h1 id='validate-story-read'>Validate Story Read</h1><h2 id='validate-story-details-by-read-id'>Validate Story Details By Read ID</h2>
 <blockquote>
 <p>Replace the {readId} in the API path with the actual value/string of the readId recieved</p>
