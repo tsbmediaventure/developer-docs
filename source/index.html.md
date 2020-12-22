@@ -20,7 +20,7 @@ Welcome to ConsCent! Now you can begin micropricing your stories and create a wh
 
 You can start by registering your stories on ConsCent following the steps mentioned in the [Registration Page](#registration).
 
-Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages. Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all your story pages that have been micropriced. Ensuring that the paywall appears each time a premium story is opened as well as to allow users to purchase this story via ConsCent. 
+Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages. Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium story pages on your website. Alternatively, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. Ensuring that the paywall appears each time a premium story is opened as well as to allow users to purchase this story via ConsCent.
 
 Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section includes the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall as well as validating each unique transaction incurred by a user on the any of the Clients Stories registered with ConsCent. 
 
