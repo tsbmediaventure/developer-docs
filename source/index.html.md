@@ -34,7 +34,7 @@ By logging in to your ConsCent Client Dashboard and navigating to the Integratio
 
 Now you can start registering your premium content stories with ConsCent! Call the [Create Story API](#create-story) for any story that you wish to register with ConsCent. Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it. 
 
-Moreover, you can edit any story registered with ConsCent using the [Edit Story API](#edit-story). Editable fields include the title, price and duration of the story. However, once the story is registered - it's Story Id cannot be changed.
+Moreover, you can view a list of all the client's stories registered on ConsCent via the [View All Stories API](#view-all-stories). Alongside, to view the details of an individual client story you can call the [View Story Details API](#view-story-details). And Lastly, you can edit any story registered with ConsCent using the [Edit Story API](#edit-story). Editable fields include the title, price and duration of the story. However, once the story is registered - it's Story Id cannot be changed.
 
 # Web Integration
 
@@ -518,7 +518,7 @@ axios(config)
 }
 ```
 
-This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story suh as the Story ID, title, price, and duration.
+This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, and duration.
 
 ### HTTP Request
 
@@ -533,6 +533,10 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Parameter | Description
 --------- | -----------
 storyId | The ID of the Story you wish to retrieve (Please ensure its URL Encoded)
+
+<aside class="notice">
+API to retrieve the details of an individual story registered by the client on Conscent. 
+</aside>
 
 # Validate Story Read
 
