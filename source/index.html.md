@@ -357,7 +357,7 @@ Remember — Either/All of the fields of a story - title, price and duration - c
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:3001/api/v1/story/client",
+  CURLOPT_URL => "http://stage.tsbdev.co/api/v1/story/client",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -379,7 +379,7 @@ echo $response;
 ```
 
 ```shell
-curl -X GET 'http://localhost:3001/api/v1/story/client' \
+curl -X GET 'http://stage.tsbdev.co/api/v1/story/client' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
 ```
 
@@ -388,7 +388,7 @@ var axios = require('axios');
 
 var config = {
   method: 'get',
-  url: 'http://localhost:3001/api/v1/story/client',
+  url: 'http://stage.tsbdev.co/api/v1/story/client',
   headers: { 
     'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
   }
@@ -402,17 +402,6 @@ axios(config)
   console.log(error);
 });
 ```
-
-### URL Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-pageNumber | optional | Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY.
-pageSize | optional | Pagination Parameters - the number of stories to retrieve on each page (default = 20).
-
-<aside class="notice">
-Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more stories in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access stories that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
-</aside>
 
 > The above command returns JSON structured like this:
 
@@ -450,6 +439,100 @@ This endpoint allows the Client to view their entire collection of Registered St
 ### Authorization
 
 Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pageNumber | optional | Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY.
+pageSize | optional | Pagination Parameters - the number of stories to retrieve on each page (default = 20).
+
+<aside class="notice">
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more stories in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access stories that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+</aside>
+
+## View Story Details
+
+> Please ensure you URL encode the storyId in the Path Parameters
+> Replace the {storyId} in the API path with your actual Story Id
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X GET 'http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
+```
+
+```javascript
+var axios = require('axios');
+
+var config = {
+  method: 'get',
+  url: 'http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206',
+  headers: { 
+    'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
+  }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "title": "Tesla Tequila",
+    "storyId": "Client Story Id 6",
+    "price": 0.1,
+    "duration": 1
+}
+```
+
+This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story suh as the Story ID, title, price, and duration.
+
+### HTTP Request
+
+`GET http://stage.tsbdev.co/api/v1/story/client/{storyId}`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+storyId | The ID of the Story you wish to retrieve (Please ensure its URL Encoded)
 
 # Validate Story Read
 
