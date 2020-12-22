@@ -279,7 +279,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-02157fe0.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-aee2e2bf.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-ec00d1ce.js"></script>
 
@@ -314,11 +314,6 @@
           </li>
           <li>
             <a href="#react-native-integration" class="toc-h1 toc-link" data-title="React Native Integration">React Native Integration</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#" class="toc-h2 toc-link" data-title="Function Parameters">Function Parameters</a>
-                  </li>
-              </ul>
           </li>
           <li>
             <a href="#api-introduction" class="toc-h1 toc-link" data-title="API Introduction">API Introduction</a>
@@ -489,7 +484,7 @@ export default function App() {
 </code></pre></div>
 <p>You can get your ConsCent Client Id from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard - as mentioned in the <a href="#registration">Registration Section</a>.</p>
 
-<h3>Function Parameters</h3>
+<p class = 'function-params'> Function Parameters </p>
 
 <table><thead>
 <tr>
@@ -565,7 +560,8 @@ export default function App() {
 <aside class="notice">
 You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</code> with your personal Client API Key and Secret
 </aside>
-<h1 id='client-story'>Client Story</h1><h2 id='create-story'>Create Story</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<h1 id='client-story'>Client Story</h1><h2 id='create-story'>Create Story</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
@@ -589,6 +585,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 
 <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
 </code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'http://stage.tsbdev.co/api/v1/story/'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -598,7 +595,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "price" : 0.10,
     "duration" : 2
 }'</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">storyId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span><span class="dl">"</span><span class="s2">duration</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
