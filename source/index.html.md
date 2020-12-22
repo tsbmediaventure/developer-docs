@@ -152,7 +152,8 @@ export default function App() {
 ```
 
 You can get your ConsCent Client Id from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard - as mentioned in the [Registration Section](#registration).
-### Function Parameters
+
+<h3>Function Parameters</h3>
 
 Parameter | Description
 --------- | -----------
