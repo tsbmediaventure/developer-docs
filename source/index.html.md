@@ -153,7 +153,7 @@ export default function App() {
 
 You can get your ConsCent Client Id from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard - as mentioned in the [Registration Section](#registration).
 
-<h3>Function Parameters</h3>
+<p class = 'function-params'> Function Parameters </p>
 
 Parameter | Description
 --------- | -----------
@@ -214,6 +214,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 ## Create Story
 
 ```php
+
 <?php
 
 $curl = curl_init();
@@ -238,6 +239,7 @@ $response = curl_exec($curl);
 
 curl_close($curl);
 echo $response;
+
 ```
 
 ```shell
@@ -253,6 +255,7 @@ curl -X POST 'http://stage.tsbdev.co/api/v1/story/' \
 ```
 
 ```javascript
+
 var axios = require('axios');
 var data = JSON.stringify({"storyId":"testingID For Client","title":"Test story for API functionality","price":0.1,"duration":2});
 

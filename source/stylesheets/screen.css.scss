@@ -48,9 +48,16 @@ html, body {
 }
 
 .instruction-bg {
-  background-color: #2E3336;
-  color: white; 
+  background-color: #e1f9fb;
+  color: black; 
   padding: 15px !important;
+}
+
+.function-params {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 #getting-started {
