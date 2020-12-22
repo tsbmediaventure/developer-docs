@@ -122,7 +122,7 @@ This section covers integrating the ConsCent paywall into your react native appl
 You start by including ConsCent's React Native plugin. Using the following command 
 
 <p class = 'instruction-bg'>
-npm i -S react-native-ConsCent
+npm i -S react-native-conscent
 </p>
 
 This is a package written in react-native with no native code, it is a pure javascript implementation and can be used in both iOS and Android version with no extra configuration.
