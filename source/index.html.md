@@ -109,7 +109,9 @@ We import the initalisation script using the unique '_csc' identifier and run th
 
 The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. 
 
-<p class = 'instruction-bg'>Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories. The response payload includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
+Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
+
+<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
  
 If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes. 
 
@@ -130,13 +132,13 @@ This is a package written in react-native with no native code, it is a pure java
 > Include ConsCent Paywall on Premium Content Story Page of your Android/iOS Application:
 
 ```
-import ConsCent from 'react-native-ConsCent';
+import Conscent from 'react-native-conscent';
 
 export default function App() {
   return (
-    // When you want to render ConsCent's paywall, simply use the ConsCent component
+    // When you want to render conscent's paywall, simply use the Conscent component
     <View style={{ flex: 1 }}>
-      <ConsCent
+      <Conscent
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
@@ -163,7 +165,7 @@ mode | either 'sandbox' or 'production' based on your credentials
 
 <p class = 'instruction-bg'>In order to ensure the the ConsCent Paywall appears on all Story Pages of your application which contain Premium Content. You need to implement the following function on the story page - included on the right hand side. This function enables a user to purchase the particular premium story at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your application's story page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
 
- <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the client side needs to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. Moreover, you can set either the Subscription URL or the Subscription Callback function to determine the flow if the user clicks on the 'Subscribe' button on the paywall and chooses not to go through ConsCent.  </p>
+ Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the client side needs to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. Moreover, you can set either the Subscription URL or the Subscription Callback function to determine the flow if the user clicks on the 'Subscribe' button on the paywall and chooses not to go through ConsCent.
 
 <code> 
 {
@@ -181,9 +183,11 @@ mode | either 'sandbox' or 'production' based on your credentials
 
 The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. 
 
-<p class = 'instruction-bg'>Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories. The response payload includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
+Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
+
+<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
  
-If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes. 
+If the case arrives when the user tries to purchase a story via ConsCent on the client's Android/iOS application and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes. 
 
 Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story. 
 # API Introduction
