@@ -16,25 +16,61 @@ code_clipboard: true
 
 # Getting Started
 
-Welcome to ConsCent! Now you can begin micropricing your stories and create a whole new revenue stream. This documentation covers all the steps for you to get set up - starting from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
+Welcome to ConsCent! This documentation covers all the steps for you to get set up - from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
 
-You can start by registering your stories on ConsCent following the steps mentioned in the [Registration Page](#registration).
-
-Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages. Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium story pages on your website. Alternatively, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. Ensuring that the paywall appears each time a premium story is opened as well as to allow users to purchase this story via ConsCent.
-
-Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section includes the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall as well as validating each unique transaction incurred by a user on the any of the Clients Stories registered with ConsCent. 
-
+You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent).
+ 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and you will recieve your login credenitals (email & password) for the ConsCent Client Dashboard on the email you chose to register with. 
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with.
 
-By logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret. 
+By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret. 
 
-<p class = 'instruction-bg'>In order to start creating stories on ConsCent you need to ensure you follow the [Authentication Guidelines](#authentication). ConsCent will only allow authorised clients to create and edit stories. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password. </p>
+# Using ConsCent
+ 
+- In order to start creating stories on ConsCent you need to ensure you follow the [Authentication Guidelines](#authentication). ConsCent will only allow authorised clients to create, view and edit stories. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
 
-Now you can start registering your premium content stories with ConsCent! Call the [Create Story API](#create-story) for any story that you wish to register with ConsCent. Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it. 
 
-Moreover, you can view a list of all the client's stories registered on ConsCent via the [View All Stories API](#view-all-stories). Alongside, to view the details of an individual client story you can call the [View Story Details API](#view-story-details). And Lastly, you can edit any story registered with ConsCent using the [Edit Story API](#edit-story). Editable fields include the title, price and duration of the story. However, once the story is registered - it's Story Id cannot be changed.
+Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you're operating in. 
+
+<ul class = 'instruction-bg-url'>
+  <li>
+    Sandbox Environment: 
+    <ul>
+      <li>API_URL:  https://sandbox-api.conscent.in</li>
+      <li>SDK_URL:  https://conscent-sdk.vercel.app</li>
+    </ul>
+  </li>
+</ul>
+<ul class = 'instruction-bg-url'>
+  <li>
+    Production Environment: 
+    <ul>
+      <li>API_URL:  Coming Soon!</li>
+      <li>SDK_URL:  Coming Soon!</li>
+    </ul>
+  </li>
+</ul>
+
+- Now you can start registering your premium content stories with ConsCent! Call the [Create Story API](#create-story) for any story that you wish to register with ConsCent. 
+
+Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages.
+
+- Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium story pages on your website.
+
+- Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application.
+
+Ensuring that the paywall appears each time a premium story is opened, as well as allowing users to purchase stories via ConsCent. 
+
+- Next, you need to call the [Validate Story Read API](#validate-story-read) using the recieved "readId" in the successCallback response, when a user purchases the client's story via ConsCent - which will assist the client in authenticating valid and unique transactions on their stories.
+
+Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories registered with ConsCent.
+
+- To view a list of all the client's stories registered on ConsCent via the [View All Stories API](#view-all-stories). 
+
+- To view the details of an individual client story you can call the [View Story Details API](#view-story-details).
+
+- To edit any story registered with ConsCent you can call [Edit Story API](#edit-story).
 
 # Web Integration
 
@@ -56,9 +92,11 @@ Moreover, you can view a list of all the client's stories registered on ConsCent
     js.async = 1;
     js.title = cid;
     fjs.parentNode.insertBefore(js, fjs);
-  })(window, document, 'script', '_csc', 'https://csc-sdk.netlify.app/', clientId);
+  })(window, document, 'script', '_csc', {SDK_URL}, clientId);
 </script>
 ```
+
+> Ensure you replace the 'clientId' with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page.
 
 Integrating ConsCent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
 
@@ -91,7 +129,7 @@ We import the initalisation script using the unique '_csc' identifier and run th
 
   - The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered. 
 
- <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the client side needs to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
+ <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
 
 <code> 
 {
@@ -107,11 +145,11 @@ We import the initalisation script using the unique '_csc' identifier and run th
 }
 </code>
 
-The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. 
+The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. 
 
 Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
 
-<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
  
 If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes. 
 
@@ -199,7 +237,7 @@ We have language bindings in Shell (cURL), Python, and JavaScript! You can view 
 
 # Authentication
 
-ConsCent uses API keys to allow access to the API for the Client to Create and Register a Story with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). The Login Credentials for the Client Dashboard are provided on your official email address registered with ConsCent. 
+ConsCent uses API keys to allow access to the API for the Client to Create and Register a Story with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent. 
 
 ConsCent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Create Story API utilised by the Client).
 
@@ -220,7 +258,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:3001/api/v1/story/",
+  CURLOPT_URL => "{API_URL}/api/v1/story/",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -243,7 +281,7 @@ echo $response;
 ```
 
 ```shell
-curl -X POST 'http://stage.tsbdev.co/api/v1/story/' \
+curl -X POST '{API_URL}/api/v1/story/' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
 -H 'Content-Type: application/json' \
 -d '{
@@ -261,7 +299,7 @@ var data = JSON.stringify({"storyId":"testingID For Client","title":"Test story 
 
 var config = {
   method: 'post',
-  url: 'http://stage.tsbdev.co/api/v1/story/',
+  url: '{API_URL}/api/v1/story/',
   headers: { 
     'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==', 
     'Content-Type': 'application/json'
@@ -297,7 +335,7 @@ This endpoint allows the Client to Register their Story on ConsCent - with the S
 
 ### HTTP Request
 
-`POST stage.tsbdev.co/api/v1/story`
+`POST {API_URL}/api/v1/story`
 
 ### Authorization
 
@@ -313,7 +351,7 @@ price | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY.
 duration | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);
 
 <aside class="notice">
-Remember — A story must be registered by including all the fields mentioned above!
+Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it.
 </aside>
 
 ## Edit Story
@@ -327,7 +365,7 @@ Remember — A story must be registered by including all the fields mentioned ab
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:3001/api/v1/story/Client%20Story%20Id%2011",
+  CURLOPT_URL => "{API_URL}/api/v1/story/Client%20Story%20Id%2011",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -350,7 +388,7 @@ echo $response;
 ```
 
 ```shell
-curl -X PATCH 'http://stage.tsbdev.co/api/v1/story/{storyId}' \
+curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
 -H 'Content-Type: application/json' \
 -d '{
@@ -366,7 +404,7 @@ var data = JSON.stringify({"title":"Client Story Id Test Edit","price":1,"durati
 
 var config = {
   method: 'patch',
-  url: 'http://stage.tsbdev.co/api/v1/story/{storyId}',
+  url: '{API_URL}/api/v1/story/{storyId}',
   headers: { 
     'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==', 
     'Content-Type': 'application/json'
@@ -403,7 +441,7 @@ This endpoint allows the Client to Edit their Registered Story on ConsCent - wit
 
 ### HTTP Request
 
-`PATCH stage.tsbdev.co/api/v1/story/{storyId}`
+`PATCH {API_URL}/api/v1/story/{storyId}`
 
 ### Authorization
 
@@ -437,7 +475,7 @@ Remember — Either/All of the fields of a story - title, price and duration - c
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://stage.tsbdev.co/api/v1/story/client",
+  CURLOPT_URL => "{API_URL}/api/v1/story/client",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -459,7 +497,7 @@ echo $response;
 ```
 
 ```shell
-curl -X GET 'http://stage.tsbdev.co/api/v1/story/client' \
+curl -X GET '{API_URL}/api/v1/story/client' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
 ```
 
@@ -468,7 +506,7 @@ var axios = require('axios');
 
 var config = {
   method: 'get',
-  url: 'http://stage.tsbdev.co/api/v1/story/client',
+  url: '{API_URL}/api/v1/story/client',
   headers: { 
     'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
   }
@@ -514,7 +552,7 @@ This endpoint allows the Client to view their entire collection of Registered St
 
 ### HTTP Request
 
-`GET stage.tsbdev.co/api/v1/story/client`
+`GET {API_URL}/api/v1/story/client`
 
 ### Authorization
 
@@ -542,7 +580,7 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206",
+  CURLOPT_URL => "{API_URL}/api/v1/story/client/Client%20Story%20Id%206",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -563,7 +601,7 @@ echo $response;
 ```
 
 ```shell
-curl -X GET 'http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206' \
+curl -X GET '{API_URL}/api/v1/story/client/Client%20Story%20Id%206' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
 ```
 
@@ -572,7 +610,7 @@ var axios = require('axios');
 
 var config = {
   method: 'get',
-  url: 'http://stage.tsbdev.co/api/v1/story/client/Client%20Story%20Id%206',
+  url: '{API_URL}/api/v1/story/client/Client%20Story%20Id%206',
   headers: { 
     'Authorization': 'Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
   }
@@ -602,7 +640,7 @@ This endpoint allows the Client to retrieve a particular story which they regist
 
 ### HTTP Request
 
-`GET http://stage.tsbdev.co/api/v1/story/client/{storyId}`
+`GET {API_URL}/api/v1/story/client/{storyId}`
 
 ### Authorization
 
@@ -630,7 +668,7 @@ API to retrieve the details of an individual story registered by the client on C
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://localhost:3001/api/v1/story/read/11c369df-2a30-4a0d-90dc-5a45797dacdd",
+  CURLOPT_URL => "{API_URL}/api/v1/story/read/11c369df-2a30-4a0d-90dc-5a45797dacdd",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -647,7 +685,7 @@ echo $response;
 ```
 
 ```shell
-curl -X POST 'http://stage.tsbdev.co/api/v1/story/read/{readId}'
+curl -X POST '{API_URL}/api/v1/story/read/{readId}'
 ```
 
 ```javascript
@@ -655,7 +693,7 @@ var axios = require('axios');
 
 var config = {
   method: 'post',
-  url: 'http://stage.tsbdev.co/api/v1/story/read/{readId}',
+  url: '{API_URL}/api/v1/story/read/{readId}',
   headers: { }
 };
 
@@ -689,7 +727,7 @@ This endpoint allows the Client to Validate the Story Details anytime a User Pur
 
 ### HTTP Request
 
-`POST stage.tsbdev.co/api/v1/story/read/{readId}`
+`POST {API_URL}/api/v1/story/read/{readId}`
 
 The client will recieve a payload when a story is purchased via ConsCent - providing the details of the story such as the ClientId to identify which client the story belongs to as well as the Client Story ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Read ID - by passing the Read ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage. 
 
