@@ -476,19 +476,19 @@ csc('init', {
 
 <p><code> 
 {
-  &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
-  &quot;accessTimeLeft&quot;: 86397686,
-  &quot;payload&quot;: {
-      &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
-      &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-      &quot;transactionAmount&quot;: 0.01,
-      &quot;createdAt&quot;: &quot;2020-12-17T10:58:51.828Z&quot;
-  },
-  &quot;readId&quot;: &quot;c697833f-f473-4135-9f7c-ce92892d46d9&quot;,
+    &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
+    &quot;payload&quot;: {
+        &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
+        &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
+        &quot;transactionAmount&quot;: 0.01,
+        &quot;earningAmount&quot;: 0.008,
+        &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
+    },
+    &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
 }
 </code></p>
 
-<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. </p>
+<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. Moreover, the payload contains the &#39;transactionAmount&#39; that the user pays for the story as well as the &#39;earningAmount&#39; that the client earns for each of their stories that a user purchases through ConsCent.</p>
 
 <p>Calling the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.</p>
 
@@ -572,19 +572,19 @@ export default function App() {
 
 <p><code> 
 {
-  &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
-  &quot;accessTimeLeft&quot;: 86397686,
-  &quot;payload&quot;: {
-      &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
-      &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-      &quot;transactionAmount&quot;: 0.01,
-      &quot;createdAt&quot;: &quot;2020-12-17T10:58:51.828Z&quot;
-  },
-  &quot;readId&quot;: &quot;c697833f-f473-4135-9f7c-ce92892d46d9&quot;,
+    &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
+    &quot;payload&quot;: {
+        &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
+        &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
+        &quot;transactionAmount&quot;: 0.01,
+        &quot;earningAmount&quot;: 0.008,
+        &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
+    },
+    &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
 }
 </code></p>
 
-<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. </p>
+<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. Moreover, the payload contains the &#39;transactionAmount&#39; that the user pays for the story as well as the &#39;earningAmount&#39; that the client earns for each of their stories that a user purchases through ConsCent.</p>
 
 <p>Calling the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.</p>
 
