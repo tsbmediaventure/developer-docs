@@ -133,19 +133,19 @@ We import the initalisation script using the unique '_csc' identifier and run th
 
 <code> 
 {
-  "message": "Story Purchased Successfully",
-  "accessTimeLeft": 86397686,
-  "payload": {
-      "clientId": "5fbb40b07dd98b0e89d90a25",
-      "storyId": "Client Story Id 5",
-      "transactionAmount": 0.01,
-      "createdAt": "2020-12-17T10:58:51.828Z"
-  },
-  "readId": "c697833f-f473-4135-9f7c-ce92892d46d9",
+    "message": "Story Purchased Successfully",
+    "payload": {
+        "clientId": "5fbb40b07dd98b0e89d90a25",
+        "storyId": "Client Story Id 5",
+        "transactionAmount": 0.01,
+        "earningAmount": 0.008,
+        "createdAt": "2020-12-29T05:51:31.116Z"
+    },
+    "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
 }
 </code>
 
-The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. 
+The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. Moreover, the payload contains the 'transactionAmount' that the user pays for the story as well as the 'earningAmount' that the client earns for each of their stories that a user purchases through ConsCent.
 
 Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
 
@@ -208,19 +208,19 @@ mode | either 'sandbox' or 'production' based on your credentials
 
 <code> 
 {
-  "message": "Story Purchased Successfully",
-  "accessTimeLeft": 86397686,
-  "payload": {
-      "clientId": "5fbb40b07dd98b0e89d90a25",
-      "storyId": "Client Story Id 5",
-      "transactionAmount": 0.01,
-      "createdAt": "2020-12-17T10:58:51.828Z"
-  },
-  "readId": "c697833f-f473-4135-9f7c-ce92892d46d9",
+    "message": "Story Purchased Successfully",
+    "payload": {
+        "clientId": "5fbb40b07dd98b0e89d90a25",
+        "storyId": "Client Story Id 5",
+        "transactionAmount": 0.01,
+        "earningAmount": 0.008,
+        "createdAt": "2020-12-29T05:51:31.116Z"
+    },
+    "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
 }
 </code>
 
-The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. 
+The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. Moreover, the payload contains the 'transactionAmount' that the user pays for the story as well as the 'earningAmount' that the client earns for each of their stories that a user purchases through ConsCent.
 
 Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
 
