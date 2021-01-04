@@ -1,3 +1,8 @@
+### Local setup
+
+Follow running slate here: https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker
+Edit index.html.md in source to make changes to the api.
+
 <!-- DEPLOYMENT INSTRUCTIONS
 To Deploy any changes - Make the changes in the master branch, commit them and push to the repository and wait for all the tests to pass. Then run the './deploy.sh' command from your local terminal and go to the Docs Link to see the changes.  -->
 
@@ -14,9 +19,7 @@ To Deploy any changes - Make the changes in the master branch, commit them and p
 
 <p align="center"><em>The documentation above was created with the help of Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
 
-
-Contributors
---------------------
+## Contributors
 
 Slate was built by [Robert Lord](https://lord.io) while at [TripIt](https://www.tripit.com/). The project is now maintained by [Matthew Peveler](https://github.com/MasterOdin) and [Mike Ralphson](https://github.com/MikeRalphson).
 
