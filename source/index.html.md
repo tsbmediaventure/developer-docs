@@ -179,7 +179,7 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://www.google.com"
+        subscriptionUrl="https://www.yoursite.com/yourstory"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       />
@@ -272,7 +272,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"www.google.com\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"www.yoursite.com/yourstory\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -295,7 +295,7 @@ curl -X POST '{API_URL}/api/v1/story/' \
     "title" : "Test story for API functionality",
     "price" : 0.10,
     "duration" : 2,
-    "url": "www.google.com"
+    "url": "www.yoursite.com/yourstory"
 }'
 ```
 
@@ -306,7 +306,7 @@ var data = JSON.stringify({
   title: "Test story for API functionality",
   price: 0.1,
   duration: 2,
-  url: "www.google.com"
+  url: "www.yoursite.com/yourstory"
 });
 
 var config = {
@@ -339,7 +339,7 @@ axios(config)
         "title": "Test story for API functionality",
         "price": 0.1,
         "storyId": "testingID For Client",
-        "url": "www.google.com"
+        "url": "www.yoursite.com/yourstory"
     }
 }
 ]
@@ -362,7 +362,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
 | title     | required | Title of the Story                                                                                  |
 | price     | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.  
-| url       | required | URL to access the story on the clients platform                                                     |
+| url       | required | URL where the story is available on your website                                                    |
 | duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
@@ -482,7 +482,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | title     | optional | Title of the Story                                                                                  |
 | price     | optional | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.         |
-| url       | optional | URL to access the story on the clients platform                                                     |
+| url       | optional | URL where the story is available on your website                                                     |
 | duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
@@ -556,14 +556,14 @@ axios(config)
       "storyId": "Client Story Id 11",
       "price": 1,
       "duration": 2,
-      "url": "www.google.com"
+      "url": "www.yoursite.com/yourstory"
     },
     {
       "title": "Test story for API functionality",
       "storyId": "testingID31 - bhileknwlq",
       "price": 0.1,
       "duration": 2,
-      "url": "www.google.com"
+      "url": "www.yoursite.com/yourstory"
     }
   ],
   "pagination": {
@@ -660,7 +660,7 @@ axios(config)
   "title": "Tesla Tequila",
   "storyId": "Client Story Id 6",
   "price": 0.1,
-  "url": "www.google.com",
+  "url": "www.yoursite.com/yourstory",
   "duration": 1
 }
 ```
