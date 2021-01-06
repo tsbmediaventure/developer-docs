@@ -522,7 +522,7 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://www.yoursite.com/yourstory"
+        subscriptionUrl="https://https://www.yoursite.com/yourstory"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       /&gt;
@@ -628,7 +628,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 0.10,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">www.yoursite.com/yourstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 0.10,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -648,7 +648,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "title" : "Test story for API functionality",
     "price" : 0.10,
     "duration" : 2,
-    "url": "www.yoursite.com/yourstory"
+    "url": "https://www.yoursite.com/yourstory"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -656,7 +656,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.yoursite.com/yourstory</span><span class="dl">"</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="dl">"</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -688,7 +688,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
         </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.yoursite.com/yourstory"</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -754,7 +754,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">www.google.co.in</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yournewstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -773,14 +773,14 @@ Replace the {storyId} in the API path with your actual Story Id</p>
     "title": "Client Story Id Test Edit",
     "price": 1,
     "duration": 2,
-    "url": "www.google.co.in"
+    "url": "https://www.yoursite.com/yournewstory"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Client Story Id Test Edit</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.co.in</span><span class="dl">"</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yournewstory</span><span class="dl">"</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -813,7 +813,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
         </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.co.in"</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewstory"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
@@ -927,14 +927,14 @@ Remember — Either/All of the fields of a story - title, price, URL and duratio
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 11"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.yoursite.com/yourstory"</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID31 - bhileknwlq"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.yoursite.com/yourstory"</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1029,7 +1029,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 6"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
