@@ -272,7 +272,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"www.google.com\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -294,7 +294,8 @@ curl -X POST '{API_URL}/api/v1/story/' \
     "storyId" : "testingID For Client",
     "title" : "Test story for API functionality",
     "price" : 0.10,
-    "duration" : 2
+    "duration" : 2,
+    "url": "www.google.com"
 }'
 ```
 
@@ -305,6 +306,7 @@ var data = JSON.stringify({
   title: "Test story for API functionality",
   price: 0.1,
   duration: 2,
+  url: "www.google.com"
 });
 
 var config = {
@@ -334,15 +336,16 @@ axios(config)
   {
     "message": "New Story Created!",
     "story": {
-      "title": "Test story for API functionality",
-      "price": 0.1,
-      "storyId": "testingID For Client"
+        "title": "Test story for API functionality",
+        "price": 0.1,
+        "storyId": "testingID For Client",
+        "url": "www.google.com"
     }
-  }
+}
 ]
 ```
 
-This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
+This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
 
 ### HTTP Request
 
@@ -358,11 +361,12 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
 | title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.         |
+| price     | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.  
+| url       | required | URL to access the story on the clients platform                                                     |
 | duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
-Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it.
+Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
 </aside>
 
 ## Edit Story
@@ -384,7 +388,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
-  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"www.google.co.in\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -405,7 +409,8 @@ curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
 -d '{
     "title": "Client Story Id Test Edit",
     "price": 1,
-    "duration": 2
+    "duration": 2,
+    "url": "www.google.co.in"
 }'
 ```
 
@@ -415,6 +420,7 @@ var data = JSON.stringify({
   title: "Client Story Id Test Edit",
   price: 1,
   duration: 2,
+  url: "www.google.co.in"
 });
 
 var config = {
@@ -444,16 +450,17 @@ axios(config)
   {
     "message": "Story Edited Successfully",
     "editedStory": {
-      "title": "Client Story Id Test Edit",
-      "storyId": "Client Story Id 11",
-      "price": 1,
-      "duration": 2
+        "title": "Client Story Id Test Edit",
+        "storyId": "testingID For Client",
+        "price": 1,
+        "duration": 2,
+        "url": "www.google.co.in"
     }
-  }
+}
 ]
 ```
 
-This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price and duration. Story ID CANNOT be edited!
+This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!
 
 ### HTTP Request
 
@@ -475,10 +482,11 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | title     | optional | Title of the Story                                                                                  |
 | price     | optional | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.         |
+| url       | optional | URL to access the story on the clients platform                                                     |
 | duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
 </aside>
 
 ## View All Stories
@@ -547,25 +555,27 @@ axios(config)
       "title": "Client Story Id Test Edit 1",
       "storyId": "Client Story Id 11",
       "price": 1,
-      "duration": 2
+      "duration": 2,
+      "url": "www.google.com"
     },
     {
       "title": "Test story for API functionality",
       "storyId": "testingID31 - bhileknwlq",
       "price": 0.1,
-      "duration": 2
+      "duration": 2,
+      "url": "www.google.com"
     }
   ],
   "pagination": {
     "pageNumber": 1,
     "pageSize": 20,
-    "totalRecords": 4,
+    "totalRecords": 2,
     "totalPages": 1
   }
 }
 ```
 
-This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, Story ID and duration.
+This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, URL, Story ID and duration.
 
 ### HTTP Request
 
@@ -650,11 +660,12 @@ axios(config)
   "title": "Tesla Tequila",
   "storyId": "Client Story Id 6",
   "price": 0.1,
+  "url": "www.google.com",
   "duration": 1
 }
 ```
 
-This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, and duration.
+This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, URL and duration.
 
 ### HTTP Request
 
