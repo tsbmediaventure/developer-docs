@@ -628,7 +628,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 0.10,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2</span><span class="se">\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 0.10,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">www.google.com</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -647,7 +647,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "storyId" : "testingID For Client",
     "title" : "Test story for API functionality",
     "price" : 0.10,
-    "duration" : 2
+    "duration" : 2,
+    "url": "www.google.com"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -655,6 +656,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -683,14 +685,15 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
+<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/story</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -719,6 +722,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
+<td>url</td>
+<td>required</td>
+<td>URL to access the story on the clients platform</td>
+</tr>
+<tr>
 <td>duration</td>
 <td>required</td>
 <td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
@@ -726,7 +734,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tbody></table>
 
 <aside class="notice">
-Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price) and duration for which the user can access the story after purchasing it.
+Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
 </aside>
 <h2 id='edit-story'>Edit Story</h2>
 <blockquote>
@@ -746,7 +754,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2</span><span class="se">\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">www.google.co.in</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -764,13 +772,15 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <span class="nt">-d</span> <span class="s1">'{
     "title": "Client Story Id Test Edit",
     "price": 1,
-    "duration": 2
+    "duration": 2,
+    "url": "www.google.co.in"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Client Story Id Test Edit</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.co.in</span><span class="dl">"</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -799,15 +809,16 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   </span><span class="p">{</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Edited Successfully"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"editedStory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 11"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.co.in"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price and duration. Story ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/story/{storyId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -843,6 +854,11 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <td>Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
+<td>url</td>
+<td>optional</td>
+<td>URL to access the story on the clients platform</td>
+</tr>
+<tr>
 <td>duration</td>
 <td>optional</td>
 <td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
@@ -850,7 +866,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
 </aside>
 <h2 id='view-all-stories'>View All Stories</h2>
 <blockquote>
@@ -910,24 +926,26 @@ Remember — Either/All of the fields of a story - title, price and duration - c
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit 1"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 11"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID31 - bhileknwlq"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
     </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, Story ID and duration.</p>
+<p>This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, URL, Story ID and duration.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET {API_URL}/api/v1/story/client</code></p>
 <h3 id='authorization-3'>Authorization</h3>
@@ -1011,10 +1029,11 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 6"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, and duration.</p>
+<p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, URL and duration.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET {API_URL}/api/v1/story/client/{storyId}</code></p>
 <h3 id='authorization-4'>Authorization</h3>
