@@ -179,7 +179,7 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://www.yoursite.com/yourstory"
+        subscriptionUrl="https://https://www.yoursite.com/yourstory"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       />
@@ -272,7 +272,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"www.yoursite.com/yourstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -295,7 +295,7 @@ curl -X POST '{API_URL}/api/v1/story/' \
     "title" : "Test story for API functionality",
     "price" : 0.10,
     "duration" : 2,
-    "url": "www.yoursite.com/yourstory"
+    "url": "https://www.yoursite.com/yourstory"
 }'
 ```
 
@@ -306,7 +306,7 @@ var data = JSON.stringify({
   title: "Test story for API functionality",
   price: 0.1,
   duration: 2,
-  url: "www.yoursite.com/yourstory"
+  url: "https://www.yoursite.com/yourstory"
 });
 
 var config = {
@@ -339,7 +339,7 @@ axios(config)
         "title": "Test story for API functionality",
         "price": 0.1,
         "storyId": "testingID For Client",
-        "url": "www.yoursite.com/yourstory"
+        "url": "https://www.yoursite.com/yourstory"
     }
 }
 ]
@@ -388,7 +388,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
-  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"www.google.co.in\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"https://www.yoursite.com/yournewstory\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -410,7 +410,7 @@ curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
     "title": "Client Story Id Test Edit",
     "price": 1,
     "duration": 2,
-    "url": "www.google.co.in"
+    "url": "https://www.yoursite.com/yournewstory"
 }'
 ```
 
@@ -420,7 +420,7 @@ var data = JSON.stringify({
   title: "Client Story Id Test Edit",
   price: 1,
   duration: 2,
-  url: "www.google.co.in"
+  url: "https://www.yoursite.com/yournewstory"
 });
 
 var config = {
@@ -454,7 +454,7 @@ axios(config)
         "storyId": "testingID For Client",
         "price": 1,
         "duration": 2,
-        "url": "www.google.co.in"
+        "url": "https://www.yoursite.com/yournewstory"
     }
 }
 ]
@@ -556,14 +556,14 @@ axios(config)
       "storyId": "Client Story Id 11",
       "price": 1,
       "duration": 2,
-      "url": "www.yoursite.com/yourstory"
+      "url": "https://www.yoursite.com/yourstory"
     },
     {
       "title": "Test story for API functionality",
       "storyId": "testingID31 - bhileknwlq",
       "price": 0.1,
       "duration": 2,
-      "url": "www.yoursite.com/yourstory"
+      "url": "https://www.yoursite.com/yourstory"
     }
   ],
   "pagination": {
@@ -660,7 +660,7 @@ axios(config)
   "title": "Tesla Tequila",
   "storyId": "Client Story Id 6",
   "price": 0.1,
-  "url": "www.yoursite.com/yourstory",
+  "url": "https://www.yoursite.com/yourstory",
   "duration": 1
 }
 ```
