@@ -118,6 +118,7 @@ csc('init', {
   successCallback: async (payload: any) => {
     // Function to show the premium content to the User since they have paid for it via ConsCent
   },
+})
 ```
 
 We import the initalisation script using the unique '\_csc' identifier and run the 'init' function by passing a number of parameters:
@@ -136,8 +137,8 @@ We import the initalisation script using the unique '\_csc' identifier and run t
     "payload": {
         "clientId": "5fbb40b07dd98b0e89d90a25",
         "storyId": "Client Story Id 5",
-        "transactionAmount": 0.01,
-        "earningAmount": 0.008,
+        "transactionAmount": 5,
+        "earningAmount": 4,
         "createdAt": "2020-12-29T05:51:31.116Z"
     },
     "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
@@ -215,8 +216,8 @@ Additionally, you must set either the Subscription URL or the Subscription Callb
     "payload": {
         "clientId": "5fbb40b07dd98b0e89d90a25",
         "storyId": "Client Story Id 5",
-        "transactionAmount": 0.01,
-        "earningAmount": 0.008,
+        "transactionAmount": 5,
+        "earningAmount": 4,
         "createdAt": "2020-12-29T05:51:31.116Z"
     },
     "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
@@ -272,7 +273,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 0.10,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 1,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -293,7 +294,7 @@ curl -X POST '{API_URL}/api/v1/story/' \
 -d '{
     "storyId" : "testingID For Client",
     "title" : "Test story for API functionality",
-    "price" : 0.10,
+    "price" : 1,
     "duration" : 2,
     "url": "https://www.yoursite.com/yourstory"
 }'
@@ -304,7 +305,7 @@ var axios = require("axios");
 var data = JSON.stringify({
   storyId: "testingID For Client",
   title: "Test story for API functionality",
-  price: 0.1,
+  price: 1,
   duration: 2,
   url: "https://www.yoursite.com/yourstory"
 });
@@ -337,7 +338,7 @@ axios(config)
     "message": "New Story Created!",
     "story": {
         "title": "Test story for API functionality",
-        "price": 0.1,
+        "price": 1,
         "storyId": "testingID For Client",
         "url": "https://www.yoursite.com/yourstory"
     }
@@ -345,7 +346,7 @@ axios(config)
 ]
 ```
 
-This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
+This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 1, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
 
 ### HTTP Request
 
@@ -361,7 +362,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
 | title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.  
+| price     | required | Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.  
 | url       | required | URL where the story is available on your website                                                    |
 | duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
@@ -481,12 +482,12 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | Parameter | Default  | Description                                                                                         |
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | title     | optional | Title of the Story                                                                                  |
-| price     | optional | Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.         |
+| price     | optional | Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.         |
 | url       | optional | URL where the story is available on your website                                                     |
 | duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 1, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 
 ## View All Stories
@@ -561,7 +562,7 @@ axios(config)
     {
       "title": "Test story for API functionality",
       "storyId": "testingID31 - bhileknwlq",
-      "price": 0.1,
+      "price": 3,
       "duration": 2,
       "url": "https://www.yoursite.com/yourstory"
     }
@@ -659,7 +660,7 @@ axios(config)
 {
   "title": "Tesla Tequila",
   "storyId": "Client Story Id 6",
-  "price": 0.1,
+  "price": 1,
   "url": "https://www.yoursite.com/yourstory",
   "duration": 1
 }
