@@ -463,6 +463,7 @@ csc('init', {
   successCallback: async (payload: any) =&gt; {
     // Function to show the premium content to the User since they have paid for it via ConsCent
   },
+})
 </code></pre></div>
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
 
@@ -480,8 +481,8 @@ csc('init', {
     &quot;payload&quot;: {
         &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
         &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-        &quot;transactionAmount&quot;: 0.01,
-        &quot;earningAmount&quot;: 0.008,
+        &quot;transactionAmount&quot;: 5,
+        &quot;earningAmount&quot;: 4,
         &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
     },
     &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
@@ -580,8 +581,8 @@ export default function App() {
     &quot;payload&quot;: {
         &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
         &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-        &quot;transactionAmount&quot;: 0.01,
-        &quot;earningAmount&quot;: 0.008,
+        &quot;transactionAmount&quot;: 5,
+        &quot;earningAmount&quot;: 4,
         &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
     },
     &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
@@ -628,7 +629,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 0.10,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -646,7 +647,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <span class="nt">-d</span> <span class="s1">'{
     "storyId" : "testingID For Client",
     "title" : "Test story for API functionality",
-    "price" : 0.10,
+    "price" : 1,
     "duration" : 2,
     "url": "https://www.yoursite.com/yourstory"
 }'</span>
@@ -654,7 +655,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
   <span class="na">storyId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">price</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+  <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="dl">"</span>
 <span class="p">});</span>
@@ -686,14 +687,14 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
         </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 0.10, 1, 5]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
+<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 1, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/story</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -719,7 +720,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <tr>
 <td>price</td>
 <td>required</td>
-<td>Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.</td>
+<td>Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
 <td>url</td>
@@ -851,7 +852,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <tr>
 <td>price</td>
 <td>optional</td>
-<td>Story Price to be selected out of [0, 0.01, 0.10, 1, 5] ONLY. Values are in INR by default.</td>
+<td>Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
 <td>url</td>
@@ -866,7 +867,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 0.10, 1, 5]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 1, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 <h2 id='view-all-stories'>View All Stories</h2>
 <blockquote>
@@ -932,7 +933,7 @@ Remember — Either/All of the fields of a story - title, price, URL and duratio
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID31 - bhileknwlq"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -1028,7 +1029,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
