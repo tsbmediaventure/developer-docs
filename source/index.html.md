@@ -118,6 +118,7 @@ csc('init', {
   successCallback: async (payload: any) => {
     // Function to show the premium content to the User since they have paid for it via ConsCent
   },
+  wrappingElementId: 'csc-paywall'
 })
 ```
 
@@ -128,6 +129,8 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 - The 'storyId' which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.
 
 - The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.
+
+- 'wrappingElementId' is an optional string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Use this if you do not want the paywall to cover the entire screen. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
 
  <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
 
@@ -307,7 +310,7 @@ var data = JSON.stringify({
   title: "Test story for API functionality",
   price: 1,
   duration: 2,
-  url: "https://www.yoursite.com/yourstory"
+  url: "https://www.yoursite.com/yourstory",
 });
 
 var config = {
@@ -337,16 +340,16 @@ axios(config)
   {
     "message": "New Story Created!",
     "story": {
-        "title": "Test story for API functionality",
-        "price": 1,
-        "storyId": "testingID For Client",
-        "url": "https://www.yoursite.com/yourstory"
+      "title": "Test story for API functionality",
+      "price": 1,
+      "storyId": "testingID For Client",
+      "url": "https://www.yoursite.com/yourstory"
     }
-}
+  }
 ]
 ```
 
-This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 1, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
+This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
 
 ### HTTP Request
 
@@ -362,7 +365,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
 | title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.  
+| price     | required | Story Price to be selected out of [0, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
 | url       | required | URL where the story is available on your website                                                    |
 | duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
@@ -421,7 +424,7 @@ var data = JSON.stringify({
   title: "Client Story Id Test Edit",
   price: 1,
   duration: 2,
-  url: "https://www.yoursite.com/yournewstory"
+  url: "https://www.yoursite.com/yournewstory",
 });
 
 var config = {
@@ -451,13 +454,13 @@ axios(config)
   {
     "message": "Story Edited Successfully",
     "editedStory": {
-        "title": "Client Story Id Test Edit",
-        "storyId": "testingID For Client",
-        "price": 1,
-        "duration": 2,
-        "url": "https://www.yoursite.com/yournewstory"
+      "title": "Client Story Id Test Edit",
+      "storyId": "testingID For Client",
+      "price": 1,
+      "duration": 2,
+      "url": "https://www.yoursite.com/yournewstory"
     }
-}
+  }
 ]
 ```
 
@@ -482,12 +485,12 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | Parameter | Default  | Description                                                                                         |
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | title     | optional | Title of the Story                                                                                  |
-| price     | optional | Story Price to be selected out of [0, 1, 3, 5, 7, 10] ONLY. Values are in INR by default.         |
-| url       | optional | URL where the story is available on your website                                                     |
+| price     | optional | Story Price to be selected out of [0, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
+| url       | optional | URL where the story is available on your website                                                    |
 | duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 1, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 
 ## View All Stories
