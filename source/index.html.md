@@ -118,7 +118,8 @@ csc('init', {
   successCallback: async (payload: any) => {
     // Function to show the premium content to the User since they have paid for it via ConsCent
   },
-  wrappingElementId: 'csc-paywall'
+  wrappingElementId: 'csc-paywall',
+  fullScreenMode: 'false',
 })
 ```
 
@@ -130,7 +131,9 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 
 - The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.
 
-- 'wrappingElementId' is an optional string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Use this if you do not want the paywall to cover the entire screen. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
+- 'wrappingElementId' is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
+
+- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the page to be visible at all.
 
  <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
 
@@ -365,7 +368,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
 | title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
+| price     | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
 | url       | required | URL where the story is available on your website                                                    |
 | duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
@@ -485,7 +488,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | Parameter | Default  | Description                                                                                         |
 | --------- | -------- | --------------------------------------------------------------------------------------------------- |
 | title     | optional | Title of the Story                                                                                  |
-| price     | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
+| price     | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
 | url       | optional | URL where the story is available on your website                                                    |
 | duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
 
