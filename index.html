@@ -463,7 +463,8 @@ csc('init', {
   successCallback: async (payload: any) =&gt; {
     // Function to show the premium content to the User since they have paid for it via ConsCent
   },
-  wrappingElementId: 'csc-paywall'
+  wrappingElementId: 'csc-paywall',
+  fullScreenMode: 'false',
 })
 </code></pre></div>
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
@@ -472,7 +473,8 @@ csc('init', {
 <li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
 <li><p>The &#39;storyId&#39; which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.</p></li>
 <li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.</p></li>
-<li><p>&#39;wrappingElementId&#39; is an optional string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Use this if you do not want the paywall to cover the entire screen. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
+<li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
+<li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
 </ul>
 
 <p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p></p>
