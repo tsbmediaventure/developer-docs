@@ -95,7 +95,7 @@ Integrating the paywall allows the users to purchase the Client's Stories via Co
 </script>
 ```
 
-> Ensure you replace the 'clientId' with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page.
+> Ensure you replace the 'clientId' with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page and the {SDK_URL} with the sdk url of an environment you want to use, e.g. 'https://sandbox-sdk.conscent.in' for sandbox
 
 Integrating ConsCent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
 
