@@ -37,7 +37,7 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
     Sandbox Environment: 
     <ul>
       <li>API_URL:  https://sandbox-api.conscent.in</li>
-      <li>SDK_URL:  https://conscent-sdk.vercel.app</li>
+      <li>SDK_URL:  https://sandbox-sdk.conscent.in</li>
     </ul>
   </li>
 </ul>
