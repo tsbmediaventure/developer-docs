@@ -453,19 +453,41 @@
 <blockquote>
 <p>Include ConsCent Paywall on Premium Content Story Page:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>const csc = window._csc as any;
+<div class="highlight"><pre class="highlight plaintext"><code>const csc = window._csc;
 csc('init', {
-  debug: true,
+  debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
   clientId: clientId,
-  isMobile: 'false',
-  successCallback: async (payload: any) =&gt; {
-    // Function to show the premium content to the User since they have paid for it via ConsCent
-  },
+  successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
-  fullScreenMode: 'false',
+  fullScreenMode: 'false', // if set to true, the entire screen will be covered
 })
+</code></pre></div>
+<blockquote>
+<p>Success Callback example:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight hack"><code><span class="k">async</span> <span class="k">function</span> <span class="n">yourSuccessCallbackFunction</span><span class="p">(</span><span class="kt">validationObject</span><span class="o">:</span> <span class="n">any</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Function to show the premium content to the User since they have paid for it via ConsCent</span>
+  <span class="c1">// Here you should verify the  validationObject with our backend</span>
+  <span class="c1">// And then you must show the user the complete story</span>
+
+  <span class="c1">// example verification code:</span>
+  <span class="c1">// assuming you have axios (a common http request wrapper) installed</span>
+  <span class="k">const</span> <span class="no">confirmationResponse</span> <span class="o">=</span> <span class="k">await</span> <span class="n">axios</span><span class="mf">.</span><span class="nf">post</span><span class="p">(</span>
+    <span class="sb">`${API_URL}/story/read/${validationObject.readId}`</span>
+  <span class="p">);</span>
+  <span class="k">const</span> <span class="no">confirmationPayload</span> <span class="o">=</span> <span class="n">backendConfirmationResponse</span><span class="mf">.</span><span class="n">data</span><span class="mf">.</span><span class="n">payload</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span>
+    <span class="n">backendConfirmationResponse</span><span class="mf">.</span><span class="n">data</span><span class="mf">.</span><span class="n">readId</span> <span class="o">===</span> <span class="n">validationObject</span><span class="mf">.</span><span class="n">readId</span> <span class="o">&amp;&amp;</span>
+    <span class="n">clientId</span> <span class="o">===</span> <span class="n">confirmationPayload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
+    <span class="n">storyId</span> <span class="o">===</span> <span class="n">confirmationPayload</span><span class="mf">.</span><span class="n">storyId</span>
+  <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Validation successful</span>
+    <span class="c1">// showStory is your function that will do all the actions that need to be done to show the whole story</span>
+    <span class="nf">showStory</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
 
@@ -477,7 +499,7 @@ csc('init', {
 <li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
 </ul>
 
-<p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p></p>
+<p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p></p>
 
 <p><code> 
 {
@@ -497,7 +519,7 @@ csc('init', {
 
 <p>Calling the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.</p>
 
-<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
  
 
 <p>If the case arrives when the user tries to purchase a story via ConsCent on the client&#39;s website and the transaction fails. The client can handle that case as well in a &#39;failedCallback&#39; function or redirect to any page - as the Client wishes.</p>
@@ -633,7 +655,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory,</span><span class="se">\"\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">authorId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">optional-unique-author-id</span><span class="se">\"</span><span class="s2">,  </span><span class="se">\"</span><span class="s2">authorName</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">optional-author-name</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -653,7 +675,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "title" : "Test story for API functionality",
     "price" : 1,
     "duration" : 2,
-    "url": "https://www.yoursite.com/yourstory"
+    "url": "https://www.yoursite.com/yourstory",
+    "authorName": "optional-author-name",
+    "authorId": "optional-unique-author-id"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -662,6 +686,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">authorName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">optional-author-name</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">authorId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">optional-unique-author-id</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -686,17 +712,17 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional-author-name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional-unique-author-id"</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -736,6 +762,16 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>required</td>
 <td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
 </tr>
+<tr>
+<td>authorId</td>
+<td>optional</td>
+<td>Id of the Author of the story - Mandatory if authorName is present</td>
+</tr>
+<tr>
+<td>authorName</td>
+<td>optional</td>
+<td>Name of the Author of the story</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
@@ -759,7 +795,7 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yournewstory</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yournewstory,</span><span class="se">\"\n\"</span><span class="s2">authorName</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">changed-author-name</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n\"</span><span class="s2">authorId</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">changed-unique-author-id</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -778,7 +814,9 @@ Replace the {storyId} in the API path with your actual Story Id</p>
     "title": "Client Story Id Test Edit",
     "price": 1,
     "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory"
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id"
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
@@ -786,6 +824,8 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yournewstory</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">authorName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">changed-author-name</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">authorId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">changed-unique-author-id</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -810,18 +850,18 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Edited Successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"editedStory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewstory"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Edited Successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"editedStory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewstory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-unique-author-id"</span><span class="w">
   </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
@@ -868,10 +908,20 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <td>optional</td>
 <td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
 </tr>
+<tr>
+<td>authorId</td>
+<td>optional</td>
+<td>Id of the Author of the story - Mandatory if authorName is present</td>
+</tr>
+<tr>
+<td>authorName</td>
+<td>optional</td>
+<td>Name of the Author of the story</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 <h2 id='view-all-stories'>View All Stories</h2>
 <blockquote>
