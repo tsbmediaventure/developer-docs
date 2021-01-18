@@ -279,7 +279,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 1,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 1,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory,\"\n  \"authorId\" : \"optional-unique-author-id\",  \"authorName\" : \"optional-author-name\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -302,7 +302,9 @@ curl -X POST '{API_URL}/api/v1/story/' \
     "title" : "Test story for API functionality",
     "price" : 1,
     "duration" : 2,
-    "url": "https://www.yoursite.com/yourstory"
+    "url": "https://www.yoursite.com/yourstory",
+    "authorName": "optional-author-name",
+    "authorId": "optional-unique-author-id"
 }'
 ```
 
@@ -314,6 +316,8 @@ var data = JSON.stringify({
   price: 1,
   duration: 2,
   url: "https://www.yoursite.com/yourstory",
+  authorName: "optional-author-name",
+  authorId: "optional-unique-author-id",
 });
 
 var config = {
@@ -339,17 +343,17 @@ axios(config)
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "message": "New Story Created!",
-    "story": {
-      "title": "Test story for API functionality",
-      "price": 1,
-      "storyId": "testingID For Client",
-      "url": "https://www.yoursite.com/yourstory"
-    }
+{
+  "message": "New Story Created!",
+  "story": {
+    "title": "Test story for API functionality",
+    "price": 1,
+    "storyId": "testingID For Client",
+    "url": "https://www.yoursite.com/yourstory",
+    "authorName": "optional-author-name",
+    "authorId": "optional-unique-author-id"
   }
-]
+}
 ```
 
 This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
@@ -364,13 +368,15 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter | Default  | Description                                                                                         |
-| --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
-| title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url       | required | URL where the story is available on your website                                                    |
-| duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| storyId    | required | Story Id by which the Story has been registered on the Client CMS                                   |
+| title      | required | Title of the Story                                                                                  |
+| price      | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | required | URL where the story is available on your website                                                    |
+| duration   | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the story                                                                     |
 
 <aside class="notice">
 Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
@@ -395,7 +401,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
-  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"https://www.yoursite.com/yournewstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"https://www.yoursite.com/yournewstory,\"\n\"authorName\": \"changed-author-name\",\n\"authorId\": \"changed-unique-author-id\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -417,7 +423,9 @@ curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
     "title": "Client Story Id Test Edit",
     "price": 1,
     "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory"
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id"
 }'
 ```
 
@@ -428,6 +436,8 @@ var data = JSON.stringify({
   price: 1,
   duration: 2,
   url: "https://www.yoursite.com/yournewstory",
+  authorName: "changed-author-name",
+  authorId: "changed-unique-author-id",
 });
 
 var config = {
@@ -453,18 +463,18 @@ axios(config)
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "message": "Story Edited Successfully",
-    "editedStory": {
-      "title": "Client Story Id Test Edit",
-      "storyId": "testingID For Client",
-      "price": 1,
-      "duration": 2,
-      "url": "https://www.yoursite.com/yournewstory"
-    }
+{
+  "message": "Story Edited Successfully",
+  "editedStory": {
+    "title": "Client Story Id Test Edit",
+    "storyId": "testingID For Client",
+    "price": 1,
+    "duration": 2,
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id"
   }
-]
+}
 ```
 
 This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!
@@ -485,15 +495,17 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter | Default  | Description                                                                                         |
-| --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| title     | optional | Title of the Story                                                                                  |
-| price     | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url       | optional | URL where the story is available on your website                                                    |
-| duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| title      | optional | Title of the Story                                                                                  |
+| price      | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | optional | URL where the story is available on your website                                                    |
+| duration   | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the story                                                                     |
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 
 ## View All Stories
