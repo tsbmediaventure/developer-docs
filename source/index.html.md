@@ -108,19 +108,42 @@ You can get your ConsCent Client Id from the [Client Integrations Page](https://
 > Include ConsCent Paywall on Premium Content Story Page:
 
 ```
-const csc = window._csc as any;
+const csc = window._csc;
 csc('init', {
-  debug: true,
+  debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
   clientId: clientId,
-  isMobile: 'false',
-  successCallback: async (payload: any) => {
-    // Function to show the premium content to the User since they have paid for it via ConsCent
-  },
+  successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
-  fullScreenMode: 'false',
+  fullScreenMode: 'false', // if set to true, the entire screen will be covered
 })
+```
+
+> Success Callback example:
+
+```
+async function yourSuccessCallbackFunction(validationObject: any) {
+  // Function to show the premium content to the User since they have paid for it via ConsCent
+  // Here you should verify the  validationObject with our backend
+  // And then you must show the user the complete story
+
+  // example verification code:
+  // assuming you have axios (a common http request wrapper) installed
+  const confirmationResponse = await axios.post(
+    `${API_URL}/story/read/${validationObject.readId}`
+  );
+  const confirmationPayload = backendConfirmationResponse.data.payload;
+  if (
+    backendConfirmationResponse.data.readId === validationObject.readId &&
+    clientId === confirmationPayload.clientId &&
+    storyId === confirmationPayload.storyId
+  ) {
+    // Validation successful
+    // showStory is your function that will do all the actions that need to be done to show the whole story
+    showStory(true);
+  }
+}
 ```
 
 We import the initalisation script using the unique '\_csc' identifier and run the 'init' function by passing a number of parameters:
@@ -135,7 +158,7 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 
 - 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the page to be visible at all.
 
- <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
+ <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
 
 <code> 
 {
@@ -155,7 +178,7 @@ The message "Story Purchased Successfully" appears in the response only when the
 
 Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
 
-<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
  
 If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes.
 
