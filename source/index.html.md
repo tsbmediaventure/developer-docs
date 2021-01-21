@@ -129,20 +129,27 @@ async function yourSuccessCallbackFunction(validationObject: any) {
   // And then you must show the user the complete story
 
   // example verification code:
-  // assuming you have axios (a common http request wrapper) installed
-  const confirmationResponse = await axios.post(
-    `${API_URL}/story/read/${validationObject.readId}`
-  );
-  const confirmationPayload = backendConfirmationResponse.data.payload;
-  if (
-    backendConfirmationResponse.data.readId === validationObject.readId &&
-    clientId === confirmationPayload.clientId &&
-    storyId === confirmationPayload.storyId
-  ) {
-    // Validation successful
-    // showStory is your function that will do all the actions that need to be done to show the whole story
-    showStory(true);
-  }
+  console.log('Initiating verification with conscent backend');
+  const xhttp = new XMLHttpRequest(); // using vanilla javascript to make a post request
+  const url = `${API_URL}/story/read/${validationObject.readId}`;
+  xhttp.open('POST', url, true);
+  // e is the response event
+  xhttp.onload = (e) => {
+    const backendConfirmationData = JSON.parse(e.target.response);
+
+    // verifying that the validation received matches the backend data
+    if (
+      validationObject.readId === backendConfirmationData.readId &&
+      validationObject.clientId === backendConfirmationData.payload.clientId &&
+      validationObject.storyId === backendConfirmationData.payload.storyId
+    ) {
+      // Validation successful
+      console.log('successful validation');
+      // showStory would be your function that will do all the actions that need to be done to show the whole story
+      showStory(true);
+    }
+  };
+  xhttp.send();
 }
 ```
 
