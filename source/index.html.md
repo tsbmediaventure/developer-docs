@@ -131,7 +131,7 @@ async function yourSuccessCallbackFunction(validationObject: any) {
   // example verification code:
   console.log('Initiating verification with conscent backend');
   const xhttp = new XMLHttpRequest(); // using vanilla javascript to make a post request
-  const url = `${API_URL}/story/read/${validationObject.readId}`;
+  const url = `${API_URL}/api/v1/story/read/${validationObject.readId}`;
   xhttp.open('POST', url, true);
   // e is the response event
   xhttp.onload = (e) => {
