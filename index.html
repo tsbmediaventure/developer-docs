@@ -473,20 +473,27 @@ csc('init', {
   <span class="c1">// And then you must show the user the complete story</span>
 
   <span class="c1">// example verification code:</span>
-  <span class="c1">// assuming you have axios (a common http request wrapper) installed</span>
-  <span class="k">const</span> <span class="no">confirmationResponse</span> <span class="o">=</span> <span class="k">await</span> <span class="n">axios</span><span class="mf">.</span><span class="nf">post</span><span class="p">(</span>
-    <span class="sb">`${API_URL}/story/read/${validationObject.readId}`</span>
-  <span class="p">);</span>
-  <span class="k">const</span> <span class="no">confirmationPayload</span> <span class="o">=</span> <span class="n">backendConfirmationResponse</span><span class="mf">.</span><span class="n">data</span><span class="mf">.</span><span class="n">payload</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span>
-    <span class="n">backendConfirmationResponse</span><span class="mf">.</span><span class="n">data</span><span class="mf">.</span><span class="n">readId</span> <span class="o">===</span> <span class="n">validationObject</span><span class="mf">.</span><span class="n">readId</span> <span class="o">&amp;&amp;</span>
-    <span class="n">clientId</span> <span class="o">===</span> <span class="n">confirmationPayload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
-    <span class="n">storyId</span> <span class="o">===</span> <span class="n">confirmationPayload</span><span class="mf">.</span><span class="n">storyId</span>
-  <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Validation successful</span>
-    <span class="c1">// showStory is your function that will do all the actions that need to be done to show the whole story</span>
-    <span class="nf">showStory</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-  <span class="p">}</span>
+  <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'Initiating verification with conscent backend'</span><span class="p">);</span>
+  <span class="k">const</span> <span class="no">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XMLHttpRequest</span><span class="p">();</span> <span class="c1">// using vanilla javascript to make a post request</span>
+  <span class="k">const</span> <span class="no">url</span> <span class="o">=</span> <span class="sb">`${API_URL}/story/read/${validationObject.readId}`</span><span class="p">;</span>
+  <span class="n">xhttp</span><span class="mf">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+  <span class="c1">// e is the response event</span>
+  <span class="n">xhttp</span><span class="mf">.</span><span class="n">onload</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="no">backendConfirmationData</span> <span class="o">=</span> <span class="no">JSON</span><span class="mf">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">e</span><span class="mf">.</span><span class="n">target</span><span class="mf">.</span><span class="n">response</span><span class="p">);</span>
+
+    <span class="c1">// verifying that the validation received matches the backend data</span>
+    <span class="k">if</span> <span class="p">(</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">readId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">readId</span> <span class="o">&amp;&amp;</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">storyId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Validation successful</span>
+      <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'successful validation'</span><span class="p">);</span>
+      <span class="c1">// showStory would be your function that will do all the actions that need to be done to show the whole story</span>
+      <span class="nf">showStory</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="n">xhttp</span><span class="mf">.</span><span class="nf">send</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
