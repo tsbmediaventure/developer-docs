@@ -484,8 +484,8 @@ csc('init', {
     <span class="c1">// verifying that the validation received matches the backend data</span>
     <span class="k">if</span> <span class="p">(</span>
       <span class="n">validationObject</span><span class="mf">.</span><span class="n">readId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">readId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">storyId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payloadclientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span>
     <span class="p">)</span> <span class="p">{</span>
       <span class="c1">// Validation successful</span>
       <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'successful validation'</span><span class="p">);</span>
