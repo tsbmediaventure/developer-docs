@@ -113,6 +113,7 @@ csc('init', {
   debug: true,
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
+  signInUrl: {clientSignInUrl},
   clientId: clientId,
   isMobile: 'false',
   successCallback: async (payload: any) => {
@@ -129,6 +130,8 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 - The 'storyId' which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.
 
 - The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.
+
+- You can optionally provide the 'signInUrl' which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a "Sign in here" text to be displayed below the "Subscribe" button.
 
 - 'wrappingElementId' is an optional string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Use this if you do not want the paywall to cover the entire screen. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
 
@@ -183,7 +186,8 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://https://www.yoursite.com/yourstory"
+        subscriptionUrl="https://www.yoursite.com/yourstory"
+        signInUrl="https://www.yoursite.com/login"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       />
@@ -202,6 +206,7 @@ You can get your ConsCent Client Id from the [Client Integrations Page](https://
 | storyId              | Story Id by which the Story has been registered on the Client CMS                                                                                               |
 | successCallback      | Function which will receive the success payload. See the success payload structure below.                                                                       |
 | subscriptionUrl      | You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked |
+| signInUrl      | You can optionally provide the link to the login page for already subscribed users on the clients platform - in cases when a previously subscribed user would like to access premium content using their login credentials. Doing this will add a "Sign in here" text to be displayed below the "Subscribe" button. |
 | subscriptionCallback | function which receives no arguments. This function is called when the user clicks the subscribe button                                                         |
 | mode                 | either 'sandbox' or 'production' based on your credentials                                                                                                      |
 
