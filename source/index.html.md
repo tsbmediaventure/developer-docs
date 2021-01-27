@@ -37,7 +37,7 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
     Sandbox Environment: 
     <ul>
       <li>API_URL:  https://sandbox-api.conscent.in</li>
-      <li>SDK_URL:  https://conscent-sdk.vercel.app</li>
+      <li>SDK_URL:  https://sandbox-sdk.conscent.in</li>
     </ul>
   </li>
 </ul>
@@ -95,7 +95,7 @@ Integrating the paywall allows the users to purchase the Client's Stories via Co
 </script>
 ```
 
-> Ensure you replace the 'clientId' with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page.
+> Ensure you replace the 'clientId' with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page and the {SDK_URL} with the sdk url of an environment you want to use, e.g. 'https://sandbox-sdk.conscent.in' for sandbox
 
 Integrating ConsCent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
 
@@ -108,19 +108,50 @@ You can get your ConsCent Client Id from the [Client Integrations Page](https://
 > Include ConsCent Paywall on Premium Content Story Page:
 
 ```
-const csc = window._csc as any;
+const csc = window._csc;
 csc('init', {
-  debug: true,
+  debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
   signInUrl: {clientSignInUrl},
   clientId: clientId,
-  isMobile: 'false',
-  successCallback: async (payload: any) => {
-    // Function to show the premium content to the User since they have paid for it via ConsCent
-  },
-  wrappingElementId: 'csc-paywall'
+  successCallback: yourSuccessCallbackFunction,
+  wrappingElementId: 'csc-paywall',
+  fullScreenMode: 'false', // if set to true, the entire screen will be covered
 })
+```
+
+> Success Callback example:
+
+```
+async function yourSuccessCallbackFunction(validationObject: any) {
+  // Function to show the premium content to the User since they have paid for it via ConsCent
+  // Here you should verify the  validationObject with our backend
+  // And then you must show the user the complete story
+
+  // example verification code:
+  console.log('Initiating verification with conscent backend');
+  const xhttp = new XMLHttpRequest(); // using vanilla javascript to make a post request
+  const url = `${API_URL}/api/v1/story/read/${validationObject.readId}`;
+  xhttp.open('POST', url, true);
+  // e is the response event
+  xhttp.onload = (e) => {
+    const backendConfirmationData = JSON.parse(e.target.response);
+
+    // verifying that the validation received matches the backend data
+    if (
+      validationObject.readId === backendConfirmationData.readId &&
+      validationObject.payloadclientId === backendConfirmationData.payload.clientId &&
+      validationObject.payload.storyId === backendConfirmationData.payload.storyId
+    ) {
+      // Validation successful
+      console.log('successful validation');
+      // showStory would be your function that will do all the actions that need to be done to show the whole story
+      showStory(true);
+    }
+  };
+  xhttp.send();
+}
 ```
 
 We import the initalisation script using the unique '\_csc' identifier and run the 'init' function by passing a number of parameters:
@@ -133,9 +164,11 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 
 - You can optionally provide the 'signInUrl' which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a "Sign in here" text to be displayed below the "Subscribe" button.
 
-- 'wrappingElementId' is an optional string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Use this if you do not want the paywall to cover the entire screen. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
+- 'wrappingElementId' is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
 
- <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a payload shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
+- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the page to be visible at all.
+
+ <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
 
 <code> 
 {
@@ -155,7 +188,7 @@ The message "Story Purchased Successfully" appears in the response only when the
 
 Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
 
-<p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
  
 If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes.
 
@@ -281,7 +314,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 1,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"storyId\" : \"testingID For Client\",\n    \"title\" : \"Test story for API functionality\",\n    \"price\" : 1,\n    \"duration\" : 2,\n    \"url\": \"https://www.yoursite.com/yourstory,\"\n  \"authorId\" : \"optional-unique-author-id\",  \"authorName\" : \"optional-author-name\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -304,7 +337,9 @@ curl -X POST '{API_URL}/api/v1/story/' \
     "title" : "Test story for API functionality",
     "price" : 1,
     "duration" : 2,
-    "url": "https://www.yoursite.com/yourstory"
+    "url": "https://www.yoursite.com/yourstory",
+    "authorName": "optional-author-name",
+    "authorId": "optional-unique-author-id"
 }'
 ```
 
@@ -316,6 +351,8 @@ var data = JSON.stringify({
   price: 1,
   duration: 2,
   url: "https://www.yoursite.com/yourstory",
+  authorName: "optional-author-name",
+  authorId: "optional-unique-author-id",
 });
 
 var config = {
@@ -341,17 +378,17 @@ axios(config)
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "message": "New Story Created!",
-    "story": {
-      "title": "Test story for API functionality",
-      "price": 1,
-      "storyId": "testingID For Client",
-      "url": "https://www.yoursite.com/yourstory"
-    }
+{
+  "message": "New Story Created!",
+  "story": {
+    "title": "Test story for API functionality",
+    "price": 1,
+    "storyId": "testingID For Client",
+    "url": "https://www.yoursite.com/yourstory",
+    "authorName": "optional-author-name",
+    "authorId": "optional-unique-author-id"
   }
-]
+}
 ```
 
 This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
@@ -366,13 +403,15 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter | Default  | Description                                                                                         |
-| --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| storyId   | required | Story Id by which the Story has been registered on the Client CMS                                   |
-| title     | required | Title of the Story                                                                                  |
-| price     | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
-| url       | required | URL where the story is available on your website                                                    |
-| duration  | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| storyId    | required | Story Id by which the Story has been registered on the Client CMS                                   |
+| title      | required | Title of the Story                                                                                  |
+| price      | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | required | URL where the story is available on your website                                                    |
+| duration   | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the story                                                                     |
 
 <aside class="notice">
 Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
@@ -397,7 +436,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
-  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"https://www.yoursite.com/yournewstory\"\n}",
+  CURLOPT_POSTFIELDS =>"{\n    \"title\": \"Client Story Id Test Edit\",\n    \"price\": 1,\n    \"duration\": 2,\n    \"url\": \"https://www.yoursite.com/yournewstory,\"\n\"authorName\": \"changed-author-name\",\n\"authorId\": \"changed-unique-author-id\"\n}",
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
     "Content-Type: application/json"
@@ -419,7 +458,9 @@ curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
     "title": "Client Story Id Test Edit",
     "price": 1,
     "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory"
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id"
 }'
 ```
 
@@ -430,6 +471,8 @@ var data = JSON.stringify({
   price: 1,
   duration: 2,
   url: "https://www.yoursite.com/yournewstory",
+  authorName: "changed-author-name",
+  authorId: "changed-unique-author-id",
 });
 
 var config = {
@@ -455,18 +498,18 @@ axios(config)
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "message": "Story Edited Successfully",
-    "editedStory": {
-      "title": "Client Story Id Test Edit",
-      "storyId": "testingID For Client",
-      "price": 1,
-      "duration": 2,
-      "url": "https://www.yoursite.com/yournewstory"
-    }
+{
+  "message": "Story Edited Successfully",
+  "editedStory": {
+    "title": "Client Story Id Test Edit",
+    "storyId": "testingID For Client",
+    "price": 1,
+    "duration": 2,
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id"
   }
-]
+}
 ```
 
 This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!
@@ -487,15 +530,17 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter | Default  | Description                                                                                         |
-| --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| title     | optional | Title of the Story                                                                                  |
-| price     | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.           |
-| url       | optional | URL where the story is available on your website                                                    |
-| duration  | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| title      | optional | Title of the Story                                                                                  |
+| price      | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | optional | URL where the story is available on your website                                                    |
+| duration   | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the story                                                                     |
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL and duration - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 
 ## View All Stories

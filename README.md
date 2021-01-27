@@ -2,7 +2,10 @@
 
 Follow running slate here: https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker
 Edit index.html.md in source to make changes to the api.
-Once the changes have been updated on the master branch and all pipeline checks have passed - run the './deploy.sh' script from your terminal for the changes to be deployed to GH pages. 
+Once the changes have been updated on the master branch and all pipeline checks have passed - run the './deploy.sh' script from your terminal for the changes to be deployed to GH pages.
+
+command:
+`docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve`
 
 <!-- DEPLOYMENT INSTRUCTIONS
 To Deploy any changes - Make the changes in the master branch, commit them and push to the repository and wait for all the tests to pass. Then run the './deploy.sh' command from your local terminal and go to the Docs Link to see the changes.  -->
