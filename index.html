@@ -458,6 +458,7 @@ csc('init', {
   debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
+  signInUrl: {clientSignInUrl},
   clientId: clientId,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
@@ -502,6 +503,7 @@ csc('init', {
 <li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
 <li><p>The &#39;storyId&#39; which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.</p></li>
 <li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.</p></li>
+<li><p>You can optionally provide the &#39;signInUrl&#39; which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</p></li>
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
 <li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
 </ul>
@@ -556,7 +558,8 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://https://www.yoursite.com/yourstory"
+        subscriptionUrl="https://www.yoursite.com/yourstory"
+        signInUrl="https://www.yoursite.com/login"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       /&gt;
@@ -589,6 +592,10 @@ export default function App() {
 <tr>
 <td>subscriptionUrl</td>
 <td>You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked</td>
+</tr>
+<tr>
+<td>signInUrl</td>
+<td>You can optionally provide the link to the login page for already subscribed users on the clients platform - in cases when a previously subscribed user would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</td>
 </tr>
 <tr>
 <td>subscriptionCallback</td>
