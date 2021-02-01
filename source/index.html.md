@@ -45,8 +45,8 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
   <li>
     Production Environment: 
     <ul>
-      <li>API_URL:  Coming Soon!</li>
-      <li>SDK_URL:  Coming Soon!</li>
+      <li>API_URL:  https://api.conscent.in</li>
+      <li>SDK_URL:  https://conscent-sdk-production.vercel.app</li>
     </ul>
   </li>
 </ul>
