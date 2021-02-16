@@ -823,3 +823,94 @@ The client will recieve a payload when a story is purchased via ConsCent - provi
 <aside class="notice">
 Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
 </aside>
+
+# Client Stats
+
+## Daily Story Stats
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+
+curl -X GET '{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z' \
+-H 'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
+
+```
+
+```javascript
+var axios = require('axios');
+
+var config = {
+  method: 'get',
+  url: '{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z',
+  headers: { 
+    'Authorization': 'Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
+  }
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "totalStoriesRead": 17,
+  "totalRevenueGenerated": 29.6
+}
+```
+
+This endpoint allows the Client to get Aggregate Statistics based on users consumption of their stories via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. 
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/client/stats/daily`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### Query Parameters
+
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| from       | optional | ISO date string from which the aggregated stats have to be calculated                               |
+| to         | optional | ISO date string till which the aggregated stats have to be calculated                               |
+                                                      
+
+<aside class="notice">
+Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their stories by users via ConsCent.
+</aside>
