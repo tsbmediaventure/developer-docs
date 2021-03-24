@@ -22,7 +22,7 @@ You can get started by following the steps mentioned on the [Using ConsCent Page
 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with.
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and 'priceOverrides: country: ['{ name: '', price: '' }']'. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. Moreover, the priceOverrides field allows the client to set a different price for their content in different countries. (Price values will be in INR ONLY)
 
 By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret.
 
@@ -51,7 +51,7 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
   </li>
 </ul>
 
-- If you wish to use blanket pricing - which allows you to set all your premium stories at the same price - you can skip the registering/editing stories steps and move on to intergrating the paywall on all your premium content pages. 
+- If you wish to use blanket pricing - which allows you to set all your premium stories at the same default price with which your client is registered - you can skip the registering/editing stories steps and move on to intergrating the paywall on all your premium content pages. 
 
 - Any content that you don't register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.
 
