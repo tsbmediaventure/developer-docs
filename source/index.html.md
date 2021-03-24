@@ -16,7 +16,7 @@ code_clipboard: true
 
 # Getting Started
 
-Welcome to ConsCent! This documentation covers all the steps for you to get set up - from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
+Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
 
 You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent).
 
@@ -51,6 +51,10 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
   </li>
 </ul>
 
+- If you wish to use blanket pricing - which allows you to set all your premium stories at the same price - you can skip the registering/editing stories steps and move on to intergrating the paywall on all your premium content pages. 
+
+- Any content that you don't register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.
+
 - Now you can start registering your premium content stories with ConsCent! Call the [Create Story API](#create-story) for any story that you wish to register with ConsCent.
 
 Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages.
@@ -63,7 +67,7 @@ Ensuring that the paywall appears each time a premium story is opened, as well a
 
 - Next, you need to call the [Validate Story Read API](#validate-story-read) using the recieved "readId" in the successCallback response, when a user purchases the client's story via ConsCent - which will assist the client in authenticating valid and unique transactions on their stories.
 
-Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories registered with ConsCent.
+Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories.
 
 - To view a list of all the client's stories registered on ConsCent via the [View All Stories API](#view-all-stories).
 
@@ -115,9 +119,12 @@ csc('init', {
   subscriptionUrl: {clientSubscriptionUrl},
   signInUrl: {clientSignInUrl},
   clientId: clientId,
+  title: storyTitle,
+  isMobile: 'false',
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
   fullScreenMode: 'false', // if set to true, the entire screen will be covered
+  unauthorizedCallback: yourUnauthorizedCallbackFunction
 })
 ```
 
@@ -159,6 +166,8 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 - The 'clientId' which is retrieved from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard.
 
 - The 'storyId' which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.
+
+- The 'title' which should be the Story Title by which the particular story is registered with in the Client CMS.
 
 - The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.
 
