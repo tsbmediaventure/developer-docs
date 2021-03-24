@@ -51,7 +51,7 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
   </li>
 </ul>
 
-- If you wish to use blanket pricing - which allows you to set all your premium stories at the same default price with which your client is registered - you can skip the registering/editing stories steps and move on to intergrating the paywall on all your premium content pages. 
+- If you wish to use blanket pricing - which allows you to set all your premium stories at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing stories steps and move on to intergrating the paywall on all your premium content pages. 
 
 - Any content that you don't register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.
 
