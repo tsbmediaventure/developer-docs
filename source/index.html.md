@@ -22,7 +22,7 @@ You can get started by following the steps mentioned on the [Using ConsCent Page
 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and 'priceOverrides: country: ['{ name: '', price: '' }']'. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. Moreover, the priceOverrides field allows the client to set a different price for their content in different countries. (Price values will be in INR ONLY)
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and optionally geolocation overrides if the client wants geo-fenced pricing options.This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. (Price values are in INR)
 
 By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret.
 
@@ -1533,4 +1533,3 @@ Yemen	- YE
 Zambia	- ZM
 
 Zimbabwe	- ZW
-
