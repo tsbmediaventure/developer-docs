@@ -124,7 +124,6 @@ csc('init', {
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
   fullScreenMode: 'false', // if set to true, the entire screen will be covered
-  unauthorizedCallback: yourUnauthorizedCallbackFunction
 })
 ```
 
