@@ -350,14 +350,6 @@
               </ul>
           </li>
           <li>
-            <a href="#client-stats" class="toc-h1 toc-link" data-title="Client Stats">Client Stats</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#daily-story-stats" class="toc-h2 toc-link" data-title="Daily Story Stats">Daily Story Stats</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -394,8 +386,8 @@
   <li>
     Production Environment: 
     <ul>
-      <li>API_URL:  https://api.conscent.in</li>
-      <li>SDK_URL:  https://sdk.conscent.in</li>
+      <li>API_URL:  Coming Soon!</li>
+      <li>SDK_URL:  Coming Soon!</li>
     </ul>
   </li>
 </ul>
@@ -466,7 +458,6 @@ csc('init', {
   debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
-  signInUrl: {clientSignInUrl},
   clientId: clientId,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
@@ -511,7 +502,6 @@ csc('init', {
 <li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
 <li><p>The &#39;storyId&#39; which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.</p></li>
 <li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.</p></li>
-<li><p>You can optionally provide the &#39;signInUrl&#39; which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</p></li>
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
 <li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
 </ul>
@@ -566,8 +556,7 @@ export default function App() {
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://www.yoursite.com/yourstory"
-        signInUrl="https://www.yoursite.com/login"
+        subscriptionUrl="https://https://www.yoursite.com/yourstory"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
       /&gt;
@@ -600,10 +589,6 @@ export default function App() {
 <tr>
 <td>subscriptionUrl</td>
 <td>You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked</td>
-</tr>
-<tr>
-<td>signInUrl</td>
-<td>You can optionally provide the link to the login page for already subscribed users on the clients platform - in cases when a previously subscribed user would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</td>
 </tr>
 <tr>
 <td>subscriptionCallback</td>
@@ -1209,90 +1194,6 @@ API to retrieve the details of an individual story registered by the client on C
 
 <aside class="notice">
 Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
-</aside>
-<h1 id='client-stats'>Client Stats</h1><h2 id='daily-story-stats'>Daily Story Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
-<span class="cp">&lt;?php</span>
-
-<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
-
-<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span><span class="p">,</span>
-  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
-  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
-  <span class="p">),</span>
-<span class="p">));</span>
-
-<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-
-<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
-
-
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">get</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> 
-    <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==</span><span class="dl">'</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-<span class="p">});</span>
-
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"totalStoriesRead"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"totalRevenueGenerated"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.6</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their stories via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. </p>
-<h3 id='http-request-6'>HTTP Request</h3>
-<p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
-<h3 id='authorization-5'>Authorization</h3>
-<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>from</td>
-<td>optional</td>
-<td>ISO date string from which the aggregated stats have to be calculated</td>
-</tr>
-<tr>
-<td>to</td>
-<td>optional</td>
-<td>ISO date string till which the aggregated stats have to be calculated</td>
-</tr>
-</tbody></table>
-
-<aside class="notice">
-Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their stories by users via ConsCent.
 </aside>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
