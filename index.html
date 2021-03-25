@@ -316,9 +316,6 @@
             <a href="#web-integration" class="toc-h1 toc-link" data-title="Web Integration">Web Integration</a>
           </li>
           <li>
-            <a href="#react-native-integration" class="toc-h1 toc-link" data-title="React Native Integration">React Native Integration</a>
-          </li>
-          <li>
             <a href="#api-introduction" class="toc-h1 toc-link" data-title="API Introduction">API Introduction</a>
           </li>
           <li>
@@ -350,6 +347,17 @@
               </ul>
           </li>
           <li>
+            <a href="#client-stats" class="toc-h1 toc-link" data-title="Client Stats">Client Stats</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#daily-story-stats" class="toc-h2 toc-link" data-title="Daily Story Stats">Daily Story Stats</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#country-code-list" class="toc-h1 toc-link" data-title="Country Code List">Country Code List</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -358,11 +366,11 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='getting-started'>Getting Started</h1>
-<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.</p>
+<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.</p>
 
 <p>You can get started by following the steps mentioned on the <a href="#using-conscent">Using ConsCent Page</a>.</p>
 <h1 id='registration'>Registration</h1>
-<p>The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email &amp; password) for the ConsCent Client Dashboard on the email they chose to register with.</p>
+<p>The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email &amp; password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the &#39;price&#39;, &#39;duration&#39; and optionally geolocation overrides if the client wants geo-fenced pricing options.This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn&#39;t register the content with ConsCent via API. (Price values are in INR)</p>
 
 <p>By logging in to your ConsCent Client Dashboard and navigating to the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Integrations Page</a>. You will be able to view your active ClientId, API Key and API Secret.</p>
 <h1 id='using-conscent'>Using ConsCent</h1>
@@ -386,22 +394,25 @@
   <li>
     Production Environment: 
     <ul>
-      <li>API_URL:  Coming Soon!</li>
-      <li>SDK_URL:  Coming Soon!</li>
+      <li>API_URL:  https://api.conscent.in</li>
+      <li>SDK_URL:  https://sdk.conscent.in</li>
     </ul>
   </li>
 </ul>
 
 <ul>
-<li>Now you can start registering your premium content stories with ConsCent! Call the <a href="#create-story">Create Story API</a> for any story that you wish to register with ConsCent.</li>
+<li><p>If you wish to ONLY use blanket pricing - which allows you to set all your premium stories at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing stories steps and move on to integrating the paywall on all your premium content pages.</p></li>
+<li><p>Any content that you don&#39;t register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.</p></li>
+<li><p>Now you can start registering your premium content stories with ConsCent! Call the <a href="#create-story">Create Story API</a> for any story that you wish to register with ConsCent.</p></li>
 </ul>
 
 <p>Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages.</p>
 
 <ul>
-<li><p>Follow the steps in the <a href="#web-integration">Web Integration Section</a> to add the ConsCent paywall to all the premium story pages on your website.</p></li>
-<li><p>Additionally, Follow the steps in the <a href="#react-native-integration">React Native Integration Section</a> to add the ConsCent paywall to all the premium story pages on your Android/iOS application.</p></li>
+<li>Follow the steps in the <a href="#web-integration">Web Integration Section</a> to add the ConsCent paywall to all the premium story pages on your website.</li>
 </ul>
+
+<!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. -->
 
 <p>Ensuring that the paywall appears each time a premium story is opened, as well as allowing users to purchase stories via ConsCent.</p>
 
@@ -409,7 +420,7 @@
 <li>Next, you need to call the <a href="#validate-story-read">Validate Story Read API</a> using the recieved &quot;readId&quot; in the successCallback response, when a user purchases the client&#39;s story via ConsCent - which will assist the client in authenticating valid and unique transactions on their stories.</li>
 </ul>
 
-<p>Integrating the paywall allows the users to purchase the Client&#39;s Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories registered with ConsCent.</p>
+<p>Integrating the paywall allows the users to purchase the Client&#39;s Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories.</p>
 
 <ul>
 <li><p>To view a list of all the client&#39;s stories registered on ConsCent via the <a href="#view-all-stories">View All Stories API</a>.</p></li>
@@ -458,7 +469,10 @@ csc('init', {
   debug: true, // can be set to false to remove sdk non-error log output
   storyId: storyId,
   subscriptionUrl: {clientSubscriptionUrl},
+  signInUrl: {clientSignInUrl},
   clientId: clientId,
+  title: storyTitle,
+  isMobile: 'false',
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
   fullScreenMode: 'false', // if set to true, the entire screen will be covered
@@ -501,7 +515,9 @@ csc('init', {
 <ul>
 <li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
 <li><p>The &#39;storyId&#39; which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.</p></li>
+<li><p>The &#39;title&#39; which should be the Story Title by which the particular story is registered with in the Client CMS.</p></li>
 <li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.</p></li>
+<li><p>You can optionally provide the &#39;signInUrl&#39; which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</p></li>
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
 <li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
 </ul>
@@ -514,130 +530,110 @@ csc('init', {
     &quot;payload&quot;: {
         &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
         &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-        &quot;transactionAmount&quot;: 5,
-        &quot;earningAmount&quot;: 4,
         &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
     },
     &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
+    &quot;signature&quot;: &quot;74h9xm2479m7x792nxx247998975393x08y9hubrufyfy3348oqpqqpyg78fhfurifr3&quot;,
 }
 </code></p>
 
-<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which will be used to verify each unique transaction by a user on the clients registered stories with ConsCent. Moreover, the payload contains the &#39;transactionAmount&#39; that the user pays for the story as well as the &#39;earningAmount&#39; that the client earns for each of their stories that a user purchases through ConsCent.</p>
+<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which will be used to verify each unique transaction by a user on the clients stories with ConsCent.</p>
 
 <p>Calling the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.</p>
 
-<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, and createdAt (Date of Read/Transaction); </p>
  
 
 <p>If the case arrives when the user tries to purchase a story via ConsCent on the client&#39;s website and the transaction fails. The client can handle that case as well in a &#39;failedCallback&#39; function or redirect to any page - as the Client wishes.</p>
 
 <p>Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story.</p>
-<h1 id='react-native-integration'>React Native Integration</h1>
-<p>This section covers integrating the ConsCent paywall into your react native application. This works for both iOS and Android.</p>
 
-<p>You start by including ConsCent&#39;s React Native plugin. Using the following command</p>
+<!-- # React Native Integration
+
+This section covers integrating the ConsCent paywall into your react native application. This works for both iOS and Android.
+
+You start by including ConsCent's React Native plugin. Using the following command
 
 <p class = 'instruction-bg'>
 npm i -s react-native-conscent
 </p>
 
-<p>This is a package written in react-native with no native code - it is a pure javascript implementation and can be used in both iOS and Android applications with no extra configuration.</p>
+This is a package written in react-native with no native code - it is a pure javascript implementation and can be used in both iOS and Android applications with no extra configuration.
 
-<blockquote>
-<p>Include ConsCent Paywall on Premium Content Story Page of your Android/iOS Application:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>import Conscent from 'react-native-conscent';
+> Include ConsCent Paywall on Premium Content Story Page of your Android/iOS Application:
+
+```
+import Conscent from 'react-native-conscent';
 
 export default function App() {
   return (
     // When you want to render conscent's paywall, simply use the Conscent component
-    &lt;View style={{ flex: 1 }}&gt;
-      &lt;Conscent
+    <View style={{ flex: 1 }}>
+      <Conscent
         clientId="your-client-id"
         storyId="your-story-id"
         successCallback={successCallback}
-        subscriptionUrl="https://https://www.yoursite.com/yourstory"
+        subscriptionUrl="https://www.yoursite.com/yourstory"
+        signInUrl="https://www.yoursite.com/login"
         subscriptionCallback={subscriptioncallback}
         mode="sandbox"
-      /&gt;
-    &lt;/View&gt;
+      />
+    </View>
   );
 }
-</code></pre></div>
-<p>You can get your ConsCent Client Id from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard - as mentioned in the <a href="#registration">Registration Section</a>.</p>
+```
+
+You can get your ConsCent Client Id from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard - as mentioned in the [Registration Section](#registration).
 
 <p class = 'function-params'> Function Parameters </p>
 
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>clientId</td>
-<td>Retrieved from the Integrations Page on the Client Dashboard</td>
-</tr>
-<tr>
-<td>storyId</td>
-<td>Story Id by which the Story has been registered on the Client CMS</td>
-</tr>
-<tr>
-<td>successCallback</td>
-<td>Function which will receive the success payload. See the success payload structure below.</td>
-</tr>
-<tr>
-<td>subscriptionUrl</td>
-<td>You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked</td>
-</tr>
-<tr>
-<td>subscriptionCallback</td>
-<td>function which receives no arguments. This function is called when the user clicks the subscribe button</td>
-</tr>
-<tr>
-<td>mode</td>
-<td>either &#39;sandbox&#39; or &#39;production&#39; based on your credentials</td>
-</tr>
-</tbody></table>
+| Parameter            | Description                                                                                                                                                     |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| clientId             | Retrieved from the Integrations Page on the Client Dashboard                                                                                                    |
+| storyId              | Story Id by which the Story has been registered on the Client CMS                                                                                               |
+| successCallback      | Function which will receive the success payload. See the success payload structure below.                                                                       |
+| subscriptionUrl      | You may either set the subscriptionUrl or the subscriptionCallback. subscriptionUrl will open the given url in the browser when the subscribe button is clicked |
+| signInUrl      | You can optionally provide the link to the login page for already subscribed users on the clients platform - in cases when a previously subscribed user would like to access premium content using their login credentials. Doing this will add a "Sign in here" text to be displayed below the "Subscribe" button. |
+| subscriptionCallback | function which receives no arguments. This function is called when the user clicks the subscribe button                                                         |
+| mode                 | either 'sandbox' or 'production' based on your credentials                                                                                                      |
 
-<p>In order to show the ConsCent paywall before your premium content, you need to include the &lt;Conscent &gt; component with the required props. Usually, you would like to show the paywall before your registered premium stories to users who haven&#39;t subscribed to your service.</p>
+In order to show the ConsCent paywall before your premium content, you need to include the &lt;Conscent &gt; component with the required props. Usually, you would like to show the paywall before your registered premium stories to users who haven't subscribed to your service.
 
 <p class = 'instruction-bg'>An example of how to initiate the paywall is show on the right-hand side. Include the &lt;Conscent &gt; component with the required props.</p>
 
-<p>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the &#39;successCallback&#39; function you have provided as a prop will be called containing an object shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before recently.</p>
+Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - the 'successCallback' function you have provided as a prop will be called containing an object shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before recently.
 
-<p>Additionally, you must set either the Subscription URL or the Subscription Callback function to determine the what happens when the user clicks on the &#39;Subscribe&#39; button present on the conscent paywall and instead of paying per view.</p>
+Additionally, you must set either the Subscription URL or the Subscription Callback function to determine the what happens when the user clicks on the 'Subscribe' button present on the conscent paywall and instead of paying per view.
 
-<p><code> 
+<code> 
 {
-    &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
-    &quot;payload&quot;: {
-        &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
-        &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
-        &quot;transactionAmount&quot;: 5,
-        &quot;earningAmount&quot;: 4,
-        &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
+    "message": "Story Purchased Successfully",
+    "payload": {
+        "clientId": "5fbb40b07dd98b0e89d90a25",
+        "storyId": "Client Story Id 5",
+        "transactionAmount": 5,
+        "earningAmount": 4,
+        "createdAt": "2020-12-29T05:51:31.116Z"
     },
-    &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
+    "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
 }
-</code></p>
+</code>
 
-<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. Moreover, the payload contains the &#39;transactionAmount&#39; that the user pays for the story as well as the &#39;earningAmount&#39; that the client earns for each of their stories that a user purchases through ConsCent.</p>
+The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which can be used to verify each unique transaction by a user on the clients registered stories on ConsCent. Moreover, the payload contains the 'transactionAmount' that the user pays for the story as well as the 'earningAmount' that the client earns for each of their stories that a user purchases through ConsCent.
 
-<p>Call the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response to verify that the transaction was unique and valid. The validate story read endpoint can only be used once per readId to ensure authenticity. Basically, readId functions as a one-time token.</p>
+Call the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response to verify that the transaction was unique and valid. The validate story read endpoint can only be used once per readId to ensure authenticity. Basically, readId functions as a one-time token.
 
 <p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
 
 <p class='instruction-bg'>If any field  received in the success callback payload doesn't match the backend data, it is a fraudulent transaction & access to the premium content must not be provided</p>
  
+Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.
 
-<p>Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.</p>
-
-<p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p>
+<p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
 <h1 id='api-introduction'>API Introduction</h1>
 <p>Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create stories, verify story payment etc.</p>
 
-<p>We have language bindings in Shell (cURL), Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>ConsCent uses API keys to allow access to the API for the Client to Create and Register a Story with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a>. Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.</p>
 
@@ -662,7 +658,28 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">storyId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">testingID For Client</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">Test story for API functionality</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2"> : 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2"> : 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yourstory,</span><span class="se">\"\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">authorId</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">optional-unique-author-id</span><span class="se">\"</span><span class="s2">,  </span><span class="se">\"</span><span class="s2">authorName</span><span class="se">\"</span><span class="s2"> : </span><span class="se">\"</span><span class="s2">optional-author-name</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "storyId" : "testingID For Client",
+    "title" : "Test story for API functionality",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    }
+  }'</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -681,21 +698,26 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "storyId" : "testingID For Client",
     "title" : "Test story for API functionality",
     "price" : 1,
-    "duration" : 2,
-    "url": "https://www.yoursite.com/yourstory",
-    "authorName": "optional-author-name",
-    "authorId": "optional-unique-author-id"
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-  <span class="na">storyId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yourstory</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">authorName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">optional-author-name</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">authorId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">optional-unique-author-id</span><span class="dl">"</span><span class="p">,</span>
-<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">storyId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">5</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
@@ -720,18 +742,36 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional-author-name"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"optional-unique-author-id"</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL and Price. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
+<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the story in the relevant country. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price &amp; priceOverrides of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/story</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -779,10 +819,15 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>optional</td>
 <td>Name of the Author of the story</td>
 </tr>
+<tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — A story must be registered by including all the fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
+Remember — A story must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
 </aside>
 <h2 id='edit-story'>Edit Story</h2>
 <blockquote>
@@ -802,7 +847,28 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s2">"{\n    </span><span class="se">\"</span><span class="s2">title</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Client Story Id Test Edit</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">duration</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">url</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">https://www.yoursite.com/yournewstory,</span><span class="se">\"\n\"</span><span class="s2">authorName</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">changed-author-name</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n\"</span><span class="s2">authorId</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">changed-unique-author-id</span><span class="se">\"\n</span><span class="s2">}"</span><span class="p">,</span>
+   <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "storyId" : "testingID For Client",
+    "title" : "Test story for API functionality Edited",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    }
+}'</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
     <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
     <span class="s2">"Content-Type: application/json"</span>
@@ -818,22 +884,29 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{
-    "title": "Client Story Id Test Edit",
-    "price": 1,
-    "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory",
-    "authorName": "changed-author-name",
-    "authorId": "changed-unique-author-id"
+    "storyId" : "testingID For Client",
+    "title" : "Test story for API functionality Edited",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Client Story Id Test Edit</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="na">duration</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.yoursite.com/yournewstory</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">authorName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">changed-author-name</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">authorId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">changed-unique-author-id</span><span class="dl">"</span><span class="p">,</span>
-<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">storyId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test story for API functionality Edited</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">,</span>
@@ -860,17 +933,36 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Edited Successfully"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"editedStory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edited"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewstory"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-unique-author-id"</span><span class="w">
+    </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-unique-author-id"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, URL and duration. Story ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, priceOverrides, URL and duration. Story ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/story/{storyId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -925,10 +1017,15 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <td>optional</td>
 <td>Name of the Author of the story</td>
 </tr>
+<tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a story - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
 <h2 id='view-all-stories'>View All Stories</h2>
 <blockquote>
@@ -989,7 +1086,16 @@ Remember — Either/All of the fields of a story - title, price, URL, authorName
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 11"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
@@ -1092,7 +1198,16 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 6"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, URL and duration.</p>
@@ -1165,14 +1280,14 @@ API to retrieve the details of an individual story registered by the client on C
     </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fbb40b07dd98b0e89d90a25"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"transactionAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-15T13:55:36.659Z"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"readId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="w">
+    </span><span class="nl">"readId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4379hrm47mo34m2340cny2rcn487cn209842cr474107nc409c4"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Validate the Story Details anytime a User Purchases a Story of the Client using ConsCent - with the Client passing the Story ID in the request and recieving details regarding the Story Id, Transaction Amount and Date of Purchase of the Story by the User, as well as matching the unique Read Id to ensure it cannot be reused.</p>
+<p>This endpoint allows the Client to Validate the Story Details anytime a User Purchases a Story of the Client using ConsCent - with the Client passing the Story ID in the request and recieving details regarding the Story Id and the Date of Purchase of the Story by the User, as well as matching the unique Read Id to ensure it cannot be reused.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/story/read/{readId}</code></p>
 
@@ -1195,6 +1310,588 @@ API to retrieve the details of an individual story registered by the client on C
 <aside class="notice">
 Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
 </aside>
+<h1 id='client-stats'>Client Stats</h1><h2 id='daily-story-stats'>Daily Story Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">get</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> 
+    <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==</span><span class="dl">'</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"totalStoriesRead"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalRevenueGenerated"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.6</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their stories via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. </p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
+<h3 id='authorization-5'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>optional</td>
+<td>ISO date string from which the aggregated stats have to be calculated</td>
+</tr>
+<tr>
+<td>to</td>
+<td>optional</td>
+<td>ISO date string till which the aggregated stats have to be calculated</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their stories by users via ConsCent.
+</aside>
+<h1 id='country-code-list'>Country Code List</h1>
+<p>Afghanistan - AF</p>
+
+<p>Åland Islands  - AX</p>
+
+<p>Albania - AL</p>
+
+<p>Algeria - DZ</p>
+
+<p>American Samoa - AS</p>
+
+<p>Andorra - AD</p>
+
+<p>Angola  - AO</p>
+
+<p>Anguilla    - AI</p>
+
+<p>Antarctica  - AQ</p>
+
+<p>Antigua and Barbuda - AG</p>
+
+<p>Argentina   - AR</p>
+
+<p>Armenia - AM</p>
+
+<p>Aruba   - AW</p>
+
+<p>Australia   - AU</p>
+
+<p>Austria - AT</p>
+
+<p>Azerbaijan  - AZ</p>
+
+<p>Bahrain - BH</p>
+
+<p>Bahamas - BS</p>
+
+<p>Bangladesh  - BD</p>
+
+<p>Barbados    - BB</p>
+
+<p>Belarus - BY</p>
+
+<p>Belgium - BE</p>
+
+<p>Belize  - BZ</p>
+
+<p>Benin   - BJ</p>
+
+<p>Bermuda - BM</p>
+
+<p>Bhutan  - BT</p>
+
+<p>Bolivia, Plurinational State of - BO</p>
+
+<p>Bonaire, Sint Eustatius and Saba    - BQ</p>
+
+<p>Bosnia and Herzegovina  - BA</p>
+
+<p>Botswana    - BW</p>
+
+<p>Bouvet Island   - BV</p>
+
+<p>Brazil  - BR</p>
+
+<p>British Indian Ocean Territory  - IO</p>
+
+<p>Brunei Darussalam   - BN</p>
+
+<p>Bulgaria    - BG</p>
+
+<p>Burkina Faso    - BF</p>
+
+<p>Burundi - BI</p>
+
+<p>Cambodia    - KH</p>
+
+<p>Cameroon    - CM</p>
+
+<p>Canada  - CA</p>
+
+<p>Cape Verde  - CV</p>
+
+<p>Cayman Islands  - KY</p>
+
+<p>Central African Republic    - CF</p>
+
+<p>Chad    - TD</p>
+
+<p>Chile   - CL</p>
+
+<p>China   - CN</p>
+
+<p>Christmas Island    - CX</p>
+
+<p>Cocos (Keeling) Islands - CC</p>
+
+<p>Colombia    - CO</p>
+
+<p>Comoros - KM</p>
+
+<p>Congo   - CG</p>
+
+<p>Congo, the Democratic Republic of the   - CD</p>
+
+<p>Cook Islands    - CK</p>
+
+<p>Costa Rica  - CR</p>
+
+<p>Côte d&#39;Ivoire  - CI</p>
+
+<p>Croatia - HR</p>
+
+<p>Cuba    - CU</p>
+
+<p>Curaçao    - CW</p>
+
+<p>Cyprus  - CY</p>
+
+<p>Czech Republic  - CZ</p>
+
+<p>Denmark - DK</p>
+
+<p>Djibouti    - DJ</p>
+
+<p>Dominica    - DM</p>
+
+<p>Dominican Republic  - DO</p>
+
+<p>Ecuador - EC</p>
+
+<p>Egypt   - EG</p>
+
+<p>El Salvador - SV</p>
+
+<p>Equatorial Guinea   - GQ</p>
+
+<p>Eritrea - ER</p>
+
+<p>Estonia - EE</p>
+
+<p>Ethiopia    - ET</p>
+
+<p>Falkland Islands (Malvinas) - FK</p>
+
+<p>Faroe Islands   - FO</p>
+
+<p>Fiji    - FJ</p>
+
+<p>Finland - FI</p>
+
+<p>France  - FR</p>
+
+<p>French Guiana   - GF</p>
+
+<p>French Polynesia    - PF</p>
+
+<p>French Southern Territories - TF</p>
+
+<p>Gabon   - GA</p>
+
+<p>Gambia  - GM</p>
+
+<p>Georgia - GE</p>
+
+<p>Germany - DE</p>
+
+<p>Ghana   - GH</p>
+
+<p>Gibraltar   - GI</p>
+
+<p>Greece  - GR</p>
+
+<p>Greenland   - GL</p>
+
+<p>Grenada - GD</p>
+
+<p>Guadeloupe  - GP</p>
+
+<p>Guam    - GU</p>
+
+<p>Guatemala   - GT</p>
+
+<p>Guernsey    - GG</p>
+
+<p>Guinea  - GN</p>
+
+<p>Guinea-Bissau   - GW</p>
+
+<p>Guyana  - GY</p>
+
+<p>Haiti   - HT</p>
+
+<p>Heard Island and McDonald Islands   - HM</p>
+
+<p>Holy See (Vatican City State)   - VA</p>
+
+<p>Honduras    - HN</p>
+
+<p>Hong Kong   - HK</p>
+
+<p>Hungary - HU</p>
+
+<p>Iceland - IS</p>
+
+<p>India   - IN</p>
+
+<p>Indonesia   - ID</p>
+
+<p>Iran, Islamic Republic of   - IR</p>
+
+<p>Iraq    - IQ</p>
+
+<p>Ireland - IE</p>
+
+<p>Isle of Man - IM</p>
+
+<p>Israel  - IL</p>
+
+<p>Italy   - IT</p>
+
+<p>Jamaica - JM</p>
+
+<p>Japan   - JP</p>
+
+<p>Jersey  - JE</p>
+
+<p>Jordan  - JO</p>
+
+<p>Kazakhstan  - KZ</p>
+
+<p>Kenya   - KE</p>
+
+<p>Kiribati    - KI</p>
+
+<p>Korea, Democratic People&#39;s Republic of  - KP</p>
+
+<p>Korea, Republic of  - KR</p>
+
+<p>Kuwait  - KW</p>
+
+<p>Kyrgyzstan  - KG</p>
+
+<p>Lao People&#39;s Democratic Republic    - LA</p>
+
+<p>Latvia  - LV</p>
+
+<p>Lebanon - LB</p>
+
+<p>Lesotho - LS</p>
+
+<p>Liberia - LR</p>
+
+<p>Libya   - LY</p>
+
+<p>Liechtenstein   - LI</p>
+
+<p>Lithuania   - LT</p>
+
+<p>Luxembourg  - LU</p>
+
+<p>Macao   - MO</p>
+
+<p>Macedonia, the Former Yugoslav Republic of  - MK</p>
+
+<p>Madagascar  - MG</p>
+
+<p>Malawi  - MW</p>
+
+<p>Malaysia    - MY</p>
+
+<p>Maldives    - MV</p>
+
+<p>Mali    - ML</p>
+
+<p>Malta   - MT</p>
+
+<p>Marshall Islands    - MH</p>
+
+<p>Martinique  - MQ</p>
+
+<p>Mauritania  - MR</p>
+
+<p>Mauritius   - MU</p>
+
+<p>Mayotte - YT</p>
+
+<p>Mexico  - MX</p>
+
+<p>Micronesia, Federated States of - FM</p>
+
+<p>Moldova, Republic of    - MD</p>
+
+<p>Monaco  - MC</p>
+
+<p>Mongolia    - MN</p>
+
+<p>Montenegro  - ME</p>
+
+<p>Montserrat  - MS</p>
+
+<p>Morocco - MA</p>
+
+<p>Mozambique  - MZ</p>
+
+<p>Myanmar - MM</p>
+
+<p>Namibia - NA</p>
+
+<p>Nauru   - NR</p>
+
+<p>Nepal   - NP</p>
+
+<p>Netherlands - NL</p>
+
+<p>New Caledonia   - NC</p>
+
+<p>New Zealand - NZ</p>
+
+<p>Nicaragua   - NI</p>
+
+<p>Niger   - NE</p>
+
+<p>Nigeria - NG</p>
+
+<p>Niue    - NU</p>
+
+<p>Norfolk Island  - NF</p>
+
+<p>Northern Mariana Islands    - MP</p>
+
+<p>Norway  - NO</p>
+
+<p>Oman    - OM</p>
+
+<p>Pakistan    - PK</p>
+
+<p>Palau   - PW</p>
+
+<p>Palestine, State of - PS</p>
+
+<p>Panama  - PA</p>
+
+<p>Papua New Guinea    - PG</p>
+
+<p>Paraguay    - PY</p>
+
+<p>Peru    - PE</p>
+
+<p>Philippines - PH</p>
+
+<p>Pitcairn    - PN</p>
+
+<p>Poland  - PL</p>
+
+<p>Portugal    - PT</p>
+
+<p>Puerto Rico - PR</p>
+
+<p>Qatar   - QA</p>
+
+<p>Réunion    - RE</p>
+
+<p>Romania - RO</p>
+
+<p>Russian Federation  - RU</p>
+
+<p>Rwanda  - RW</p>
+
+<p>Saint Barthélemy   - BL</p>
+
+<p>Saint Helena, Ascension and Tristan da Cunha    - SH</p>
+
+<p>Saint Kitts and Nevis   - KN</p>
+
+<p>Saint Lucia - LC</p>
+
+<p>Saint Martin (French part)  - MF</p>
+
+<p>Saint Pierre and Miquelon   - PM</p>
+
+<p>Saint Vincent and the Grenadines    - VC</p>
+
+<p>Samoa   - WS</p>
+
+<p>San Marino  - SM</p>
+
+<p>Sao Tome and Principe   - ST</p>
+
+<p>Saudi Arabia    - SA</p>
+
+<p>Senegal - SN</p>
+
+<p>Serbia  - RS</p>
+
+<p>Seychelles  - SC</p>
+
+<p>Sierra Leone    - SL</p>
+
+<p>Singapore   - SG</p>
+
+<p>Sint Maarten (Dutch part)   - SX</p>
+
+<p>Slovakia    - SK</p>
+
+<p>Slovenia    - SI</p>
+
+<p>Solomon Islands - SB</p>
+
+<p>Somalia - SO</p>
+
+<p>South Africa    - ZA</p>
+
+<p>South Georgia and the South Sandwich Islands    - GS</p>
+
+<p>South Sudan - SS</p>
+
+<p>Spain   - ES</p>
+
+<p>Sri Lanka   - LK</p>
+
+<p>Sudan   - SD</p>
+
+<p>Suriname    - SR</p>
+
+<p>Svalbard and Jan Mayen  - SJ</p>
+
+<p>Swaziland   - SZ</p>
+
+<p>Sweden  - SE</p>
+
+<p>Switzerland - CH</p>
+
+<p>Syrian Arab Republic    - SY</p>
+
+<p>Taiwan, Province of China   - TW</p>
+
+<p>Tajikistan  - TJ</p>
+
+<p>Tanzania, United Republic of    - TZ</p>
+
+<p>Thailand    - TH</p>
+
+<p>Timor-Leste - TL</p>
+
+<p>Togo    - TG</p>
+
+<p>Tokelau - TK</p>
+
+<p>Tonga   - TO</p>
+
+<p>Trinidad and Tobago - TT</p>
+
+<p>Tunisia - TN</p>
+
+<p>Turkey  - TR</p>
+
+<p>Turkmenistan    - TM</p>
+
+<p>Turks and Caicos Islands    - TC</p>
+
+<p>Tuvalu  - TV</p>
+
+<p>Uganda  - UG</p>
+
+<p>Ukraine - UA</p>
+
+<p>United Arab Emirates    - AE</p>
+
+<p>United Kingdom  - GB</p>
+
+<p>United States   - US</p>
+
+<p>United States Minor Outlying Islands    - UM</p>
+
+<p>Uruguay - UY</p>
+
+<p>Uzbekistan  - UZ</p>
+
+<p>Vanuatu - VU</p>
+
+<p>Venezuela, Bolivarian Republic of   - VE</p>
+
+<p>Viet Nam    - VN</p>
+
+<p>Virgin Islands, British - VG</p>
+
+<p>Virgin Islands, U.S.    - VI</p>
+
+<p>Wallis and Futuna   - WF</p>
+
+<p>Western Sahara  - EH</p>
+
+<p>Yemen   - YE</p>
+
+<p>Zambia  - ZM</p>
+
+<p>Zimbabwe    - ZW</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
