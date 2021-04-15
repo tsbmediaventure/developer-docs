@@ -1497,6 +1497,91 @@ The client will recieve a payload when a story is purchased via ConsCent - provi
 Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
 </aside>
 
+<!-- # Validate Content Consumption
+
+## Validate Content Details By Consumption ID
+
+> Replace the {consumptionId} in the API path with the actual value/string of the consumptionId recieved
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/consumption/11c369df-2a30-4a0d-90dc-5a45797dacdd",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```shell
+curl -X POST '{API_URL}/api/v1/content/consumption/{consumptionId}'
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "post",
+  url: "{API_URL}/api/v1/content/consumption/{consumptionId}",
+  headers: {},
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+[
+  {
+    "message": "Content Consumption Confirmed",
+    "payload": {
+      "clientId": "5fbb40b07dd98b0e89d90a25",
+      "contentId": "Client Content Id",
+      "createdAt": "2020-11-15T13:55:36.659Z"
+    },
+    "consumptionId": "11c369df-2a30-4a0d-90dc-5a45797dacdd",
+    "signature": "4379hrm47mo34m2340cny2rcn487cn209842cr474107nc409c4"
+  }
+]
+```
+
+This endpoint allows the Client to Validate the Content Details anytime a User Purchases a Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/content/consumption/{consumptionId}`
+
+The client will recieve a payload when a content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.
+
+### URL Parameters
+
+| Parameter | Default  | Description                                                                                                       |
+| --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| consumptionId    | required | consumptionId recieved by the client for each unique transaction on any of the Client's Content registered with ConsCent |
+
+<aside class="notice">
+Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
+</aside> -->
+
 # Client Stats
 
 ## Daily Story Stats
