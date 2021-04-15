@@ -857,6 +857,561 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 API to retrieve the details of an individual story registered by the client on ConsCent. 
 </aside>
 
+<!-- # Client Content
+
+## Create Content
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS =>'{
+    "contentId" : "testingID For Client",
+    "title" : "Test content for API functionality",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    }
+  }',
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X POST '{API_URL}/api/v1/content/' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "contentId" : "testingID For Client",
+    "title" : "Test content for API functionality",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    }
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({"contentId":"testingID For Client","title":"Test content for API functionality","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":3},{"name":"IN","price":5},{"name":"US","price":7}]}});
+
+var config = {
+  method: "post",
+  url: "{API_URL}/api/v1/content/",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "message": "New Content Created!",
+    "content": {
+        "title": "Test story for API functionality",
+        "price": 1,
+        "contentId": "testingID For Client",
+        "duration": 1,
+        "url": "www.google.com",
+        "priceOverrides": {
+            "country": [
+                {
+                    "_id": "605b25824646e9233aef61b4",
+                    "name": "GL",
+                    "price": 3
+                },
+                {
+                    "_id": "605b25824646e9233aef61b5",
+                    "name": "IN",
+                    "price": 5
+                },
+                {
+                    "_id": "605b25824646e9233aef61b6",
+                    "name": "US",
+                    "price": 7
+                }
+            ]
+        }
+    }
+}
+```
+
+This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a User on ConsCent, then that User can have free access to the content for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price & priceOverrides of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/content`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### Request Body
+
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| contentId    | required | Content Id by which the Content has been registered on the Client CMS                                   |
+| title      | required | Title of the Content                                                                                  |
+| price      | required | Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | required | URL where the content is available on your website                                                    |
+| duration   | required | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the content - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the content                                                                     |
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
+
+<aside class="notice">
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title, price (Pay per View Price), content URL and duration for which the user can access the content after purchasing it.
+</aside>
+
+## Edit Content
+
+> Please ensure you URL encode the contentId in the Path Parameters
+> Replace the {contentId} in the API path with your actual Content Id
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/Client%20Story%20Id%2011",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "PATCH",
+   CURLOPT_POSTFIELDS =>'{
+    "contentId" : "testingID For Client",
+    "title" : "Test content for API functionality Edited",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    }
+}',
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "contentId" : "testingID For Client",
+    "title" : "Test content for API functionality Edited",
+    "price" : 1,
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    }
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({"contentId":"testingID For Client","title":"Test content for API functionality Edited","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":2},{"name":"IN","price":1},{"name":"US","price":0}]}});
+
+var config = {
+  method: "patch",
+  url: "{API_URL}/api/v1/content/{contentId}",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "Content Edited Successfully",
+  "editedContent": {
+    "title": "Client Content Id Test Edited",
+    "contentId": "testingID For Client",
+    "price": 1,
+    "duration": 2,
+    "url": "https://www.yoursite.com/yournewstory",
+    "authorName": "changed-author-name",
+    "authorId": "changed-unique-author-id",
+    "priceOverrides": {
+            "country": [
+                {
+                    "_id": "605b25824646e9233aef61b4",
+                    "name": "GL",
+                    "price": 2
+                },
+                {
+                    "_id": "605b25824646e9233aef61b5",
+                    "name": "IN",
+                    "price": 1
+                },
+                {
+                    "_id": "605b25824646e9233aef61b6",
+                    "name": "US",
+                    "price": 0
+                }
+            ]
+        }
+  }
+}
+```
+
+This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, priceOverrides, URL and duration. Content ID CANNOT be edited!
+
+### HTTP Request
+
+`PATCH {API_URL}/api/v1/content/{contentId}`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| contentId   | The ID of the Content you wish to edit ( Ensure its URL Encoded) |
+
+### Request Body
+
+| Parameter  | Default  | Description                                                                                         |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
+| title      | optional | Title of the Content                                                                                  |
+| price      | optional | Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
+| url        | optional | URL where the content is available on your website                                                    |
+| duration   | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day); |
+| authorId   | optional | Id of the Author of the content - Mandatory if authorName is present                                  |
+| authorName | optional | Name of the Author of the content                                                                     |
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
+
+<aside class="notice">
+Remember — Either/All of the fields of a content - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that content price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+</aside>
+
+## View All Content
+
+> API to retrieve all of the client's content registered on ConsCent.
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/client",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+curl -X GET '{API_URL}/api/v1/content/client' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/content/client",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "content": [
+    {
+      "title": "Client Content Id Test Edit 1",
+      "contentId": "Client Content Id 11",
+      "price": 1,
+      "duration": 2,
+      "url": "https://www.yoursite.com/yourstory",
+      "priceOverrides": {
+            "country": [
+                {
+                    "_id": "605b25824646e9233aef61b4",
+                    "name": "GL",
+                    "price": 2
+                },
+            ]
+        }
+    },
+    {
+      "title": "Test content for API functionality",
+      "contentId": "testingID31 - bhileknwlq",
+      "price": 3,
+      "duration": 2,
+      "url": "https://www.yoursite.com/yourstory"
+    }
+  ],
+  "pagination": {
+    "pageNumber": 1,
+    "pageSize": 20,
+    "totalRecords": 2,
+    "totalPages": 1
+  }
+}
+```
+
+This endpoint allows the Client to view their entire collection of Registered Content on ConsCent. With each retrieved content containing the following details - Title, Price, URL, Content ID and duration.
+
+### HTTP Request
+
+`GET {API_URL}/api/v1/content/client`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter  | Default  | Description                                                                                                                                  |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| pageNumber | optional | Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY. |
+| pageSize   | optional | Pagination Parameters - the number of stories to retrieve on each page (default = 20).                                                       |
+
+<aside class="notice">
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content that isn't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+</aside>
+
+## View Content Details
+
+> Please ensure you URL encode the contentId in the Path Parameters
+> Replace the {contentId} in the API path with your actual Content Id
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/client/Client%20Story%20Id%206",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X GET '{API_URL}/api/v1/content/client/Client%20Story%20Id%206' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/content/client/Client%20Story%20Id%206",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "title": "Tesla Tequila",
+  "contentId": "Client Story Id 6",
+  "price": 1,
+  "url": "https://www.yoursite.com/yourstory",
+  "duration": 1,
+  "priceOverrides": {
+            "country": [
+                {
+                    "_id": "605b25824646e9233aef61b4",
+                    "name": "GL",
+                    "price": 2
+                },
+            ]
+        }
+}
+```
+
+This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, URL and duration.
+
+### HTTP Request
+
+`GET {API_URL}/api/v1/content/client/{contentId}`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter | Description                                                              |
+| --------- | ------------------------------------------------------------------------ |
+| contentId   | The ID of the Content you wish to retrieve (Please ensure its URL Encoded) |
+
+<aside class="notice">
+API to retrieve the details of an individual content registered by the client on ConsCent. 
+</aside> -->
+
 # Validate Story Read
 
 ## Validate Story Details By Read ID
