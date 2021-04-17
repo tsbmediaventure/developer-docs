@@ -61,7 +61,7 @@ Once you have registered your digital content on ConsCent, you need to integrate
 
 - Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium content pages on your website.
 
-<!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. -->
+<!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium content pages on your Android/iOS application. -->
 
 Ensuring that the paywall appears each time any premium content is opened, as well as allowing users to purchase the content via ConsCent.
 
@@ -103,24 +103,25 @@ Integrating the paywall allows the users to purchase any of the Client's Content
 
 Integrating ConsCent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
 
-You can get your ConsCent Client Id from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard - as mentioned in the [Registration Section](#registration).
+You can get your ConsCent Client Id from the [Client Integrations Page](https://client.conscent.in/dashboard/integration) of the ConsCent Client Dashboard - as mentioned in the [Registration Section](#registration).
 
-<p class = 'instruction-bg'>Including this code in the header section allows the ConsCent Paywall to be initalised and further used whenever required on a Premium Content Story Page. </p>
+<p class = 'instruction-bg'>Including this code in the header section allows the ConsCent Paywall to be initalised and further used whenever required on any Premium Content Page. </p>
 
-<p class = 'instruction-bg'>Finally, In order to ensure the the ConsCent Paywall appears on all Story Pages which contain Premium Content. You need to implement the following function on the story page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium story at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your story page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
+<p class = 'instruction-bg'>Finally, In order to ensure that the ConsCent Paywall appears on all pages which contain Premium Content. You need to implement the following function on the content page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium content at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your content page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
 
-> Include ConsCent Paywall on Premium Content Story Page:
+> Include ConsCent Paywall on Premium Content Content Page:
 
 ```
 const csc = window._csc;
 csc('init', {
   debug: true, // can be set to false to remove sdk non-error log output
-  storyId: storyId,
+  contentId: contentId,
   subscriptionUrl: {clientSubscriptionUrl},
   signInUrl: {clientSignInUrl},
   clientId: clientId,
-  title: storyTitle,
+  title: contentTitle,
   isMobile: 'false',
+  buttonMode,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
   fullScreenMode: 'false', // if set to true, the entire screen will be covered
@@ -133,12 +134,12 @@ csc('init', {
 async function yourSuccessCallbackFunction(validationObject: any) {
   // Function to show the premium content to the User since they have paid for it via ConsCent
   // Here you should verify the  validationObject with our backend
-  // And then you must show the user the complete story
+  // And then you must provide access to the user for the complete content
 
   // example verification code:
   console.log('Initiating verification with conscent backend');
   const xhttp = new XMLHttpRequest(); // using vanilla javascript to make a post request
-  const url = `${API_URL}/api/v1/story/read/${validationObject.readId}`;
+  const url = `${API_URL}/api/v1/content/consumption/${validationObject.consumptionId}`;
   xhttp.open('POST', url, true);
   // e is the response event
   xhttp.onload = (e) => {
@@ -146,14 +147,14 @@ async function yourSuccessCallbackFunction(validationObject: any) {
 
     // verifying that the validation received matches the backend data
     if (
-      validationObject.readId === backendConfirmationData.readId &&
+      validationObject.consumptionId === backendConfirmationData.consumptionId &&
       validationObject.payloadclientId === backendConfirmationData.payload.clientId &&
-      validationObject.payload.storyId === backendConfirmationData.payload.storyId
+      validationObject.payload.contentId === backendConfirmationData.payload.contentId
     ) {
       // Validation successful
       console.log('successful validation');
-      // showStory would be your function that will do all the actions that need to be done to show the whole story
-      showStory(true);
+      // accessContent would be your function that will do all the actions that need to be done to unlock the entire content
+      accessContent(true);
     }
   };
   xhttp.send();
@@ -162,44 +163,46 @@ async function yourSuccessCallbackFunction(validationObject: any) {
 
 We import the initalisation script using the unique '\_csc' identifier and run the 'init' function by passing a number of parameters:
 
-- The 'clientId' which is retrieved from the [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration) of the ConsCent Client Dashboard.
+- The 'clientId' which is retrieved from the [Client Integrations Page](https://client.conscent.in/dashboard/integration) of the ConsCent Client Dashboard.
 
-- The 'storyId' which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.
+- The 'contentId' which should be identical to the Content Id by which the particular content is registered with - in the Client CMS. This allows us to identify each piece of unique content for a client.
 
-- The 'title' which should be the Story Title by which the particular story is registered with in the Client CMS.
+- The 'title' which should be the Content Title by which the particular content is registered with in the Client CMS.
 
-- The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.
+- The 'subscriptionUrl' which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for accessing the premium content offered.
 
 - You can optionally provide the 'signInUrl' which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a "Sign in here" text to be displayed below the "Subscribe" button.
 
 - 'wrappingElementId' is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
 
-- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the page to be visible at all.
+- 'buttonMode' can be set to 'true' or 'false' (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the 'button' paywall can be styled from the client dashboard directly - by passing the required CSS there. 
 
- <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p>
+- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the premium content page to be visible at all once the user proceeds with the payment. 
+
+ <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p>
 
 <code> 
 {
-    "message": "Story Purchased Successfully",
+    "message": "Content Purchased Successfully",
     "payload": {
         "clientId": "5fbb40b07dd98b0e89d90a25",
-        "storyId": "Client Story Id 5",
+        "contentId": "Client Content Id 5",
         "createdAt": "2020-12-29T05:51:31.116Z"
     },
-    "readId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
+    "consumptionId": "a0c433af-a413-49e1-9f40-ce1fbd63f568",
     "signature": "74h9xm2479m7x792nxx247998975393x08y9hubrufyfy3348oqpqqpyg78fhfurifr3",
 }
 </code>
 
-The message "Story Purchased Successfully" appears in the response only when the user has purchased a story via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a "readId" field which will be used to verify each unique transaction by a user on the clients stories with ConsCent.
+The message "Content Purchased Successfully" appears in the response only when the user has purchased content via ConsCent and the "accessTimeLeft" field appears in the response only when the user has purchased the content previously and still has free access to consume the content. Moreover, the response contains a "consumptionId" field which will be used to verify each unique transaction by a user on the clients content with ConsCent.
 
-Calling the [Validate Story Read](#validate-story-read) API using the recieved "readId" in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.
+Calling the [Validate Content Consumption](#validate-content-consumption) API using the recieved "consumptionId" in the successCallback response can assist the client in authenticating valid and unique transactions on their premium content.
 
-<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Content Consumption' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Content Consumption' response allows the client to ensure each transaction of any premium content via ConsCent is validated by matching the clientId, contentId, and createdAt (Date of Consumption/Transaction); </p>
  
-If the case arrives when the user tries to purchase a story via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes.
+If the case arrives when the user tries to purchase any content via ConsCent on the client's website and the transaction fails. The client can handle that case as well in a 'failedCallback' function or redirect to any page - as the Client wishes.
 
-Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story.
+Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to provide access to the premium content purchased by the user. You can do this on the same page, or redirect the user to a different page containing the entirety of the premium content.
 
 <!-- # React Native Integration
 
@@ -482,7 +485,7 @@ Remember — A content must be registered by including all the required fields m
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/content/Client%20Story%20Id%2011",
+  CURLOPT_URL => "{API_URL}/api/v1/content/Client%20Content%20Id%2011",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -756,8 +759,8 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 | Parameter  | Default  | Description                                                                                                                                  |
 | ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| pageNumber | optional | Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY. |
-| pageSize   | optional | Pagination Parameters - the number of stories to retrieve on each page (default = 20).                                                       |
+| pageNumber | optional | Pagination Parameters - which page of the contents list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
+| pageSize   | optional | Pagination Parameters - the number of individual contents to retrieve on each page (default = 20).                                                     |
 
 <aside class="notice">
 Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content that isn't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
@@ -943,7 +946,7 @@ The client will recieve a payload when any content is purchased via ConsCent - p
 | consumptionId    | required | consumptionId recieved by the client for each unique transaction on any of the Client's Content registered with ConsCent |
 
 <aside class="notice">
-Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
+Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on any of their premium content registered with ConsCent. 
 </aside>
 
 # Client Stats
