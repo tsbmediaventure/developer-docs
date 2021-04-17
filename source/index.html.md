@@ -1040,6 +1040,12 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
 
+# Deprecated Integration Documentation 
+
+To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs). 
+
+Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have. 
+
 # Country Code List
 
 Afghanistan	- AF
