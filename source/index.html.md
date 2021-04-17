@@ -16,19 +16,19 @@ code_clipboard: true
 
 # Getting Started
 
-Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.
+Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for.
 
 You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent).
 
 # Registration
 
-The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and optionally geolocation overrides if the client wants geo-fenced pricing options.This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. (Price values are in INR)
+The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and optionally geolocation overrides if the client wants geo-fenced pricing options. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. (Price values are in INR)
 
-By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret.
+By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://client.conscent.in/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret.
 
 # Using ConsCent
 
-- In order to start creating stories on ConsCent you need to ensure you follow the [Authentication Guidelines](#authentication). ConsCent will only allow authorised clients to create, view and edit stories. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+- In order to start creating content on ConsCent you need to ensure you follow the [Authentication Guidelines](#authentication). ConsCent will only allow authorised clients to create, view and edit content. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
 
 Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you're operating in.
 
@@ -51,29 +51,29 @@ Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs 
   </li>
 </ul>
 
-- If you wish to ONLY use blanket pricing - which allows you to set all your premium stories at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing stories steps and move on to integrating the paywall on all your premium content pages.
+- If you wish to ONLY use blanket pricing - which allows you to set all your premium content at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing content steps and move on to integrating the paywall on all your premium content pages.
 
 - Any content that you don't register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.
 
-- Now you can start registering your premium content stories with ConsCent! Call the [Create Story API](#create-story) for any story that you wish to register with ConsCent.
+- Now you can start registering your premium content with ConsCent! Call the [Create Content API](#create-content) for any content that you wish to register with ConsCent.
 
-Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages.
+Once you have registered your digital content on ConsCent, you need to integrate the paywall on all your Premium Content Pages.
 
-- Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium story pages on your website.
+- Follow the steps in the [Web Integration Section](#web-integration) to add the ConsCent paywall to all the premium content pages on your website.
 
 <!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. -->
 
-Ensuring that the paywall appears each time a premium story is opened, as well as allowing users to purchase stories via ConsCent.
+Ensuring that the paywall appears each time any premium content is opened, as well as allowing users to purchase the content via ConsCent.
 
-- Next, you need to call the [Validate Story Read API](#validate-story-read) using the recieved "readId" in the successCallback response, when a user purchases the client's story via ConsCent - which will assist the client in authenticating valid and unique transactions on their stories.
+- Next, you need to call the [Validate Content Consumption API](#validate-content-consumption) using the recieved "consumptionId" in the successCallback response, when a user purchases any of the client's content via ConsCent. This will assist the client in authenticating valid and unique transactions on their premium content.
 
-Integrating the paywall allows the users to purchase the Client's Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories.
+Integrating the paywall allows the users to purchase any of the Client's Content via ConsCent at Micropriced rates. The Web Integration section includes the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Content.
 
-- To view a list of all the client's stories registered on ConsCent via the [View All Stories API](#view-all-stories).
+- To view a list of all the client's premium content registered on ConsCent you can call the [View All Content API](#view-all-content).
 
-- To view the details of an individual client story you can call the [View Story Details API](#view-story-details).
+- To view the details of any individual client content you can call the [View Content Details API](#view-content-details).
 
-- To edit any story registered with ConsCent you can call [Edit Story API](#edit-story).
+- To edit any content registered with ConsCent you can call [Edit Content API](#edit-content).
 
 # Web Integration
 
@@ -286,15 +286,15 @@ Lastly, once the transaction has been validated by the Client - whether they cho
 
 # API Introduction
 
-Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create stories, verify story payment etc.
+Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc.
 
 We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
-ConsCent uses API keys to allow access to the API for the Client to Create and Register a Story with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://ConsCent.vercel.app/client/dashboard/integration). Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.
+ConsCent uses API keys to allow access to the API for the Client to Create and Register any Content with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page [Client Integrations Page](https://client.conscent.in/dashboard/integration). Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.
 
-ConsCent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Create Story API utilised by the Client).
+ConsCent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Ex. Create Content API utilised by the Client).
 
 `Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==`
 
@@ -302,562 +302,7 @@ ConsCent expects for the API Key and Secret to be included as Basic Authenticati
 You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</code> with your personal Client API Key and Secret
 </aside>
 
-# Client Story
-
-## Create Story
-
-```php
-
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/story/",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS =>'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality",
-    "price" : 1,
-    "url": "www.google.com",
-    "priceOverrides": {
-        "country": [
-            {
-                "name": "GL",
-                "price": 3
-            },
-            {
-                "name": "IN",
-                "price": 5
-            },
-            {
-                "name": "US",
-                "price": 7
-            }
-        ]
-    }
-  }',
-  CURLOPT_HTTPHEADER => array(
-    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-    "Content-Type: application/json"
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-
-```
-
-```shell
-curl -X POST '{API_URL}/api/v1/story/' \
--H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
--H 'Content-Type: application/json' \
--d '{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality",
-    "price" : 1,
-    "url": "www.google.com",
-    "priceOverrides": {
-        "country": [
-            {
-                "name": "GL",
-                "price": 3
-            },
-            {
-                "name": "IN",
-                "price": 5
-            },
-            {
-                "name": "US",
-                "price": 7
-            }
-        ]
-    }
-}'
-```
-
-```javascript
-var axios = require("axios");
-var data = JSON.stringify({"storyId":"testingID For Client","title":"Test story for API functionality","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":3},{"name":"IN","price":5},{"name":"US","price":7}]}});
-
-var config = {
-  method: "post",
-  url: "{API_URL}/api/v1/story/",
-  headers: {
-    Authorization:
-      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-    "Content-Type": "application/json",
-  },
-  data: data,
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-    "message": "New Story Created!",
-    "story": {
-        "title": "Test story for API functionality",
-        "price": 1,
-        "storyId": "testingID For Client",
-        "duration": 1,
-        "url": "www.google.com",
-        "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 3
-                },
-                {
-                    "_id": "605b25824646e9233aef61b5",
-                    "name": "IN",
-                    "price": 5
-                },
-                {
-                    "_id": "605b25824646e9233aef61b6",
-                    "name": "US",
-                    "price": 7
-                }
-            ]
-        }
-    }
-}
-```
-
-This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the story in the relevant country. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price & priceOverrides of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
-
-### HTTP Request
-
-`POST {API_URL}/api/v1/story`
-
-### Authorization
-
-Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
-
-### Request Body
-
-| Parameter  | Default  | Description                                                                                         |
-| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| storyId    | required | Story Id by which the Story has been registered on the Client CMS                                   |
-| title      | required | Title of the Story                                                                                  |
-| price      | required | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url        | required | URL where the story is available on your website                                                    |
-| duration   | required | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
-| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
-| authorName | optional | Name of the Author of the story                                                                     |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
-
-<aside class="notice">
-Remember — A story must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
-</aside>
-
-## Edit Story
-
-> Please ensure you URL encode the storyId in the Path Parameters
-> Replace the {storyId} in the API path with your actual Story Id
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/story/Client%20Story%20Id%2011",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "PATCH",
-   CURLOPT_POSTFIELDS =>'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality Edited",
-    "price" : 1,
-    "url": "www.google.com",
-    "priceOverrides": {
-        "country": [
-            {
-                "name": "GL",
-                "price": 2
-            },
-            {
-                "name": "IN",
-                "price": 1
-            },
-            {
-                "name": "US",
-                "price": 0
-            }
-        ]
-    }
-}',
-  CURLOPT_HTTPHEADER => array(
-    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-    "Content-Type: application/json"
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-
-```
-
-```shell
-curl -X PATCH '{API_URL}/api/v1/story/{storyId}' \
--H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
--H 'Content-Type: application/json' \
--d '{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality Edited",
-    "price" : 1,
-    "url": "www.google.com",
-    "priceOverrides": {
-        "country": [
-            {
-                "name": "GL",
-                "price": 2
-            },
-            {
-                "name": "IN",
-                "price": 1
-            },
-            {
-                "name": "US",
-                "price": 0
-            }
-        ]
-    }
-}'
-```
-
-```javascript
-var axios = require("axios");
-var data = JSON.stringify({"storyId":"testingID For Client","title":"Test story for API functionality Edited","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":2},{"name":"IN","price":1},{"name":"US","price":0}]}});
-
-var config = {
-  method: "patch",
-  url: "{API_URL}/api/v1/story/{storyId}",
-  headers: {
-    Authorization:
-      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-    "Content-Type": "application/json",
-  },
-  data: data,
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "message": "Story Edited Successfully",
-  "editedStory": {
-    "title": "Client Story Id Test Edited",
-    "storyId": "testingID For Client",
-    "price": 1,
-    "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory",
-    "authorName": "changed-author-name",
-    "authorId": "changed-unique-author-id",
-    "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-                {
-                    "_id": "605b25824646e9233aef61b5",
-                    "name": "IN",
-                    "price": 1
-                },
-                {
-                    "_id": "605b25824646e9233aef61b6",
-                    "name": "US",
-                    "price": 0
-                }
-            ]
-        }
-  }
-}
-```
-
-This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, priceOverrides, URL and duration. Story ID CANNOT be edited!
-
-### HTTP Request
-
-`PATCH {API_URL}/api/v1/story/{storyId}`
-
-### Authorization
-
-Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
-
-### URL Parameters
-
-| Parameter | Description                                                    |
-| --------- | -------------------------------------------------------------- |
-| storyId   | The ID of the Story you wish to edit ( Ensure its URL Encoded) |
-
-### Request Body
-
-| Parameter  | Default  | Description                                                                                         |
-| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| title      | optional | Title of the Story                                                                                  |
-| price      | optional | Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url        | optional | URL where the story is available on your website                                                    |
-| duration   | optional | Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day); |
-| authorId   | optional | Id of the Author of the story - Mandatory if authorName is present                                  |
-| authorName | optional | Name of the Author of the story                                                                     |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
-
-<aside class="notice">
-Remember — Either/All of the fields of a story - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
-</aside>
-
-## View All Stories
-
-> API to retrieve all of the client's stories registered on ConsCent.
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/story/client",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-
-
-```
-
-```shell
-curl -X GET '{API_URL}/api/v1/story/client' \
--H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
-```
-
-```javascript
-var axios = require("axios");
-
-var config = {
-  method: "get",
-  url: "{API_URL}/api/v1/story/client",
-  headers: {
-    Authorization:
-      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-  },
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "stories": [
-    {
-      "title": "Client Story Id Test Edit 1",
-      "storyId": "Client Story Id 11",
-      "price": 1,
-      "duration": 2,
-      "url": "https://www.yoursite.com/yourstory",
-      "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-            ]
-        }
-    },
-    {
-      "title": "Test story for API functionality",
-      "storyId": "testingID31 - bhileknwlq",
-      "price": 3,
-      "duration": 2,
-      "url": "https://www.yoursite.com/yourstory"
-    }
-  ],
-  "pagination": {
-    "pageNumber": 1,
-    "pageSize": 20,
-    "totalRecords": 2,
-    "totalPages": 1
-  }
-}
-```
-
-This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, URL, Story ID and duration.
-
-### HTTP Request
-
-`GET {API_URL}/api/v1/story/client`
-
-### Authorization
-
-Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
-
-### URL Parameters
-
-| Parameter  | Default  | Description                                                                                                                                  |
-| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| pageNumber | optional | Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY. |
-| pageSize   | optional | Pagination Parameters - the number of stories to retrieve on each page (default = 20).                                                       |
-
-<aside class="notice">
-Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more stories in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access stories that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
-</aside>
-
-## View Story Details
-
-> Please ensure you URL encode the storyId in the Path Parameters
-> Replace the {storyId} in the API path with your actual Story Id
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/story/client/Client%20Story%20Id%206",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
-  ),
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-
-```
-
-```shell
-curl -X GET '{API_URL}/api/v1/story/client/Client%20Story%20Id%206' \
--H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
-```
-
-```javascript
-var axios = require("axios");
-
-var config = {
-  method: "get",
-  url: "{API_URL}/api/v1/story/client/Client%20Story%20Id%206",
-  headers: {
-    Authorization:
-      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
-  },
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "title": "Tesla Tequila",
-  "storyId": "Client Story Id 6",
-  "price": 1,
-  "url": "https://www.yoursite.com/yourstory",
-  "duration": 1,
-  "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-            ]
-        }
-}
-```
-
-This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, URL and duration.
-
-### HTTP Request
-
-`GET {API_URL}/api/v1/story/client/{storyId}`
-
-### Authorization
-
-Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
-
-### URL Parameters
-
-| Parameter | Description                                                              |
-| --------- | ------------------------------------------------------------------------ |
-| storyId   | The ID of the Story you wish to retrieve (Please ensure its URL Encoded) |
-
-<aside class="notice">
-API to retrieve the details of an individual story registered by the client on ConsCent. 
-</aside>
-
-<!-- # Client Content
+# Client Content
 
 ## Create Content
 
@@ -877,7 +322,8 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "POST",
   CURLOPT_POSTFIELDS =>'{
-    "contentId" : "testingID For Client",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
     "url": "www.google.com",
@@ -916,7 +362,8 @@ curl -X POST '{API_URL}/api/v1/content/' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
 -H 'Content-Type: application/json' \
 -d '{
-    "contentId" : "testingID For Client",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
     "url": "www.google.com",
@@ -941,7 +388,7 @@ curl -X POST '{API_URL}/api/v1/content/' \
 
 ```javascript
 var axios = require("axios");
-var data = JSON.stringify({"contentId":"testingID For Client","title":"Test content for API functionality","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":3},{"name":"IN","price":5},{"name":"US","price":7}]}});
+var data = JSON.stringify({"contentId":"testingID For Client","duration" : 30,"title":"Test content for API functionality","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":3},{"name":"IN","price":5},{"name":"US","price":7}]}});
 
 var config = {
   method: "post",
@@ -969,10 +416,10 @@ axios(config)
 {
     "message": "New Content Created!",
     "content": {
-        "title": "Test story for API functionality",
+        "title": "Test content for API functionality",
         "price": 1,
-        "contentId": "testingID For Client",
-        "duration": 1,
+        "contentId": "testingID For Client Content",
+        "duration": 30,
         "url": "www.google.com",
         "priceOverrides": {
             "country": [
@@ -997,7 +444,7 @@ axios(config)
 }
 ```
 
-This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a User on ConsCent, then that User can have free access to the content for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price & priceOverrides of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.
+This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price & priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error.
 
 ### HTTP Request
 
@@ -1011,7 +458,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 | Parameter  | Default  | Description                                                                                         |
 | ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| contentId    | required | Content Id by which the Content has been registered on the Client CMS                                   |
+| contentId  | required | Content Id by which the Content has been registered on the Client CMS                                   |
 | title      | required | Title of the Content                                                                                  |
 | price      | required | Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
 | url        | required | URL where the content is available on your website                                                    |
@@ -1044,7 +491,8 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
    CURLOPT_POSTFIELDS =>'{
-    "contentId" : "testingID For Client",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
     "url": "www.google.com",
@@ -1083,7 +531,8 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
 -H 'Content-Type: application/json' \
 -d '{
-    "contentId" : "testingID For Client",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
     "url": "www.google.com",
@@ -1108,7 +557,7 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
 
 ```javascript
 var axios = require("axios");
-var data = JSON.stringify({"contentId":"testingID For Client","title":"Test content for API functionality Edited","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":2},{"name":"IN","price":1},{"name":"US","price":0}]}});
+var data = JSON.stringify({"contentId":"testingID For Client Content","duration" : 30,"title":"Test content for API functionality Edited","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":2},{"name":"IN","price":1},{"name":"US","price":0}]}});
 
 var config = {
   method: "patch",
@@ -1137,10 +586,10 @@ axios(config)
   "message": "Content Edited Successfully",
   "editedContent": {
     "title": "Client Content Id Test Edited",
-    "contentId": "testingID For Client",
+    "contentId": "testingID For Client Content",
     "price": 1,
-    "duration": 2,
-    "url": "https://www.yoursite.com/yournewstory",
+    "duration": 30,
+    "url": "https://www.yoursite.com/yournewcontent",
     "authorName": "changed-author-name",
     "authorId": "changed-unique-author-id",
     "priceOverrides": {
@@ -1180,7 +629,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 | Parameter | Description                                                    |
 | --------- | -------------------------------------------------------------- |
-| contentId   | The ID of the Content you wish to edit ( Ensure its URL Encoded) |
+| contentId   | The ID of the Content you wish to edit ( Ensure it is URL Encoded) |
 
 ### Request Body
 
@@ -1265,7 +714,7 @@ axios(config)
       "contentId": "Client Content Id 11",
       "price": 1,
       "duration": 2,
-      "url": "https://www.yoursite.com/yourstory",
+      "url": "https://www.yoursite.com/yourcontent",
       "priceOverrides": {
             "country": [
                 {
@@ -1278,10 +727,10 @@ axios(config)
     },
     {
       "title": "Test content for API functionality",
-      "contentId": "testingID31 - bhileknwlq",
+      "contentId": "testingID for Client Content",
       "price": 3,
       "duration": 2,
-      "url": "https://www.yoursite.com/yourstory"
+      "url": "https://www.yoursite.com/yourcontent"
     }
   ],
   "pagination": {
@@ -1325,7 +774,7 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/content/client/Client%20Story%20Id%206",
+  CURLOPT_URL => "{API_URL}/api/v1/content/client/Client%20Content%20Id%206",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -1346,7 +795,7 @@ echo $response;
 ```
 
 ```shell
-curl -X GET '{API_URL}/api/v1/content/client/Client%20Story%20Id%206' \
+curl -X GET '{API_URL}/api/v1/content/client/Client%20Content%20Id%206' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
 ```
 
@@ -1355,7 +804,7 @@ var axios = require("axios");
 
 var config = {
   method: "get",
-  url: "{API_URL}/api/v1/content/client/Client%20Story%20Id%206",
+  url: "{API_URL}/api/v1/content/client/Client%20Content%20Id%206",
   headers: {
     Authorization:
       "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
@@ -1376,9 +825,9 @@ axios(config)
 ```json
 {
   "title": "Tesla Tequila",
-  "contentId": "Client Story Id 6",
+  "contentId": "Client Content Id 6",
   "price": 1,
-  "url": "https://www.yoursite.com/yourstory",
+  "url": "https://www.yoursite.com/yourcontent",
   "duration": 1,
   "priceOverrides": {
             "country": [
@@ -1410,94 +859,9 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 <aside class="notice">
 API to retrieve the details of an individual content registered by the client on ConsCent. 
-</aside> -->
-
-# Validate Story Read
-
-## Validate Story Details By Read ID
-
-> Replace the {readId} in the API path with the actual value/string of the readId recieved
-
-```php
-<?php
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/story/read/11c369df-2a30-4a0d-90dc-5a45797dacdd",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-echo $response;
-```
-
-```shell
-curl -X POST '{API_URL}/api/v1/story/read/{readId}'
-```
-
-```javascript
-var axios = require("axios");
-
-var config = {
-  method: "post",
-  url: "{API_URL}/api/v1/story/read/{readId}",
-  headers: {},
-};
-
-axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "message": "Story Read Confirmed",
-    "payload": {
-      "clientId": "5fbb40b07dd98b0e89d90a25",
-      "storyId": "Client Story Id",
-      "createdAt": "2020-11-15T13:55:36.659Z"
-    },
-    "readId": "11c369df-2a30-4a0d-90dc-5a45797dacdd",
-    "signature": "4379hrm47mo34m2340cny2rcn487cn209842cr474107nc409c4"
-  }
-]
-```
-
-This endpoint allows the Client to Validate the Story Details anytime a User Purchases a Story of the Client using ConsCent - with the Client passing the Story ID in the request and recieving details regarding the Story Id and the Date of Purchase of the Story by the User, as well as matching the unique Read Id to ensure it cannot be reused.
-
-### HTTP Request
-
-`POST {API_URL}/api/v1/story/read/{readId}`
-
-The client will recieve a payload when a story is purchased via ConsCent - providing the details of the story such as the ClientId to identify which client the story belongs to as well as the Client Story ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Read ID - by passing the Read ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.
-
-### URL Parameters
-
-| Parameter | Default  | Description                                                                                                       |
-| --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| readId    | required | readId recieved by the client for each unique transaction on any of the Client's Stories registered with ConsCent |
-
-<aside class="notice">
-Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
 </aside>
 
-<!-- # Validate Content Consumption
+# Validate Content Consumption
 
 ## Validate Content Details By Consumption ID
 
@@ -1564,13 +928,13 @@ axios(config)
 ]
 ```
 
-This endpoint allows the Client to Validate the Content Details anytime a User Purchases a Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.
+This endpoint allows the Client to Validate the Content Details anytime a User Purchases any Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.
 
 ### HTTP Request
 
 `POST {API_URL}/api/v1/content/consumption/{consumptionId}`
 
-The client will recieve a payload when a content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.
+The client will recieve a payload when any content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.
 
 ### URL Parameters
 
@@ -1580,11 +944,11 @@ The client will recieve a payload when a content is purchased via ConsCent - pro
 
 <aside class="notice">
 Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
-</aside> -->
+</aside>
 
 # Client Stats
 
-## Daily Story Stats
+## Daily Content Stats
 
 ```php
 
@@ -1646,12 +1010,12 @@ axios(config)
 
 ```json
 {
-  "totalStoriesRead": 17,
+  "totalContentConsumed": 17,
   "totalRevenueGenerated": 29.6
 }
 ```
 
-This endpoint allows the Client to get Aggregate Statistics based on users consumption of their stories via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. 
+This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. 
 
 ### HTTP Request
 
@@ -1670,7 +1034,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
                                                       
 
 <aside class="notice">
-Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their stories by users via ConsCent.
+Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
 
 # Country Code List
