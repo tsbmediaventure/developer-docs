@@ -322,27 +322,27 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#client-story" class="toc-h1 toc-link" data-title="Client Story">Client Story</a>
+            <a href="#client-content" class="toc-h1 toc-link" data-title="Client Content">Client Content</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-story" class="toc-h2 toc-link" data-title="Create Story">Create Story</a>
+                    <a href="#create-content" class="toc-h2 toc-link" data-title="Create Content">Create Content</a>
                   </li>
                   <li>
-                    <a href="#edit-story" class="toc-h2 toc-link" data-title="Edit Story">Edit Story</a>
+                    <a href="#edit-content" class="toc-h2 toc-link" data-title="Edit Content">Edit Content</a>
                   </li>
                   <li>
-                    <a href="#view-all-stories" class="toc-h2 toc-link" data-title="View All Stories">View All Stories</a>
+                    <a href="#view-all-content" class="toc-h2 toc-link" data-title="View All Content">View All Content</a>
                   </li>
                   <li>
-                    <a href="#view-story-details" class="toc-h2 toc-link" data-title="View Story Details">View Story Details</a>
+                    <a href="#view-content-details" class="toc-h2 toc-link" data-title="View Content Details">View Content Details</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#validate-story-read" class="toc-h1 toc-link" data-title="Validate Story Read">Validate Story Read</a>
+            <a href="#validate-content-consumption" class="toc-h1 toc-link" data-title="Validate Content Consumption">Validate Content Consumption</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#validate-story-details-by-read-id" class="toc-h2 toc-link" data-title="Validate Story Details By Read ID">Validate Story Details By Read ID</a>
+                    <a href="#validate-content-details-by-consumption-id" class="toc-h2 toc-link" data-title="Validate Content Details By Consumption ID">Validate Content Details By Consumption ID</a>
                   </li>
               </ul>
           </li>
@@ -350,9 +350,12 @@
             <a href="#client-stats" class="toc-h1 toc-link" data-title="Client Stats">Client Stats</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#daily-story-stats" class="toc-h2 toc-link" data-title="Daily Story Stats">Daily Story Stats</a>
+                    <a href="#daily-content-stats" class="toc-h2 toc-link" data-title="Daily Content Stats">Daily Content Stats</a>
                   </li>
               </ul>
+          </li>
+          <li>
+            <a href="#deprecated-integration-documentation" class="toc-h1 toc-link" data-title="Deprecated Integration Documentation">Deprecated Integration Documentation</a>
           </li>
           <li>
             <a href="#country-code-list" class="toc-h1 toc-link" data-title="Country Code List">Country Code List</a>
@@ -366,16 +369,16 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='getting-started'>Getting Started</h1>
-<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium stories with ConsCent which are priced for a Pay per View basis, followed by integrating the paywall on your story pages and initialising the overlay to ensure all premium content is paid for.</p>
+<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for.</p>
 
 <p>You can get started by following the steps mentioned on the <a href="#using-conscent">Using ConsCent Page</a>.</p>
 <h1 id='registration'>Registration</h1>
-<p>The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email &amp; password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the &#39;price&#39;, &#39;duration&#39; and optionally geolocation overrides if the client wants geo-fenced pricing options.This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn&#39;t register the content with ConsCent via API. (Price values are in INR)</p>
+<p>The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email &amp; password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the &#39;price&#39;, &#39;duration&#39; and optionally geolocation overrides if the client wants geo-fenced pricing options. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn&#39;t register the content with ConsCent via API. (Price values are in INR)</p>
 
-<p>By logging in to your ConsCent Client Dashboard and navigating to the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Integrations Page</a>. You will be able to view your active ClientId, API Key and API Secret.</p>
+<p>By logging in to your ConsCent Client Dashboard and navigating to the <a href="https://client.conscent.in/dashboard/integration">Integrations Page</a>. You will be able to view your active ClientId, API Key and API Secret.</p>
 <h1 id='using-conscent'>Using ConsCent</h1>
 <ul>
-<li>In order to start creating stories on ConsCent you need to ensure you follow the <a href="#authentication">Authentication Guidelines</a>. ConsCent will only allow authorised clients to create, view and edit stories. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</li>
+<li>In order to start creating content on ConsCent you need to ensure you follow the <a href="#authentication">Authentication Guidelines</a>. ConsCent will only allow authorised clients to create, view and edit content. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</li>
 </ul>
 
 <p>Whenever you&#39;re utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you&#39;re operating in.</p>
@@ -401,31 +404,31 @@
 </ul>
 
 <ul>
-<li><p>If you wish to ONLY use blanket pricing - which allows you to set all your premium stories at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing stories steps and move on to integrating the paywall on all your premium content pages.</p></li>
+<li><p>If you wish to ONLY use blanket pricing - which allows you to set all your premium content at the same default price and priceOverrides with which your client is registered - you can skip the registering/editing content steps and move on to integrating the paywall on all your premium content pages.</p></li>
 <li><p>Any content that you don&#39;t register with ConsCent will be priced using the Blanket Pricing parameters - which are determined when the client is registered.</p></li>
-<li><p>Now you can start registering your premium content stories with ConsCent! Call the <a href="#create-story">Create Story API</a> for any story that you wish to register with ConsCent.</p></li>
+<li><p>Now you can start registering your premium content with ConsCent! Call the <a href="#create-content">Create Content API</a> for any content that you wish to register with ConsCent.</p></li>
 </ul>
 
-<p>Once you have registered your stories on ConsCent, you need to integrate the paywall on all your Premium Content Pages.</p>
+<p>Once you have registered your digital content on ConsCent, you need to integrate the paywall on all your Premium Content Pages.</p>
 
 <ul>
-<li>Follow the steps in the <a href="#web-integration">Web Integration Section</a> to add the ConsCent paywall to all the premium story pages on your website.</li>
+<li>Follow the steps in the <a href="#web-integration">Web Integration Section</a> to add the ConsCent paywall to all the premium content pages on your website.</li>
 </ul>
 
-<!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium story pages on your Android/iOS application. -->
+<!-- - Additionally, Follow the steps in the [React Native Integration Section](#react-native-integration) to add the ConsCent paywall to all the premium content pages on your Android/iOS application. -->
 
-<p>Ensuring that the paywall appears each time a premium story is opened, as well as allowing users to purchase stories via ConsCent.</p>
+<p>Ensuring that the paywall appears each time any premium content is opened, as well as allowing users to purchase the content via ConsCent.</p>
 
 <ul>
-<li>Next, you need to call the <a href="#validate-story-read">Validate Story Read API</a> using the recieved &quot;readId&quot; in the successCallback response, when a user purchases the client&#39;s story via ConsCent - which will assist the client in authenticating valid and unique transactions on their stories.</li>
+<li>Next, you need to call the <a href="#validate-content-consumption">Validate Content Consumption API</a> using the recieved &quot;consumptionId&quot; in the successCallback response, when a user purchases any of the client&#39;s content via ConsCent. This will assist the client in authenticating valid and unique transactions on their premium content.</li>
 </ul>
 
-<p>Integrating the paywall allows the users to purchase the Client&#39;s Stories via ConsCent at Microprices rates. The Web Integration section, as well as the React Native Integration section, include the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Stories.</p>
+<p>Integrating the paywall allows the users to purchase any of the Client&#39;s Content via ConsCent at Micropriced rates. The Web Integration section includes the steps involved in handling the Success and Failure Callbacks after the users go through the Concent Paywall, followed by validating each unique transaction incurred by a user on the any of the Clients Content.</p>
 
 <ul>
-<li><p>To view a list of all the client&#39;s stories registered on ConsCent via the <a href="#view-all-stories">View All Stories API</a>.</p></li>
-<li><p>To view the details of an individual client story you can call the <a href="#view-story-details">View Story Details API</a>.</p></li>
-<li><p>To edit any story registered with ConsCent you can call <a href="#edit-story">Edit Story API</a>.</p></li>
+<li><p>To view a list of all the client&#39;s premium content registered on ConsCent you can call the <a href="#view-all-content">View All Content API</a>.</p></li>
+<li><p>To view the details of any individual client content you can call the <a href="#view-content-details">View Content Details API</a>.</p></li>
+<li><p>To edit any content registered with ConsCent you can call <a href="#edit-content">Edit Content API</a>.</p></li>
 </ul>
 <h1 id='web-integration'>Web Integration</h1>
 <blockquote>
@@ -455,24 +458,25 @@
 
 <p>Integrating ConsCent on your Website is a simple and direct process. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.</p>
 
-<p>You can get your ConsCent Client Id from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard - as mentioned in the <a href="#registration">Registration Section</a>.</p>
+<p>You can get your ConsCent Client Id from the <a href="https://client.conscent.in/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard - as mentioned in the <a href="#registration">Registration Section</a>.</p>
 
-<p class = 'instruction-bg'>Including this code in the header section allows the ConsCent Paywall to be initalised and further used whenever required on a Premium Content Story Page. </p>
+<p class = 'instruction-bg'>Including this code in the header section allows the ConsCent Paywall to be initalised and further used whenever required on any Premium Content Page. </p>
 
-<p class = 'instruction-bg'>Finally, In order to ensure the the ConsCent Paywall appears on all Story Pages which contain Premium Content. You need to implement the following function on the story page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium story at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your story page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
+<p class = 'instruction-bg'>Finally, In order to ensure that the ConsCent Paywall appears on all pages which contain Premium Content. You need to implement the following function on the content page - included on the right hand side which calls the initalisation function '_csc' of the ConsCent Paywall and enables a user to purchase the particular premium content at a Micropriced value through ConsCent. Please ensure that you call this function anytime you want the ConsCent paywall to show up on your content page and that you have filtered for users that have subscribed to your platform beforehand and already have access to view the content and thus will not be going through the ConsCent paywall. </p>
 
 <blockquote>
-<p>Include ConsCent Paywall on Premium Content Story Page:</p>
+<p>Include ConsCent Paywall on Premium Content Content Page:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight plaintext"><code>const csc = window._csc;
 csc('init', {
   debug: true, // can be set to false to remove sdk non-error log output
-  storyId: storyId,
+  contentId: contentId,
   subscriptionUrl: {clientSubscriptionUrl},
   signInUrl: {clientSignInUrl},
   clientId: clientId,
-  title: storyTitle,
+  title: contentTitle,
   isMobile: 'false',
+  buttonMode,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
   fullScreenMode: 'false', // if set to true, the entire screen will be covered
@@ -484,12 +488,12 @@ csc('init', {
 <div class="highlight"><pre class="highlight hack"><code><span class="k">async</span> <span class="k">function</span> <span class="n">yourSuccessCallbackFunction</span><span class="p">(</span><span class="kt">validationObject</span><span class="o">:</span> <span class="n">any</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Function to show the premium content to the User since they have paid for it via ConsCent</span>
   <span class="c1">// Here you should verify the  validationObject with our backend</span>
-  <span class="c1">// And then you must show the user the complete story</span>
+  <span class="c1">// And then you must provide access to the user for the complete content</span>
 
   <span class="c1">// example verification code:</span>
   <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'Initiating verification with conscent backend'</span><span class="p">);</span>
   <span class="k">const</span> <span class="no">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XMLHttpRequest</span><span class="p">();</span> <span class="c1">// using vanilla javascript to make a post request</span>
-  <span class="k">const</span> <span class="no">url</span> <span class="o">=</span> <span class="sb">`${API_URL}/api/v1/story/read/${validationObject.readId}`</span><span class="p">;</span>
+  <span class="k">const</span> <span class="no">url</span> <span class="o">=</span> <span class="sb">`${API_URL}/api/v1/content/consumption/${validationObject.consumptionId}`</span><span class="p">;</span>
   <span class="n">xhttp</span><span class="mf">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
   <span class="c1">// e is the response event</span>
   <span class="n">xhttp</span><span class="mf">.</span><span class="n">onload</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -497,14 +501,14 @@ csc('init', {
 
     <span class="c1">// verifying that the validation received matches the backend data</span>
     <span class="k">if</span> <span class="p">(</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">readId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">readId</span> <span class="o">&amp;&amp;</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">&amp;&amp;</span>
       <span class="n">validationObject</span><span class="mf">.</span><span class="n">payloadclientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">storyId</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span>
     <span class="p">)</span> <span class="p">{</span>
       <span class="c1">// Validation successful</span>
       <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'successful validation'</span><span class="p">);</span>
-      <span class="c1">// showStory would be your function that will do all the actions that need to be done to show the whole story</span>
-      <span class="nf">showStory</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="c1">// accessContent would be your function that will do all the actions that need to be done to unlock the entire content</span>
+      <span class="nf">accessContent</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">};</span>
   <span class="n">xhttp</span><span class="mf">.</span><span class="nf">send</span><span class="p">();</span>
@@ -513,40 +517,41 @@ csc('init', {
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
 
 <ul>
-<li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
-<li><p>The &#39;storyId&#39; which should be identical to the Story Id by which the particular story is registered with in the Client CMS. This allows us to identify each unique story for a client.</p></li>
-<li><p>The &#39;title&#39; which should be the Story Title by which the particular story is registered with in the Client CMS.</p></li>
-<li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for viewing the premium content offered.</p></li>
+<li><p>The &#39;clientId&#39; which is retrieved from the <a href="https://client.conscent.in/dashboard/integration">Client Integrations Page</a> of the ConsCent Client Dashboard.</p></li>
+<li><p>The &#39;contentId&#39; which should be identical to the Content Id by which the particular content is registered with - in the Client CMS. This allows us to identify each piece of unique content for a client.</p></li>
+<li><p>The &#39;title&#39; which should be the Content Title by which the particular content is registered with in the Client CMS.</p></li>
+<li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for accessing the premium content offered.</p></li>
 <li><p>You can optionally provide the &#39;signInUrl&#39; which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</p></li>
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
-<li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the page to be visible at all.</p></li>
+<li><p>&#39;buttonMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the &#39;button&#39; paywall can be styled from the client dashboard directly - by passing the required CSS there. </p></li>
+<li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the premium content page to be visible at all once the user proceeds with the payment. </p></li>
 </ul>
 
-<p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the User has gone through the necessary steps needed to purchase the story via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the story, or if the user has access to the story already since they have purchased it before, or whether the transaction has failed and the user has not purchased the story. </p></p>
+<p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p></p>
 
 <p><code> 
 {
-    &quot;message&quot;: &quot;Story Purchased Successfully&quot;,
+    &quot;message&quot;: &quot;Content Purchased Successfully&quot;,
     &quot;payload&quot;: {
         &quot;clientId&quot;: &quot;5fbb40b07dd98b0e89d90a25&quot;,
-        &quot;storyId&quot;: &quot;Client Story Id 5&quot;,
+        &quot;contentId&quot;: &quot;Client Content Id 5&quot;,
         &quot;createdAt&quot;: &quot;2020-12-29T05:51:31.116Z&quot;
     },
-    &quot;readId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
+    &quot;consumptionId&quot;: &quot;a0c433af-a413-49e1-9f40-ce1fbd63f568&quot;,
     &quot;signature&quot;: &quot;74h9xm2479m7x792nxx247998975393x08y9hubrufyfy3348oqpqqpyg78fhfurifr3&quot;,
 }
 </code></p>
 
-<p>The message &quot;Story Purchased Successfully&quot; appears in the response only when the user has purchased a story via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased this story previously and still has free access to view the content. Moreover, the response contains a &quot;readId&quot; field which will be used to verify each unique transaction by a user on the clients stories with ConsCent.</p>
+<p>The message &quot;Content Purchased Successfully&quot; appears in the response only when the user has purchased content via ConsCent and the &quot;accessTimeLeft&quot; field appears in the response only when the user has purchased the content previously and still has free access to consume the content. Moreover, the response contains a &quot;consumptionId&quot; field which will be used to verify each unique transaction by a user on the clients content with ConsCent.</p>
 
-<p>Calling the <a href="#validate-story-read">Validate Story Read</a> API using the recieved &quot;readId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their stories.</p>
+<p>Calling the <a href="#validate-content-consumption">Validate Content Consumption</a> API using the recieved &quot;consumptionId&quot; in the successCallback response can assist the client in authenticating valid and unique transactions on their premium content.</p>
 
-<p class = 'instruction-bg'>The response validationObject from the 'Validate Story Read' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, and createdAt (Date of Read/Transaction); </p>
+<p class = 'instruction-bg'>The response validationObject from the 'Validate Content Consumption' API includes the same fields as mentioned in the validationObject above and matching the payload from the 'successCallback' response and 'Validate Content Consumption' response allows the client to ensure each transaction of any premium content via ConsCent is validated by matching the clientId, contentId, and createdAt (Date of Consumption/Transaction); </p>
  
 
-<p>If the case arrives when the user tries to purchase a story via ConsCent on the client&#39;s website and the transaction fails. The client can handle that case as well in a &#39;failedCallback&#39; function or redirect to any page - as the Client wishes.</p>
+<p>If the case arrives when the user tries to purchase any content via ConsCent on the client&#39;s website and the transaction fails. The client can handle that case as well in a &#39;failedCallback&#39; function or redirect to any page - as the Client wishes.</p>
 
-<p>Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same page, or redirect the user to a different page containing the full content of the premium story.</p>
+<p>Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to provide access to the premium content purchased by the user. You can do this on the same page, or redirect the user to a different page containing the entirety of the premium content.</p>
 
 <!-- # React Native Integration
 
@@ -631,26 +636,26 @@ Lastly, once the transaction has been validated by the Client - whether they cho
 
 <p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
 <h1 id='api-introduction'>API Introduction</h1>
-<p>Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create stories, verify story payment etc.</p>
+<p>Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc.</p>
 
 <p>We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 <h1 id='authentication'>Authentication</h1>
-<p>ConsCent uses API keys to allow access to the API for the Client to Create and Register a Story with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page <a href="https://ConsCent.vercel.app/client/dashboard/integration">Client Integrations Page</a>. Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.</p>
+<p>ConsCent uses API keys to allow access to the API for the Client to Create and Register any Content with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page <a href="https://client.conscent.in/dashboard/integration">Client Integrations Page</a>. Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.</p>
 
-<p>ConsCent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Create Story API utilised by the Client).</p>
+<p>ConsCent expects for the API Key and Secret to be included as Basic Authentication in certain API requests (Ex. Create Content API utilised by the Client).</p>
 
 <p><code>Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</code></p>
 
 <aside class="notice">
 You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</code> with your personal Client API Key and Secret
 </aside>
-<h1 id='client-story'>Client Story</h1><h2 id='create-story'>Create Story</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<h1 id='client-content'>Client Content</h1><h2 id='create-content'>Create Content</h2><div class="highlight"><pre class="highlight php tab-php"><code>
 <span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
 <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/story/"</span><span class="p">,</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/"</span><span class="p">,</span>
   <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
   <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
@@ -659,8 +664,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
   <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
+    "title" : "Test content for API functionality",
     "price" : 1,
     "url": "www.google.com",
     "priceOverrides": {
@@ -691,12 +697,13 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'{API_URL}/api/v1/story/'</span> <span class="se">\</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'{API_URL}/api/v1/content/'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
+    "title" : "Test content for API functionality",
     "price" : 1,
     "url": "www.google.com",
     "priceOverrides": {
@@ -717,11 +724,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">storyId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test story for API functionality</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">5</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">contentId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">duration</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test content for API functionality</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">5</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/story/</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span>
       <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
@@ -742,12 +749,12 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Story Created!"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"story"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content Created!"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content for API functionality"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client Content"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
         </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -771,9 +778,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Story on ConsCent - with the Story Title, StoryId, Story URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the story in the relevant country. Moreover, the Client can also set the duration of a story - which means that if a story if purchased by a User on ConsCent, then that User can have free access to the story for {duration} amount of time. By Default we user a 1 Day duration. Lastly, the price &amp; priceOverrides of the story can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the story - otherwise the API call for creating a story will throw a 400 (Bad Request) Error.</p>
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price &amp; priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST {API_URL}/api/v1/story</code></p>
+<p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='request-body'>Request Body</h3>
@@ -785,39 +792,39 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tr>
 </thead><tbody>
 <tr>
-<td>storyId</td>
+<td>contentId</td>
 <td>required</td>
-<td>Story Id by which the Story has been registered on the Client CMS</td>
+<td>Content Id by which the Content has been registered on the Client CMS</td>
 </tr>
 <tr>
 <td>title</td>
 <td>required</td>
-<td>Title of the Story</td>
+<td>Title of the Content</td>
 </tr>
 <tr>
 <td>price</td>
 <td>required</td>
-<td>Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
+<td>Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
 <td>url</td>
 <td>required</td>
-<td>URL where the story is available on your website</td>
+<td>URL where the content is available on your website</td>
 </tr>
 <tr>
 <td>duration</td>
 <td>required</td>
-<td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
+<td>Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);</td>
 </tr>
 <tr>
 <td>authorId</td>
 <td>optional</td>
-<td>Id of the Author of the story - Mandatory if authorName is present</td>
+<td>Id of the Author of the content - Mandatory if authorName is present</td>
 </tr>
 <tr>
 <td>authorName</td>
 <td>optional</td>
-<td>Name of the Author of the story</td>
+<td>Name of the Author of the content</td>
 </tr>
 <tr>
 <td>priceOverrides</td>
@@ -827,19 +834,19 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tbody></table>
 
 <aside class="notice">
-Remember — A story must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the story - including the Story ID with which the story is registered on your Client CMS as well as the title, price (Pay per View Price), story URL and duration for which the user can access the story after purchasing it.
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title, price (Pay per View Price), content URL and duration for which the user can access the content after purchasing it.
 </aside>
-<h2 id='edit-story'>Edit Story</h2>
+<h2 id='edit-content'>Edit Content</h2>
 <blockquote>
-<p>Please ensure you URL encode the storyId in the Path Parameters
-Replace the {storyId} in the API path with your actual Story Id</p>
+<p>Please ensure you URL encode the contentId in the Path Parameters
+Replace the {contentId} in the API path with your actual Content Id</p>
 </blockquote>
 <div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
 <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/story/Client%20Story%20Id%2011"</span><span class="p">,</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/Client%20Content%20Id%2011"</span><span class="p">,</span>
   <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
   <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
@@ -848,8 +855,9 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
   <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
    <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality Edited",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
+    "title" : "Test content for API functionality Edited",
     "price" : 1,
     "url": "www.google.com",
     "priceOverrides": {
@@ -880,12 +888,13 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH <span class="s1">'{API_URL}/api/v1/story/{storyId}'</span> <span class="se">\</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH <span class="s1">'{API_URL}/api/v1/content/{contentId}'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{
-    "storyId" : "testingID For Client",
-    "title" : "Test story for API functionality Edited",
+    "contentId" : "testingID For Client Content",
+    "duration" : 30,
+    "title" : "Test content for API functionality Edited",
     "price" : 1,
     "url": "www.google.com",
     "priceOverrides": {
@@ -906,11 +915,11 @@ Replace the {storyId} in the API path with your actual Story Id</p>
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">storyId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test story for API functionality Edited</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">contentId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client Content</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">duration</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test content for API functionality Edited</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/story/{storyId}</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/{contentId}</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span>
       <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
@@ -931,13 +940,13 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Edited Successfully"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"editedStory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edited"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Content Edited Successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"editedContent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id Test Edited"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client Content"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewstory"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-unique-author-id"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -962,9 +971,9 @@ Replace the {storyId} in the API path with your actual Story Id</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Story on ConsCent - with the editable fields being the Story title, price, priceOverrides, URL and duration. Story ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, priceOverrides, URL and duration. Content ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>PATCH {API_URL}/api/v1/story/{storyId}</code></p>
+<p><code>PATCH {API_URL}/api/v1/content/{contentId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -975,8 +984,8 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>storyId</td>
-<td>The ID of the Story you wish to edit ( Ensure its URL Encoded)</td>
+<td>contentId</td>
+<td>The ID of the Content you wish to edit ( Ensure it is URL Encoded)</td>
 </tr>
 </tbody></table>
 <h3 id='request-body-2'>Request Body</h3>
@@ -990,32 +999,32 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <tr>
 <td>title</td>
 <td>optional</td>
-<td>Title of the Story</td>
+<td>Title of the Content</td>
 </tr>
 <tr>
 <td>price</td>
 <td>optional</td>
-<td>Story Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
+<td>Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
 </tr>
 <tr>
 <td>url</td>
 <td>optional</td>
-<td>URL where the story is available on your website</td>
+<td>URL where the content is available on your website</td>
 </tr>
 <tr>
 <td>duration</td>
 <td>optional</td>
-<td>Free story access time for user once the user has purchased the story. (Standard Practice - 1 Day);</td>
+<td>Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);</td>
 </tr>
 <tr>
 <td>authorId</td>
 <td>optional</td>
-<td>Id of the Author of the story - Mandatory if authorName is present</td>
+<td>Id of the Author of the content - Mandatory if authorName is present</td>
 </tr>
 <tr>
 <td>authorName</td>
 <td>optional</td>
-<td>Name of the Author of the story</td>
+<td>Name of the Author of the content</td>
 </tr>
 <tr>
 <td>priceOverrides</td>
@@ -1025,18 +1034,18 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a story - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that story price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a content - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that content price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
 </aside>
-<h2 id='view-all-stories'>View All Stories</h2>
+<h2 id='view-all-content'>View All Content</h2>
 <blockquote>
-<p>API to retrieve all of the client&#39;s stories registered on ConsCent.</p>
+<p>API to retrieve all of the client&#39;s content registered on ConsCent.</p>
 </blockquote>
 <div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
 <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/story/client"</span><span class="p">,</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/client"</span><span class="p">,</span>
   <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
   <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
@@ -1055,13 +1064,13 @@ Remember — Either/All of the fields of a story - title, price, priceOverrides,
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
 
 
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/story/client'</span> <span class="se">\</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/content/client'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/story/client</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/client</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span>
       <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
@@ -1080,13 +1089,13 @@ Remember — Either/All of the fields of a story - title, price, priceOverrides,
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"stories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id Test Edit 1"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 11"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id Test Edit 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 11"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="p">{</span><span class="w">
@@ -1098,11 +1107,11 @@ Remember — Either/All of the fields of a story - title, price, priceOverrides,
         </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test story for API functionality"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID31 - bhileknwlq"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content for API functionality"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID for Client Content"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1113,9 +1122,9 @@ Remember — Either/All of the fields of a story - title, price, priceOverrides,
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to view their entire collection of Registered Stories on ConsCent. With each retrieved story containing the following details - Title, Price, URL, Story ID and duration.</p>
+<p>This endpoint allows the Client to view their entire collection of Registered Content on ConsCent. With each retrieved content containing the following details - Title, Price, URL, Content ID and duration.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET {API_URL}/api/v1/story/client</code></p>
+<p><code>GET {API_URL}/api/v1/content/client</code></p>
 <h3 id='authorization-3'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -1129,29 +1138,29 @@ Remember — Either/All of the fields of a story - title, price, priceOverrides,
 <tr>
 <td>pageNumber</td>
 <td>optional</td>
-<td>Pagination Parameters - which page of stories you would like to retrieve (default = 1). Since each page will have 20 (default) stories ONLY.</td>
+<td>Pagination Parameters - which page of the contents list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY.</td>
 </tr>
 <tr>
 <td>pageSize</td>
 <td>optional</td>
-<td>Pagination Parameters - the number of stories to retrieve on each page (default = 20).</td>
+<td>Pagination Parameters - the number of individual contents to retrieve on each page (default = 20).</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more stories in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access stories that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content that isn't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
 </aside>
-<h2 id='view-story-details'>View Story Details</h2>
+<h2 id='view-content-details'>View Content Details</h2>
 <blockquote>
-<p>Please ensure you URL encode the storyId in the Path Parameters
-Replace the {storyId} in the API path with your actual Story Id</p>
+<p>Please ensure you URL encode the contentId in the Path Parameters
+Replace the {contentId} in the API path with your actual Content Id</p>
 </blockquote>
 <div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
 <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/story/client/Client%20Story%20Id%206"</span><span class="p">,</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/client/Client%20Content%20Id%206"</span><span class="p">,</span>
   <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
   <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
@@ -1169,13 +1178,13 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/story/client/Client%20Story%20Id%206'</span> <span class="se">\</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/content/client/Client%20Content%20Id%206'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/story/client/Client%20Story%20Id%206</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/client/Client%20Content%20Id%206</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">Authorization</span><span class="p">:</span>
       <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
@@ -1195,9 +1204,9 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 6"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourstory"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -1210,9 +1219,9 @@ Replace the {storyId} in the API path with your actual Story Id</p>
         </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to retrieve a particular story which they registered with ConsCent - including the details of the story such as the Story ID, title, price, URL and duration.</p>
+<p>This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, URL and duration.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET {API_URL}/api/v1/story/client/{storyId}</code></p>
+<p><code>GET {API_URL}/api/v1/content/client/{contentId}</code></p>
 <h3 id='authorization-4'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
@@ -1223,24 +1232,24 @@ Replace the {storyId} in the API path with your actual Story Id</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>storyId</td>
-<td>The ID of the Story you wish to retrieve (Please ensure its URL Encoded)</td>
+<td>contentId</td>
+<td>The ID of the Content you wish to retrieve (Please ensure its URL Encoded)</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
-API to retrieve the details of an individual story registered by the client on ConsCent. 
+API to retrieve the details of an individual content registered by the client on ConsCent. 
 </aside>
-<h1 id='validate-story-read'>Validate Story Read</h1><h2 id='validate-story-details-by-read-id'>Validate Story Details By Read ID</h2>
+<h1 id='validate-content-consumption'>Validate Content Consumption</h1><h2 id='validate-content-details-by-consumption-id'>Validate Content Details By Consumption ID</h2>
 <blockquote>
-<p>Replace the {readId} in the API path with the actual value/string of the readId recieved</p>
+<p>Replace the {consumptionId} in the API path with the actual value/string of the consumptionId recieved</p>
 </blockquote>
 <div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
 
 <span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/story/read/11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="p">,</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/consumption/11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="p">,</span>
   <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
   <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
   <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
@@ -1254,12 +1263,12 @@ API to retrieve the details of an individual story registered by the client on C
 
 <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'{API_URL}/api/v1/story/read/{readId}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'{API_URL}/api/v1/content/consumption/{consumptionId}'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/story/read/{readId}</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/consumption/{consumptionId}</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">headers</span><span class="p">:</span> <span class="p">{},</span>
 <span class="p">};</span>
 
@@ -1276,22 +1285,22 @@ API to retrieve the details of an individual story registered by the client on C
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Story Read Confirmed"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Content Consumption Confirmed"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fbb40b07dd98b0e89d90a25"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"storyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-15T13:55:36.659Z"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"readId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"consumptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11c369df-2a30-4a0d-90dc-5a45797dacdd"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"signature"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4379hrm47mo34m2340cny2rcn487cn209842cr474107nc409c4"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Validate the Story Details anytime a User Purchases a Story of the Client using ConsCent - with the Client passing the Story ID in the request and recieving details regarding the Story Id and the Date of Purchase of the Story by the User, as well as matching the unique Read Id to ensure it cannot be reused.</p>
+<p>This endpoint allows the Client to Validate the Content Details anytime a User Purchases any Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>POST {API_URL}/api/v1/story/read/{readId}</code></p>
+<p><code>POST {API_URL}/api/v1/content/consumption/{consumptionId}</code></p>
 
-<p>The client will recieve a payload when a story is purchased via ConsCent - providing the details of the story such as the ClientId to identify which client the story belongs to as well as the Client Story ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Read ID - by passing the Read ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.</p>
+<p>The client will recieve a payload when any content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.</p>
 <h3 id='url-parameters-4'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1301,16 +1310,16 @@ API to retrieve the details of an individual story registered by the client on C
 </tr>
 </thead><tbody>
 <tr>
-<td>readId</td>
+<td>consumptionId</td>
 <td>required</td>
-<td>readId recieved by the client for each unique transaction on any of the Client&#39;s Stories registered with ConsCent</td>
+<td>consumptionId recieved by the client for each unique transaction on any of the Client&#39;s Content registered with ConsCent</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — The Read ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on their stories registered with ConsCent. 
+Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on any of their premium content registered with ConsCent. 
 </aside>
-<h1 id='client-stats'>Client Stats</h1><h2 id='daily-story-stats'>Daily Story Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<h1 id='client-stats'>Client Stats</h1><h2 id='daily-content-stats'>Daily Content Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
 <span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
@@ -1362,11 +1371,11 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"totalStoriesRead"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalContentConsumed"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalRevenueGenerated"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.6</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their stories via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. </p>
+<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. </p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
 <h3 id='authorization-5'>Authorization</h3>
@@ -1392,8 +1401,12 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </tbody></table>
 
 <aside class="notice">
-Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their stories by users via ConsCent.
+Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
+<h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
+<p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>. </p>
+
+<p>Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have. </p>
 <h1 id='country-code-list'>Country Code List</h1>
 <p>Afghanistan - AF</p>
 
