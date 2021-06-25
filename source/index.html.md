@@ -175,9 +175,9 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 
 - 'wrappingElementId' is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.
 
-- 'buttonMode' can be set to 'true' or 'false' (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the 'button' paywall can be styled from the client dashboard directly - by passing the required CSS there. 
+- 'buttonMode' can be set to 'true' or 'false' (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the 'button' paywall can be styled from the client dashboard directly - by passing the required CSS there.
 
-- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the premium content page to be visible at all once the user proceeds with the payment. 
+- 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the premium content page to be visible at all once the user proceeds with the payment.
 
  <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p>
 
@@ -261,7 +261,7 @@ Once the ConsCent Paywall has been initalised and the User has gone through the 
 
 Additionally, you must set either the Subscription URL or the Subscription Callback function to determine the what happens when the user clicks on the 'Subscribe' button present on the conscent paywall and instead of paying per view.
 
-<code> 
+<code>
 {
     "message": "Story Purchased Successfully",
     "payload": {
@@ -282,7 +282,7 @@ Call the [Validate Story Read](#validate-story-read) API using the recieved "rea
 <p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
 
 <p class='instruction-bg'>If any field  received in the success callback payload doesn't match the backend data, it is a fraudulent transaction & access to the premium content must not be provided</p>
- 
+
 Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.
 
 <p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
@@ -329,7 +329,9 @@ curl_setopt_array($curl, array(
     "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    contentType: "STORY",
     "priceOverrides": {
         "country": [
             {
@@ -369,6 +371,8 @@ curl -X POST '{API_URL}/api/v1/content/' \
     "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
+    "currency": "INR",
+    contentType: "STORY",
     "url": "www.google.com",
     "priceOverrides": {
         "country": [
@@ -391,7 +395,22 @@ curl -X POST '{API_URL}/api/v1/content/' \
 
 ```javascript
 var axios = require("axios");
-var data = JSON.stringify({"contentId":"testingID For Client","duration" : 30,"title":"Test content for API functionality","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":3},{"name":"IN","price":5},{"name":"US","price":7}]}});
+var data = JSON.stringify({
+  contentId: "testingID For Client",
+  duration: 30,
+  title: "Test content for API functionality",
+  price: 1,
+  currency: "INR",
+  url: "www.google.com",
+  contentType: "STORY",
+  priceOverrides: {
+    country: [
+      { name: "GL", price: 3 },
+      { name: "IN", price: 5 },
+      { name: "US", price: 7 },
+    ],
+  },
+});
 
 var config = {
   method: "post",
@@ -417,37 +436,39 @@ axios(config)
 
 ```json
 {
-    "message": "New Content Created!",
-    "content": {
-        "title": "Test content for API functionality",
-        "price": 1,
-        "contentId": "testingID For Client Content",
-        "duration": 30,
-        "url": "www.google.com",
-        "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 3
-                },
-                {
-                    "_id": "605b25824646e9233aef61b5",
-                    "name": "IN",
-                    "price": 5
-                },
-                {
-                    "_id": "605b25824646e9233aef61b6",
-                    "name": "US",
-                    "price": 7
-                }
-            ]
+  "message": "New Content Created!",
+  "content": {
+    "title": "Test content for API functionality",
+    "price": 1,
+    "currency": "INR",
+    "contentId": "testingID For Client Content",
+    "duration": 30,
+    "url": "www.google.com",
+    "contentType": "STORY",
+    "priceOverrides": {
+      "country": [
+        {
+          "_id": "605b25824646e9233aef61b4",
+          "name": "GL",
+          "price": 3
+        },
+        {
+          "_id": "605b25824646e9233aef61b5",
+          "name": "IN",
+          "price": 5
+        },
+        {
+          "_id": "605b25824646e9233aef61b6",
+          "name": "US",
+          "price": 7
         }
+      ]
     }
+  }
 }
 ```
 
-This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price & priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error.
+This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price & priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no 'contentType' is provided then the default 'contentType' of the client will be treated as the 'contentType' of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null);
 
 ### HTTP Request
 
@@ -459,19 +480,22 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter  | Default  | Description                                                                                         |
-| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| contentId  | required | Content Id by which the Content has been registered on the Client CMS                                   |
-| title      | required | Title of the Content                                                                                  |
-| price      | required | Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url        | required | URL where the content is available on your website                                                    |
-| duration   | required | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day); |
-| authorId   | optional | Id of the Author of the content - Mandatory if authorName is present                                  |
-| authorName | optional | Name of the Author of the content                                                                     |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
+| Parameter      | Default  | Description                                                                                                                                                                                                                                                                                  |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| contentId      | required | Content Id by which the Content has been registered on the Client CMS                                                                                                                                                                                                                        |
+| title          | required | Title of the Content                                                                                                                                                                                                                                                                         |
+| price          | optional | Content Price for pay-per-use pricing                                                                                                                                                                                                                                                        |
+| currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
+| url            | required | URL where the content is available on your website                                                                                                                                                                                                                                           |
+| duration       | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
+| authorId       | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
+| authorName     | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
+| contentType    | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
+| category       | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                             |
 
 <aside class="notice">
-Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title, price (Pay per View Price), content URL and duration for which the user can access the content after purchasing it.
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing)
 </aside>
 
 ## Edit Content
@@ -498,7 +522,9 @@ curl_setopt_array($curl, array(
     "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
         "country": [
             {
@@ -538,7 +564,9 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
     "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
         "country": [
             {
@@ -560,7 +588,22 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
 
 ```javascript
 var axios = require("axios");
-var data = JSON.stringify({"contentId":"testingID For Client Content","duration" : 30,"title":"Test content for API functionality Edited","price":1,"url":"www.google.com","priceOverrides":{"country":[{"name":"GL","price":2},{"name":"IN","price":1},{"name":"US","price":0}]}});
+var data = JSON.stringify({
+  contentId: "testingID For Client Content",
+  duration: 30,
+  title: "Test content for API functionality Edited",
+  price: 1,
+  currency: "INR",
+  url: "www.google.com",
+  contentType: "PREMIUM CONTENT",
+  priceOverrides: {
+    country: [
+      { name: "GL", price: 2 },
+      { name: "IN", price: 1 },
+      { name: "US", price: 0 },
+    ],
+  },
+});
 
 var config = {
   method: "patch",
@@ -591,34 +634,36 @@ axios(config)
     "title": "Client Content Id Test Edited",
     "contentId": "testingID For Client Content",
     "price": 1,
+    "currency": "INR",
     "duration": 30,
     "url": "https://www.yoursite.com/yournewcontent",
+    "contentType": "PREMIUM CONTENT",
     "authorName": "changed-author-name",
     "authorId": "changed-unique-author-id",
     "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-                {
-                    "_id": "605b25824646e9233aef61b5",
-                    "name": "IN",
-                    "price": 1
-                },
-                {
-                    "_id": "605b25824646e9233aef61b6",
-                    "name": "US",
-                    "price": 0
-                }
-            ]
+      "country": [
+        {
+          "_id": "605b25824646e9233aef61b4",
+          "name": "GL",
+          "price": 2
+        },
+        {
+          "_id": "605b25824646e9233aef61b5",
+          "name": "IN",
+          "price": 1
+        },
+        {
+          "_id": "605b25824646e9233aef61b6",
+          "name": "US",
+          "price": 0
         }
+      ]
+    }
   }
 }
 ```
 
-This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, priceOverrides, URL and duration. Content ID CANNOT be edited!
+This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, and category . Content ID CANNOT be edited!
 
 ### HTTP Request
 
@@ -630,24 +675,27 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### URL Parameters
 
-| Parameter | Description                                                    |
-| --------- | -------------------------------------------------------------- |
-| contentId   | The ID of the Content you wish to edit ( Ensure it is URL Encoded) |
+| Parameter | Description                                                        |
+| --------- | ------------------------------------------------------------------ |
+| contentId | The ID of the Content you wish to edit ( Ensure it is URL Encoded) |
 
 ### Request Body
 
-| Parameter  | Default  | Description                                                                                         |
-| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| title      | optional | Title of the Content                                                                                  |
-| price      | optional | Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.  |
-| url        | optional | URL where the content is available on your website                                                    |
-| duration   | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day); |
-| authorId   | optional | Id of the Author of the content - Mandatory if authorName is present                                  |
-| authorName | optional | Name of the Author of the content                                                                     |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  |
+| Parameter      | Default  | Description                                                                                                                                                                                                                                                                                  |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title          | optional | Title of the Content                                                                                                                                                                                                                                                                         |
+| price          | optional | Content Price for Pay-per-use pricing                                                                                                                                                                                                                                                        |
+| currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
+| url            | optional | URL where the content is available on your website                                                                                                                                                                                                                                           |
+| duration       | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
+| authorId       | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
+| authorName     | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
+| contentType    | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
+| category       | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                             |
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that content price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 
 ## View All Content
@@ -716,24 +764,28 @@ axios(config)
       "title": "Client Content Id Test Edit 1",
       "contentId": "Client Content Id 11",
       "price": 1,
+      "currency": "INR",
       "duration": 2,
       "url": "https://www.yoursite.com/yourcontent",
+      "contentType": "STORY",
       "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-            ]
-        }
+        "country": [
+          {
+            "_id": "605b25824646e9233aef61b4",
+            "name": "GL",
+            "price": 2
+          }
+        ]
+      }
     },
     {
       "title": "Test content for API functionality",
       "contentId": "testingID for Client Content",
       "price": 3,
+      "currency": "INR",
       "duration": 2,
-      "url": "https://www.yoursite.com/yourcontent"
+      "url": "https://www.yoursite.com/yourcontent",
+      "contentType": "STORY"
     }
   ],
   "pagination": {
@@ -757,10 +809,10 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### URL Parameters
 
-| Parameter  | Default  | Description                                                                                                                                  |
-| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Parameter  | Default  | Description                                                                                                                                                        |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | pageNumber | optional | Pagination Parameters - which page of the contents list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
-| pageSize   | optional | Pagination Parameters - the number of individual contents to retrieve on each page (default = 20).                                                     |
+| pageSize   | optional | Pagination Parameters - the number of individual contents to retrieve on each page (default = 20).                                                                 |
 
 <aside class="notice">
 Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content that isn't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
@@ -830,21 +882,23 @@ axios(config)
   "title": "Tesla Tequila",
   "contentId": "Client Content Id 6",
   "price": 1,
+  "currency": "INR",
   "url": "https://www.yoursite.com/yourcontent",
   "duration": 1,
+  "contentType": "STORY",
   "priceOverrides": {
-            "country": [
-                {
-                    "_id": "605b25824646e9233aef61b4",
-                    "name": "GL",
-                    "price": 2
-                },
-            ]
-        }
+    "country": [
+      {
+        "_id": "605b25824646e9233aef61b4",
+        "name": "GL",
+        "price": 2
+      }
+    ]
+  }
 }
 ```
 
-This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, URL and duration.
+This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, currency, URL, duration, contentType and category.
 
 ### HTTP Request
 
@@ -856,9 +910,9 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### URL Parameters
 
-| Parameter | Description                                                              |
-| --------- | ------------------------------------------------------------------------ |
-| contentId   | The ID of the Content you wish to retrieve (Please ensure its URL Encoded) |
+| Parameter | Description                                                                |
+| --------- | -------------------------------------------------------------------------- |
+| contentId | The ID of the Content you wish to retrieve (Please ensure its URL Encoded) |
 
 <aside class="notice">
 API to retrieve the details of an individual content registered by the client on ConsCent. 
@@ -941,9 +995,9 @@ The client will recieve a payload when any content is purchased via ConsCent - p
 
 ### URL Parameters
 
-| Parameter | Default  | Description                                                                                                       |
-| --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| consumptionId    | required | consumptionId recieved by the client for each unique transaction on any of the Client's Content registered with ConsCent |
+| Parameter     | Default  | Description                                                                                                              |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| consumptionId | required | consumptionId recieved by the client for each unique transaction on any of the Client's Content registered with ConsCent |
 
 <aside class="notice">
 Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on any of their premium content registered with ConsCent. 
@@ -989,24 +1043,24 @@ curl -X GET '{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&t
 ```
 
 ```javascript
-var axios = require('axios');
+var axios = require("axios");
 
 var config = {
-  method: 'get',
-  url: '{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z',
-  headers: { 
-    'Authorization': 'Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
-  }
+  method: "get",
+  url: "{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z",
+  headers: {
+    Authorization:
+      "Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==",
+  },
 };
 
 axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 ```
 
 > The above command returns JSON structured like this:
@@ -1018,7 +1072,7 @@ axios(config)
 }
 ```
 
-This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. 
+This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. The value of 'totalRevenueGenerated' in the response if given in "INR" by default. 
 
 ### HTTP Request
 
@@ -1030,518 +1084,517 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Query Parameters
 
-| Parameter  | Default  | Description                                                                                         |
-| ---------- | -------- | --------------------------------------------------------------------------------------------------- |
-| from       | optional | ISO date string from which the aggregated stats have to be calculated                               |
-| to         | optional | ISO date string till which the aggregated stats have to be calculated                               |
-                                                      
+| Parameter | Default  | Description                                                           |
+| --------- | -------- | --------------------------------------------------------------------- |
+| from      | optional | ISO date string from which the aggregated stats have to be calculated |
+| to        | optional | ISO date string till which the aggregated stats have to be calculated |
 
 <aside class="notice">
 Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
 
-# Deprecated Integration Documentation 
+# Deprecated Integration Documentation
 
-To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs). 
+To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs).
 
-Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have. 
+Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have.
 
 # Country Code List
 
-Afghanistan	- AF
+Afghanistan - AF
 
-Åland Islands	- AX
+Åland Islands - AX
 
-Albania	- AL
+Albania - AL
 
-Algeria	- DZ
+Algeria - DZ
 
 American Samoa - AS
 
-Andorra	- AD
+Andorra - AD
 
-Angola	- AO
+Angola - AO
 
-Anguilla	- AI
+Anguilla - AI
 
-Antarctica	- AQ
+Antarctica - AQ
 
-Antigua and Barbuda	- AG
+Antigua and Barbuda - AG
 
-Argentina	- AR
+Argentina - AR
 
-Armenia	- AM
+Armenia - AM
 
-Aruba	- AW
+Aruba - AW
 
-Australia	- AU
+Australia - AU
 
-Austria	- AT
+Austria - AT
 
-Azerbaijan	- AZ
+Azerbaijan - AZ
 
-Bahrain	- BH
+Bahrain - BH
 
-Bahamas	- BS
+Bahamas - BS
 
-Bangladesh	- BD
+Bangladesh - BD
 
-Barbados	- BB
+Barbados - BB
 
-Belarus	- BY
+Belarus - BY
 
-Belgium	- BE
+Belgium - BE
 
-Belize	- BZ
+Belize - BZ
 
-Benin	- BJ
+Benin - BJ
 
-Bermuda	- BM
+Bermuda - BM
 
-Bhutan	- BT
+Bhutan - BT
 
-Bolivia, Plurinational State of	- BO
+Bolivia, Plurinational State of - BO
 
-Bonaire, Sint Eustatius and Saba	- BQ
+Bonaire, Sint Eustatius and Saba - BQ
 
-Bosnia and Herzegovina	- BA
+Bosnia and Herzegovina - BA
 
-Botswana	- BW
+Botswana - BW
 
-Bouvet Island	- BV
+Bouvet Island - BV
 
-Brazil	- BR
+Brazil - BR
 
-British Indian Ocean Territory	- IO
+British Indian Ocean Territory - IO
 
-Brunei Darussalam	- BN
+Brunei Darussalam - BN
 
-Bulgaria	- BG
+Bulgaria - BG
 
-Burkina Faso	- BF
+Burkina Faso - BF
 
-Burundi	- BI
+Burundi - BI
 
-Cambodia	- KH
+Cambodia - KH
 
-Cameroon	- CM
+Cameroon - CM
 
-Canada	- CA
+Canada - CA
 
-Cape Verde	- CV
+Cape Verde - CV
 
-Cayman Islands	- KY
+Cayman Islands - KY
 
-Central African Republic	- CF
+Central African Republic - CF
 
-Chad	- TD
+Chad - TD
 
-Chile	- CL
+Chile - CL
 
-China	- CN
+China - CN
 
-Christmas Island	- CX
+Christmas Island - CX
 
-Cocos (Keeling) Islands	- CC
+Cocos (Keeling) Islands - CC
 
-Colombia	- CO
+Colombia - CO
 
-Comoros	- KM
+Comoros - KM
 
-Congo	- CG
+Congo - CG
 
-Congo, the Democratic Republic of the	- CD
+Congo, the Democratic Republic of the - CD
 
-Cook Islands	- CK
+Cook Islands - CK
 
-Costa Rica	- CR
+Costa Rica - CR
 
-Côte d'Ivoire	- CI
+Côte d'Ivoire - CI
 
-Croatia	- HR
+Croatia - HR
 
-Cuba	- CU
+Cuba - CU
 
-Curaçao	- CW
+Curaçao - CW
 
-Cyprus	- CY
+Cyprus - CY
 
-Czech Republic	- CZ
+Czech Republic - CZ
 
-Denmark	- DK
+Denmark - DK
 
-Djibouti	- DJ
+Djibouti - DJ
 
-Dominica	- DM
+Dominica - DM
 
-Dominican Republic	- DO
+Dominican Republic - DO
 
-Ecuador	- EC
+Ecuador - EC
 
-Egypt	- EG
+Egypt - EG
 
-El Salvador	- SV
+El Salvador - SV
 
-Equatorial Guinea	- GQ
+Equatorial Guinea - GQ
 
-Eritrea	- ER
+Eritrea - ER
 
-Estonia	- EE
+Estonia - EE
 
-Ethiopia	- ET
+Ethiopia - ET
 
-Falkland Islands (Malvinas)	- FK
+Falkland Islands (Malvinas) - FK
 
-Faroe Islands	- FO
+Faroe Islands - FO
 
-Fiji	- FJ
+Fiji - FJ
 
-Finland	- FI
+Finland - FI
 
-France	- FR
+France - FR
 
-French Guiana	- GF
+French Guiana - GF
 
-French Polynesia	- PF
+French Polynesia - PF
 
-French Southern Territories	- TF
+French Southern Territories - TF
 
-Gabon	- GA
+Gabon - GA
 
-Gambia	- GM
+Gambia - GM
 
-Georgia	- GE
+Georgia - GE
 
-Germany	- DE
+Germany - DE
 
-Ghana	- GH
+Ghana - GH
 
-Gibraltar	- GI
+Gibraltar - GI
 
-Greece	- GR
+Greece - GR
 
-Greenland	- GL
+Greenland - GL
 
-Grenada	- GD
+Grenada - GD
 
-Guadeloupe	- GP
+Guadeloupe - GP
 
-Guam	- GU
+Guam - GU
 
-Guatemala	- GT
+Guatemala - GT
 
-Guernsey	- GG
+Guernsey - GG
 
-Guinea	- GN
+Guinea - GN
 
-Guinea-Bissau	- GW
+Guinea-Bissau - GW
 
-Guyana	- GY
+Guyana - GY
 
-Haiti	- HT
+Haiti - HT
 
-Heard Island and McDonald Islands	- HM
+Heard Island and McDonald Islands - HM
 
-Holy See (Vatican City State)	- VA
+Holy See (Vatican City State) - VA
 
-Honduras	- HN
+Honduras - HN
 
-Hong Kong	- HK
+Hong Kong - HK
 
-Hungary	- HU
+Hungary - HU
 
-Iceland	- IS
+Iceland - IS
 
-India	- IN
+India - IN
 
-Indonesia	- ID
+Indonesia - ID
 
-Iran, Islamic Republic of	- IR
+Iran, Islamic Republic of - IR
 
-Iraq	- IQ
+Iraq - IQ
 
-Ireland	- IE
+Ireland - IE
 
-Isle of Man	- IM
+Isle of Man - IM
 
-Israel	- IL
+Israel - IL
 
-Italy	- IT
+Italy - IT
 
-Jamaica	- JM
+Jamaica - JM
 
-Japan	- JP
+Japan - JP
 
-Jersey	- JE
+Jersey - JE
 
-Jordan	- JO
+Jordan - JO
 
-Kazakhstan	- KZ
+Kazakhstan - KZ
 
-Kenya	- KE
+Kenya - KE
 
-Kiribati	- KI
+Kiribati - KI
 
-Korea, Democratic People's Republic of	- KP
+Korea, Democratic People's Republic of - KP
 
-Korea, Republic of	- KR
+Korea, Republic of - KR
 
-Kuwait	- KW
+Kuwait - KW
 
-Kyrgyzstan	- KG
+Kyrgyzstan - KG
 
-Lao People's Democratic Republic	- LA
+Lao People's Democratic Republic - LA
 
-Latvia	- LV
+Latvia - LV
 
-Lebanon	- LB
+Lebanon - LB
 
-Lesotho	- LS
+Lesotho - LS
 
-Liberia	- LR
+Liberia - LR
 
-Libya	- LY
+Libya - LY
 
-Liechtenstein	- LI
+Liechtenstein - LI
 
-Lithuania	- LT
+Lithuania - LT
 
-Luxembourg	- LU
+Luxembourg - LU
 
-Macao	- MO
+Macao - MO
 
-Macedonia, the Former Yugoslav Republic of	- MK
+Macedonia, the Former Yugoslav Republic of - MK
 
-Madagascar	- MG
+Madagascar - MG
 
-Malawi	- MW
+Malawi - MW
 
-Malaysia	- MY
+Malaysia - MY
 
-Maldives	- MV
+Maldives - MV
 
-Mali	- ML
+Mali - ML
 
-Malta	- MT
+Malta - MT
 
-Marshall Islands	- MH
+Marshall Islands - MH
 
-Martinique	- MQ
+Martinique - MQ
 
-Mauritania	- MR
+Mauritania - MR
 
-Mauritius	- MU
+Mauritius - MU
 
-Mayotte	- YT
+Mayotte - YT
 
-Mexico	- MX
+Mexico - MX
 
-Micronesia, Federated States of	- FM
+Micronesia, Federated States of - FM
 
-Moldova, Republic of	- MD
+Moldova, Republic of - MD
 
-Monaco	- MC
+Monaco - MC
 
-Mongolia	- MN
+Mongolia - MN
 
-Montenegro	- ME
+Montenegro - ME
 
-Montserrat	- MS
+Montserrat - MS
 
-Morocco	- MA
+Morocco - MA
 
-Mozambique	- MZ
+Mozambique - MZ
 
-Myanmar	- MM
+Myanmar - MM
 
-Namibia	- NA
+Namibia - NA
 
-Nauru	- NR
+Nauru - NR
 
-Nepal	- NP
+Nepal - NP
 
-Netherlands	- NL
+Netherlands - NL
 
-New Caledonia	- NC
+New Caledonia - NC
 
-New Zealand	- NZ
+New Zealand - NZ
 
-Nicaragua	- NI
+Nicaragua - NI
 
-Niger	- NE
+Niger - NE
 
-Nigeria	- NG
+Nigeria - NG
 
-Niue	- NU
+Niue - NU
 
-Norfolk Island	- NF
+Norfolk Island - NF
 
-Northern Mariana Islands	- MP
+Northern Mariana Islands - MP
 
-Norway	- NO
+Norway - NO
 
-Oman	- OM
+Oman - OM
 
-Pakistan	- PK
+Pakistan - PK
 
-Palau	- PW
+Palau - PW
 
-Palestine, State of	- PS
+Palestine, State of - PS
 
-Panama	- PA
+Panama - PA
 
-Papua New Guinea	- PG
+Papua New Guinea - PG
 
-Paraguay	- PY
+Paraguay - PY
 
-Peru	- PE
+Peru - PE
 
-Philippines	- PH
+Philippines - PH
 
-Pitcairn	- PN
+Pitcairn - PN
 
-Poland	- PL
+Poland - PL
 
-Portugal	- PT
+Portugal - PT
 
-Puerto Rico	- PR
+Puerto Rico - PR
 
-Qatar	- QA
+Qatar - QA
 
-Réunion	- RE
+Réunion - RE
 
-Romania	- RO
+Romania - RO
 
-Russian Federation	- RU
+Russian Federation - RU
 
-Rwanda	- RW
+Rwanda - RW
 
-Saint Barthélemy	- BL
+Saint Barthélemy - BL
 
-Saint Helena, Ascension and Tristan da Cunha	- SH
+Saint Helena, Ascension and Tristan da Cunha - SH
 
-Saint Kitts and Nevis	- KN
+Saint Kitts and Nevis - KN
 
-Saint Lucia	- LC
+Saint Lucia - LC
 
-Saint Martin (French part)	- MF
+Saint Martin (French part) - MF
 
-Saint Pierre and Miquelon	- PM
+Saint Pierre and Miquelon - PM
 
-Saint Vincent and the Grenadines	- VC
+Saint Vincent and the Grenadines - VC
 
-Samoa	- WS
+Samoa - WS
 
-San Marino	- SM
+San Marino - SM
 
-Sao Tome and Principe	- ST
+Sao Tome and Principe - ST
 
-Saudi Arabia	- SA
+Saudi Arabia - SA
 
-Senegal	- SN
+Senegal - SN
 
-Serbia	- RS
+Serbia - RS
 
-Seychelles	- SC
+Seychelles - SC
 
-Sierra Leone	- SL
+Sierra Leone - SL
 
-Singapore	- SG
+Singapore - SG
 
-Sint Maarten (Dutch part)	- SX
+Sint Maarten (Dutch part) - SX
 
-Slovakia	- SK
+Slovakia - SK
 
-Slovenia	- SI
+Slovenia - SI
 
-Solomon Islands	- SB
+Solomon Islands - SB
 
-Somalia	- SO
+Somalia - SO
 
-South Africa	- ZA
+South Africa - ZA
 
-South Georgia and the South Sandwich Islands	- GS
+South Georgia and the South Sandwich Islands - GS
 
-South Sudan	- SS
+South Sudan - SS
 
-Spain	- ES
+Spain - ES
 
-Sri Lanka	- LK
+Sri Lanka - LK
 
-Sudan	- SD
+Sudan - SD
 
-Suriname	- SR
+Suriname - SR
 
-Svalbard and Jan Mayen	- SJ
+Svalbard and Jan Mayen - SJ
 
-Swaziland	- SZ
+Swaziland - SZ
 
-Sweden	- SE
+Sweden - SE
 
-Switzerland	- CH
+Switzerland - CH
 
-Syrian Arab Republic	- SY
+Syrian Arab Republic - SY
 
-Taiwan, Province of China	- TW
+Taiwan, Province of China - TW
 
-Tajikistan	- TJ
+Tajikistan - TJ
 
-Tanzania, United Republic of	- TZ
+Tanzania, United Republic of - TZ
 
-Thailand	- TH
+Thailand - TH
 
-Timor-Leste	- TL
+Timor-Leste - TL
 
-Togo	- TG
+Togo - TG
 
-Tokelau	- TK
+Tokelau - TK
 
-Tonga	- TO
+Tonga - TO
 
-Trinidad and Tobago	- TT
+Trinidad and Tobago - TT
 
-Tunisia	- TN
+Tunisia - TN
 
-Turkey	- TR
+Turkey - TR
 
-Turkmenistan	- TM
+Turkmenistan - TM
 
-Turks and Caicos Islands	- TC
+Turks and Caicos Islands - TC
 
-Tuvalu	- TV
+Tuvalu - TV
 
-Uganda	- UG
+Uganda - UG
 
-Ukraine	- UA
+Ukraine - UA
 
-United Arab Emirates	- AE
+United Arab Emirates - AE
 
-United Kingdom	- GB
+United Kingdom - GB
 
-United States	- US
+United States - US
 
-United States Minor Outlying Islands	- UM
+United States Minor Outlying Islands - UM
 
-Uruguay	- UY
+Uruguay - UY
 
-Uzbekistan	- UZ
+Uzbekistan - UZ
 
-Vanuatu	- VU
+Vanuatu - VU
 
-Venezuela, Bolivarian Republic of	- VE
+Venezuela, Bolivarian Republic of - VE
 
-Viet Nam	- VN
+Viet Nam - VN
 
-Virgin Islands, British	- VG
+Virgin Islands, British - VG
 
-Virgin Islands, U.S.	- VI
+Virgin Islands, U.S. - VI
 
-Wallis and Futuna	- WF
+Wallis and Futuna - WF
 
-Western Sahara	- EH
+Western Sahara - EH
 
-Yemen	- YE
+Yemen - YE
 
-Zambia	- ZM
+Zambia - ZM
 
-Zimbabwe	- ZW
+Zimbabwe - ZW
