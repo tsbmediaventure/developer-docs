@@ -523,8 +523,8 @@ csc('init', {
 <li><p>The &#39;subscriptionUrl&#39; which is the link to the Subscription page of the clients website - in cases when a user would like to subscribe to the clients website for accessing the premium content offered.</p></li>
 <li><p>You can optionally provide the &#39;signInUrl&#39; which is the link to the login page for already subscribed users on the clients platform - in cases when a user has already registered and paid for the clients subscription and would like to access premium content using their login credentials. Doing this will add a &quot;Sign in here&quot; text to be displayed below the &quot;Subscribe&quot; button.</p></li>
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
-<li><p>&#39;buttonMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the &#39;button&#39; paywall can be styled from the client dashboard directly - by passing the required CSS there. </p></li>
-<li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the premium content page to be visible at all once the user proceeds with the payment. </p></li>
+<li><p>&#39;buttonMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the &#39;button&#39; paywall can be styled from the client dashboard directly - by passing the required CSS there.</p></li>
+<li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the premium content page to be visible at all once the user proceeds with the payment.</p></li>
 </ul>
 
 <p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p></p>
@@ -610,7 +610,7 @@ Once the ConsCent Paywall has been initalised and the User has gone through the 
 
 Additionally, you must set either the Subscription URL or the Subscription Callback function to determine the what happens when the user clicks on the 'Subscribe' button present on the conscent paywall and instead of paying per view.
 
-<code> 
+<code>
 {
     "message": "Story Purchased Successfully",
     "payload": {
@@ -631,7 +631,7 @@ Call the [Validate Story Read](#validate-story-read) API using the recieved "rea
 <p class = 'instruction-bg'>The response payload from the 'Validate Story Read' API includes the same fields as mentioned in the payload above and matching the payload from the 'successCallback' response and 'Validate Story Read' response allows the client to ensure each transaction of premium content stories via ConsCent is validated by matching the clientId, storyId, transactionAmount and createdAt(Date of Read/Transaction); </p>
 
 <p class='instruction-bg'>If any field  received in the success callback payload doesn't match the backend data, it is a fraudulent transaction & access to the premium content must not be provided</p>
- 
+
 Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.
 
 <p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
@@ -668,7 +668,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    contentType: "STORY",
     "priceOverrides": {
         "country": [
             {
@@ -705,6 +707,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "duration" : 30,
     "title" : "Test content for API functionality",
     "price" : 1,
+    "currency": "INR",
+    contentType: "STORY",
     "url": "www.google.com",
     "priceOverrides": {
         "country": [
@@ -724,7 +728,22 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">contentId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">duration</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test content for API functionality</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">5</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">7</span><span class="p">}]}});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">contentId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testingID For Client</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">duration</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content for API functionality</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">5</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">7</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
@@ -749,36 +768,38 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content Created!"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content for API functionality"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client Content"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-                </span><span class="p">}</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content Created!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content for API functionality"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client Content"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
         </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price &amp; priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error.</p>
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price &amp; priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null);</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -803,8 +824,13 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tr>
 <tr>
 <td>price</td>
-<td>required</td>
-<td>Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
+<td>optional</td>
+<td>Content Price for pay-per-use pricing</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>optional</td>
+<td>Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.</td>
 </tr>
 <tr>
 <td>url</td>
@@ -813,7 +839,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tr>
 <tr>
 <td>duration</td>
-<td>required</td>
+<td>optional</td>
 <td>Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);</td>
 </tr>
 <tr>
@@ -827,6 +853,16 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>Name of the Author of the content</td>
 </tr>
 <tr>
+<td>contentType</td>
+<td>optional</td>
+<td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
+</tr>
+<tr>
+<td>category</td>
+<td>optional</td>
+<td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
+</tr>
+<tr>
 <td>priceOverrides</td>
 <td>optional</td>
 <td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
@@ -834,7 +870,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 </tbody></table>
 
 <aside class="notice">
-Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title, price (Pay per View Price), content URL and duration for which the user can access the content after purchasing it.
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing)
 </aside>
 <h2 id='edit-content'>Edit Content</h2>
 <blockquote>
@@ -859,7 +895,9 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
         "country": [
             {
@@ -896,7 +934,9 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "duration" : 30,
     "title" : "Test content for API functionality Edited",
     "price" : 1,
+    "currency": "INR",
     "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
         "country": [
             {
@@ -915,7 +955,22 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="dl">"</span><span class="s2">contentId</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">testingID For Client Content</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">duration</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">30</span><span class="p">,</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">Test content for API functionality Edited</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">priceOverrides</span><span class="dl">"</span><span class="p">:{</span><span class="dl">"</span><span class="s2">country</span><span class="dl">"</span><span class="p">:[{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">price</span><span class="dl">"</span><span class="p">:</span><span class="mi">0</span><span class="p">}]}});</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">contentId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testingID For Client Content</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">duration</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content for API functionality Edited</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">,</span>
@@ -945,33 +1000,35 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id Test Edited"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID For Client Content"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-unique-author-id"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-                </span><span class="p">}</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
         </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, priceOverrides, URL and duration. Content ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, and category . Content ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/content/{contentId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -1004,7 +1061,12 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <tr>
 <td>price</td>
 <td>optional</td>
-<td>Content Price to be selected out of [0, 0.01, 1, 2, 3, 5, 7, 10] ONLY. Values are in INR by default.</td>
+<td>Content Price for Pay-per-use pricing</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>optional</td>
+<td>Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.</td>
 </tr>
 <tr>
 <td>url</td>
@@ -1027,6 +1089,16 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>Name of the Author of the content</td>
 </tr>
 <tr>
+<td>contentType</td>
+<td>optional</td>
+<td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
+</tr>
+<tr>
+<td>category</td>
+<td>optional</td>
+<td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
+</tr>
+<tr>
 <td>priceOverrides</td>
 <td>optional</td>
 <td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
@@ -1034,7 +1106,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, priceOverrides, URL, authorName, and authorId - can be edited. Only pass the fields you wish to edit in the request body. Moreover, keep in mind that content price must be one of the following - [0, 0.01, 1, 2, 3, 5, 7, 10]. Price values are in INR by default. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content'>View All Content</h2>
 <blockquote>
@@ -1094,24 +1166,28 @@ Remember — Either/All of the fields of a content - title, price, priceOverride
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id Test Edit 1"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 11"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-            </span><span class="p">]</span><span class="w">
-        </span><span class="p">}</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content for API functionality"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID for Client Content"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1206,20 +1282,22 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 6"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-                </span><span class="p">},</span><span class="w">
-            </span><span class="p">]</span><span class="w">
-        </span><span class="p">}</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, URL and duration.</p>
+<p>This endpoint allows the Client to retrieve a particular content which they registered with ConsCent - including the details of the content such as the Content ID, title, price, currency, URL, duration, contentType and category.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET {API_URL}/api/v1/content/client/{contentId}</code></p>
 <h3 id='authorization-4'>Authorization</h3>
@@ -1348,24 +1426,24 @@ Remember — The Consumption ID is unique and once it is used it will expire. Cl
 curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">get</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> 
-    <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==</span><span class="dl">'</span>
-  <span class="p">}</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/client/stats/daily?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
 <span class="p">};</span>
 
 <span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-<span class="p">});</span>
-
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1375,7 +1453,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
   </span><span class="nl">"totalRevenueGenerated"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.6</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. </p>
+<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default. </p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
 <h3 id='authorization-5'>Authorization</h3>
@@ -1404,13 +1482,13 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
 <h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
-<p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>. </p>
+<p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>.</p>
 
-<p>Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have. </p>
+<p>Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have.</p>
 <h1 id='country-code-list'>Country Code List</h1>
 <p>Afghanistan - AF</p>
 
-<p>Åland Islands  - AX</p>
+<p>Åland Islands - AX</p>
 
 <p>Albania - AL</p>
 
@@ -1420,239 +1498,239 @@ Providing aggregated statistics to the client - for the previous days' (default)
 
 <p>Andorra - AD</p>
 
-<p>Angola  - AO</p>
+<p>Angola - AO</p>
 
-<p>Anguilla    - AI</p>
+<p>Anguilla - AI</p>
 
-<p>Antarctica  - AQ</p>
+<p>Antarctica - AQ</p>
 
 <p>Antigua and Barbuda - AG</p>
 
-<p>Argentina   - AR</p>
+<p>Argentina - AR</p>
 
 <p>Armenia - AM</p>
 
-<p>Aruba   - AW</p>
+<p>Aruba - AW</p>
 
-<p>Australia   - AU</p>
+<p>Australia - AU</p>
 
 <p>Austria - AT</p>
 
-<p>Azerbaijan  - AZ</p>
+<p>Azerbaijan - AZ</p>
 
 <p>Bahrain - BH</p>
 
 <p>Bahamas - BS</p>
 
-<p>Bangladesh  - BD</p>
+<p>Bangladesh - BD</p>
 
-<p>Barbados    - BB</p>
+<p>Barbados - BB</p>
 
 <p>Belarus - BY</p>
 
 <p>Belgium - BE</p>
 
-<p>Belize  - BZ</p>
+<p>Belize - BZ</p>
 
-<p>Benin   - BJ</p>
+<p>Benin - BJ</p>
 
 <p>Bermuda - BM</p>
 
-<p>Bhutan  - BT</p>
+<p>Bhutan - BT</p>
 
 <p>Bolivia, Plurinational State of - BO</p>
 
-<p>Bonaire, Sint Eustatius and Saba    - BQ</p>
+<p>Bonaire, Sint Eustatius and Saba - BQ</p>
 
-<p>Bosnia and Herzegovina  - BA</p>
+<p>Bosnia and Herzegovina - BA</p>
 
-<p>Botswana    - BW</p>
+<p>Botswana - BW</p>
 
-<p>Bouvet Island   - BV</p>
+<p>Bouvet Island - BV</p>
 
-<p>Brazil  - BR</p>
+<p>Brazil - BR</p>
 
-<p>British Indian Ocean Territory  - IO</p>
+<p>British Indian Ocean Territory - IO</p>
 
-<p>Brunei Darussalam   - BN</p>
+<p>Brunei Darussalam - BN</p>
 
-<p>Bulgaria    - BG</p>
+<p>Bulgaria - BG</p>
 
-<p>Burkina Faso    - BF</p>
+<p>Burkina Faso - BF</p>
 
 <p>Burundi - BI</p>
 
-<p>Cambodia    - KH</p>
+<p>Cambodia - KH</p>
 
-<p>Cameroon    - CM</p>
+<p>Cameroon - CM</p>
 
-<p>Canada  - CA</p>
+<p>Canada - CA</p>
 
-<p>Cape Verde  - CV</p>
+<p>Cape Verde - CV</p>
 
-<p>Cayman Islands  - KY</p>
+<p>Cayman Islands - KY</p>
 
-<p>Central African Republic    - CF</p>
+<p>Central African Republic - CF</p>
 
-<p>Chad    - TD</p>
+<p>Chad - TD</p>
 
-<p>Chile   - CL</p>
+<p>Chile - CL</p>
 
-<p>China   - CN</p>
+<p>China - CN</p>
 
-<p>Christmas Island    - CX</p>
+<p>Christmas Island - CX</p>
 
 <p>Cocos (Keeling) Islands - CC</p>
 
-<p>Colombia    - CO</p>
+<p>Colombia - CO</p>
 
 <p>Comoros - KM</p>
 
-<p>Congo   - CG</p>
+<p>Congo - CG</p>
 
-<p>Congo, the Democratic Republic of the   - CD</p>
+<p>Congo, the Democratic Republic of the - CD</p>
 
-<p>Cook Islands    - CK</p>
+<p>Cook Islands - CK</p>
 
-<p>Costa Rica  - CR</p>
+<p>Costa Rica - CR</p>
 
-<p>Côte d&#39;Ivoire  - CI</p>
+<p>Côte d&#39;Ivoire - CI</p>
 
 <p>Croatia - HR</p>
 
-<p>Cuba    - CU</p>
+<p>Cuba - CU</p>
 
-<p>Curaçao    - CW</p>
+<p>Curaçao - CW</p>
 
-<p>Cyprus  - CY</p>
+<p>Cyprus - CY</p>
 
-<p>Czech Republic  - CZ</p>
+<p>Czech Republic - CZ</p>
 
 <p>Denmark - DK</p>
 
-<p>Djibouti    - DJ</p>
+<p>Djibouti - DJ</p>
 
-<p>Dominica    - DM</p>
+<p>Dominica - DM</p>
 
-<p>Dominican Republic  - DO</p>
+<p>Dominican Republic - DO</p>
 
 <p>Ecuador - EC</p>
 
-<p>Egypt   - EG</p>
+<p>Egypt - EG</p>
 
 <p>El Salvador - SV</p>
 
-<p>Equatorial Guinea   - GQ</p>
+<p>Equatorial Guinea - GQ</p>
 
 <p>Eritrea - ER</p>
 
 <p>Estonia - EE</p>
 
-<p>Ethiopia    - ET</p>
+<p>Ethiopia - ET</p>
 
 <p>Falkland Islands (Malvinas) - FK</p>
 
-<p>Faroe Islands   - FO</p>
+<p>Faroe Islands - FO</p>
 
-<p>Fiji    - FJ</p>
+<p>Fiji - FJ</p>
 
 <p>Finland - FI</p>
 
-<p>France  - FR</p>
+<p>France - FR</p>
 
-<p>French Guiana   - GF</p>
+<p>French Guiana - GF</p>
 
-<p>French Polynesia    - PF</p>
+<p>French Polynesia - PF</p>
 
 <p>French Southern Territories - TF</p>
 
-<p>Gabon   - GA</p>
+<p>Gabon - GA</p>
 
-<p>Gambia  - GM</p>
+<p>Gambia - GM</p>
 
 <p>Georgia - GE</p>
 
 <p>Germany - DE</p>
 
-<p>Ghana   - GH</p>
+<p>Ghana - GH</p>
 
-<p>Gibraltar   - GI</p>
+<p>Gibraltar - GI</p>
 
-<p>Greece  - GR</p>
+<p>Greece - GR</p>
 
-<p>Greenland   - GL</p>
+<p>Greenland - GL</p>
 
 <p>Grenada - GD</p>
 
-<p>Guadeloupe  - GP</p>
+<p>Guadeloupe - GP</p>
 
-<p>Guam    - GU</p>
+<p>Guam - GU</p>
 
-<p>Guatemala   - GT</p>
+<p>Guatemala - GT</p>
 
-<p>Guernsey    - GG</p>
+<p>Guernsey - GG</p>
 
-<p>Guinea  - GN</p>
+<p>Guinea - GN</p>
 
-<p>Guinea-Bissau   - GW</p>
+<p>Guinea-Bissau - GW</p>
 
-<p>Guyana  - GY</p>
+<p>Guyana - GY</p>
 
-<p>Haiti   - HT</p>
+<p>Haiti - HT</p>
 
-<p>Heard Island and McDonald Islands   - HM</p>
+<p>Heard Island and McDonald Islands - HM</p>
 
-<p>Holy See (Vatican City State)   - VA</p>
+<p>Holy See (Vatican City State) - VA</p>
 
-<p>Honduras    - HN</p>
+<p>Honduras - HN</p>
 
-<p>Hong Kong   - HK</p>
+<p>Hong Kong - HK</p>
 
 <p>Hungary - HU</p>
 
 <p>Iceland - IS</p>
 
-<p>India   - IN</p>
+<p>India - IN</p>
 
-<p>Indonesia   - ID</p>
+<p>Indonesia - ID</p>
 
-<p>Iran, Islamic Republic of   - IR</p>
+<p>Iran, Islamic Republic of - IR</p>
 
-<p>Iraq    - IQ</p>
+<p>Iraq - IQ</p>
 
 <p>Ireland - IE</p>
 
 <p>Isle of Man - IM</p>
 
-<p>Israel  - IL</p>
+<p>Israel - IL</p>
 
-<p>Italy   - IT</p>
+<p>Italy - IT</p>
 
 <p>Jamaica - JM</p>
 
-<p>Japan   - JP</p>
+<p>Japan - JP</p>
 
-<p>Jersey  - JE</p>
+<p>Jersey - JE</p>
 
-<p>Jordan  - JO</p>
+<p>Jordan - JO</p>
 
-<p>Kazakhstan  - KZ</p>
+<p>Kazakhstan - KZ</p>
 
-<p>Kenya   - KE</p>
+<p>Kenya - KE</p>
 
-<p>Kiribati    - KI</p>
+<p>Kiribati - KI</p>
 
-<p>Korea, Democratic People&#39;s Republic of  - KP</p>
+<p>Korea, Democratic People&#39;s Republic of - KP</p>
 
-<p>Korea, Republic of  - KR</p>
+<p>Korea, Republic of - KR</p>
 
-<p>Kuwait  - KW</p>
+<p>Kuwait - KW</p>
 
-<p>Kyrgyzstan  - KG</p>
+<p>Kyrgyzstan - KG</p>
 
-<p>Lao People&#39;s Democratic Republic    - LA</p>
+<p>Lao People&#39;s Democratic Republic - LA</p>
 
-<p>Latvia  - LV</p>
+<p>Latvia - LV</p>
 
 <p>Lebanon - LB</p>
 
@@ -1660,251 +1738,251 @@ Providing aggregated statistics to the client - for the previous days' (default)
 
 <p>Liberia - LR</p>
 
-<p>Libya   - LY</p>
+<p>Libya - LY</p>
 
-<p>Liechtenstein   - LI</p>
+<p>Liechtenstein - LI</p>
 
-<p>Lithuania   - LT</p>
+<p>Lithuania - LT</p>
 
-<p>Luxembourg  - LU</p>
+<p>Luxembourg - LU</p>
 
-<p>Macao   - MO</p>
+<p>Macao - MO</p>
 
-<p>Macedonia, the Former Yugoslav Republic of  - MK</p>
+<p>Macedonia, the Former Yugoslav Republic of - MK</p>
 
-<p>Madagascar  - MG</p>
+<p>Madagascar - MG</p>
 
-<p>Malawi  - MW</p>
+<p>Malawi - MW</p>
 
-<p>Malaysia    - MY</p>
+<p>Malaysia - MY</p>
 
-<p>Maldives    - MV</p>
+<p>Maldives - MV</p>
 
-<p>Mali    - ML</p>
+<p>Mali - ML</p>
 
-<p>Malta   - MT</p>
+<p>Malta - MT</p>
 
-<p>Marshall Islands    - MH</p>
+<p>Marshall Islands - MH</p>
 
-<p>Martinique  - MQ</p>
+<p>Martinique - MQ</p>
 
-<p>Mauritania  - MR</p>
+<p>Mauritania - MR</p>
 
-<p>Mauritius   - MU</p>
+<p>Mauritius - MU</p>
 
 <p>Mayotte - YT</p>
 
-<p>Mexico  - MX</p>
+<p>Mexico - MX</p>
 
 <p>Micronesia, Federated States of - FM</p>
 
-<p>Moldova, Republic of    - MD</p>
+<p>Moldova, Republic of - MD</p>
 
-<p>Monaco  - MC</p>
+<p>Monaco - MC</p>
 
-<p>Mongolia    - MN</p>
+<p>Mongolia - MN</p>
 
-<p>Montenegro  - ME</p>
+<p>Montenegro - ME</p>
 
-<p>Montserrat  - MS</p>
+<p>Montserrat - MS</p>
 
 <p>Morocco - MA</p>
 
-<p>Mozambique  - MZ</p>
+<p>Mozambique - MZ</p>
 
 <p>Myanmar - MM</p>
 
 <p>Namibia - NA</p>
 
-<p>Nauru   - NR</p>
+<p>Nauru - NR</p>
 
-<p>Nepal   - NP</p>
+<p>Nepal - NP</p>
 
 <p>Netherlands - NL</p>
 
-<p>New Caledonia   - NC</p>
+<p>New Caledonia - NC</p>
 
 <p>New Zealand - NZ</p>
 
-<p>Nicaragua   - NI</p>
+<p>Nicaragua - NI</p>
 
-<p>Niger   - NE</p>
+<p>Niger - NE</p>
 
 <p>Nigeria - NG</p>
 
-<p>Niue    - NU</p>
+<p>Niue - NU</p>
 
-<p>Norfolk Island  - NF</p>
+<p>Norfolk Island - NF</p>
 
-<p>Northern Mariana Islands    - MP</p>
+<p>Northern Mariana Islands - MP</p>
 
-<p>Norway  - NO</p>
+<p>Norway - NO</p>
 
-<p>Oman    - OM</p>
+<p>Oman - OM</p>
 
-<p>Pakistan    - PK</p>
+<p>Pakistan - PK</p>
 
-<p>Palau   - PW</p>
+<p>Palau - PW</p>
 
 <p>Palestine, State of - PS</p>
 
-<p>Panama  - PA</p>
+<p>Panama - PA</p>
 
-<p>Papua New Guinea    - PG</p>
+<p>Papua New Guinea - PG</p>
 
-<p>Paraguay    - PY</p>
+<p>Paraguay - PY</p>
 
-<p>Peru    - PE</p>
+<p>Peru - PE</p>
 
 <p>Philippines - PH</p>
 
-<p>Pitcairn    - PN</p>
+<p>Pitcairn - PN</p>
 
-<p>Poland  - PL</p>
+<p>Poland - PL</p>
 
-<p>Portugal    - PT</p>
+<p>Portugal - PT</p>
 
 <p>Puerto Rico - PR</p>
 
-<p>Qatar   - QA</p>
+<p>Qatar - QA</p>
 
-<p>Réunion    - RE</p>
+<p>Réunion - RE</p>
 
 <p>Romania - RO</p>
 
-<p>Russian Federation  - RU</p>
+<p>Russian Federation - RU</p>
 
-<p>Rwanda  - RW</p>
+<p>Rwanda - RW</p>
 
-<p>Saint Barthélemy   - BL</p>
+<p>Saint Barthélemy - BL</p>
 
-<p>Saint Helena, Ascension and Tristan da Cunha    - SH</p>
+<p>Saint Helena, Ascension and Tristan da Cunha - SH</p>
 
-<p>Saint Kitts and Nevis   - KN</p>
+<p>Saint Kitts and Nevis - KN</p>
 
 <p>Saint Lucia - LC</p>
 
-<p>Saint Martin (French part)  - MF</p>
+<p>Saint Martin (French part) - MF</p>
 
-<p>Saint Pierre and Miquelon   - PM</p>
+<p>Saint Pierre and Miquelon - PM</p>
 
-<p>Saint Vincent and the Grenadines    - VC</p>
+<p>Saint Vincent and the Grenadines - VC</p>
 
-<p>Samoa   - WS</p>
+<p>Samoa - WS</p>
 
-<p>San Marino  - SM</p>
+<p>San Marino - SM</p>
 
-<p>Sao Tome and Principe   - ST</p>
+<p>Sao Tome and Principe - ST</p>
 
-<p>Saudi Arabia    - SA</p>
+<p>Saudi Arabia - SA</p>
 
 <p>Senegal - SN</p>
 
-<p>Serbia  - RS</p>
+<p>Serbia - RS</p>
 
-<p>Seychelles  - SC</p>
+<p>Seychelles - SC</p>
 
-<p>Sierra Leone    - SL</p>
+<p>Sierra Leone - SL</p>
 
-<p>Singapore   - SG</p>
+<p>Singapore - SG</p>
 
-<p>Sint Maarten (Dutch part)   - SX</p>
+<p>Sint Maarten (Dutch part) - SX</p>
 
-<p>Slovakia    - SK</p>
+<p>Slovakia - SK</p>
 
-<p>Slovenia    - SI</p>
+<p>Slovenia - SI</p>
 
 <p>Solomon Islands - SB</p>
 
 <p>Somalia - SO</p>
 
-<p>South Africa    - ZA</p>
+<p>South Africa - ZA</p>
 
-<p>South Georgia and the South Sandwich Islands    - GS</p>
+<p>South Georgia and the South Sandwich Islands - GS</p>
 
 <p>South Sudan - SS</p>
 
-<p>Spain   - ES</p>
+<p>Spain - ES</p>
 
-<p>Sri Lanka   - LK</p>
+<p>Sri Lanka - LK</p>
 
-<p>Sudan   - SD</p>
+<p>Sudan - SD</p>
 
-<p>Suriname    - SR</p>
+<p>Suriname - SR</p>
 
-<p>Svalbard and Jan Mayen  - SJ</p>
+<p>Svalbard and Jan Mayen - SJ</p>
 
-<p>Swaziland   - SZ</p>
+<p>Swaziland - SZ</p>
 
-<p>Sweden  - SE</p>
+<p>Sweden - SE</p>
 
 <p>Switzerland - CH</p>
 
-<p>Syrian Arab Republic    - SY</p>
+<p>Syrian Arab Republic - SY</p>
 
-<p>Taiwan, Province of China   - TW</p>
+<p>Taiwan, Province of China - TW</p>
 
-<p>Tajikistan  - TJ</p>
+<p>Tajikistan - TJ</p>
 
-<p>Tanzania, United Republic of    - TZ</p>
+<p>Tanzania, United Republic of - TZ</p>
 
-<p>Thailand    - TH</p>
+<p>Thailand - TH</p>
 
 <p>Timor-Leste - TL</p>
 
-<p>Togo    - TG</p>
+<p>Togo - TG</p>
 
 <p>Tokelau - TK</p>
 
-<p>Tonga   - TO</p>
+<p>Tonga - TO</p>
 
 <p>Trinidad and Tobago - TT</p>
 
 <p>Tunisia - TN</p>
 
-<p>Turkey  - TR</p>
+<p>Turkey - TR</p>
 
-<p>Turkmenistan    - TM</p>
+<p>Turkmenistan - TM</p>
 
-<p>Turks and Caicos Islands    - TC</p>
+<p>Turks and Caicos Islands - TC</p>
 
-<p>Tuvalu  - TV</p>
+<p>Tuvalu - TV</p>
 
-<p>Uganda  - UG</p>
+<p>Uganda - UG</p>
 
 <p>Ukraine - UA</p>
 
-<p>United Arab Emirates    - AE</p>
+<p>United Arab Emirates - AE</p>
 
-<p>United Kingdom  - GB</p>
+<p>United Kingdom - GB</p>
 
-<p>United States   - US</p>
+<p>United States - US</p>
 
-<p>United States Minor Outlying Islands    - UM</p>
+<p>United States Minor Outlying Islands - UM</p>
 
 <p>Uruguay - UY</p>
 
-<p>Uzbekistan  - UZ</p>
+<p>Uzbekistan - UZ</p>
 
 <p>Vanuatu - VU</p>
 
-<p>Venezuela, Bolivarian Republic of   - VE</p>
+<p>Venezuela, Bolivarian Republic of - VE</p>
 
-<p>Viet Nam    - VN</p>
+<p>Viet Nam - VN</p>
 
 <p>Virgin Islands, British - VG</p>
 
-<p>Virgin Islands, U.S.    - VI</p>
+<p>Virgin Islands, U.S. - VI</p>
 
-<p>Wallis and Futuna   - WF</p>
+<p>Wallis and Futuna - WF</p>
 
-<p>Western Sahara  - EH</p>
+<p>Western Sahara - EH</p>
 
-<p>Yemen   - YE</p>
+<p>Yemen - YE</p>
 
-<p>Zambia  - ZM</p>
+<p>Zambia - ZM</p>
 
-<p>Zimbabwe    - ZW</p>
+<p>Zimbabwe - ZW</p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
