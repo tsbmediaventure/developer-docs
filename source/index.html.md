@@ -347,6 +347,11 @@ curl_setopt_array($curl, array(
                 "price": 7
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Name",
+      "fileType": "PDF"
     }
   }',
   CURLOPT_HTTPHEADER => array(
@@ -389,6 +394,11 @@ curl -X POST '{API_URL}/api/v1/content/' \
                 "price": 7
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Name",
+      "fileType": "PDF"
     }
 }'
 ```
@@ -409,6 +419,11 @@ var data = JSON.stringify({
       { name: "IN", price: 5 },
       { name: "US", price: 7 },
     ],
+  },
+  download: {
+    url: "https://yourdownloadurl.com",
+    fileName: "Download File - Name",
+    fileType: "PDF",
   },
 });
 
@@ -463,12 +478,18 @@ axios(config)
           "price": 7
         }
       ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Name",
+      "fileType": "PDF",
+      "s3Key": "KeyForDownloadedFileOnS3"
     }
   }
 }
 ```
 
-This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price & priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no 'contentType' is provided then the default 'contentType' of the client will be treated as the 'contentType' of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null);
+This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price & priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no 'contentType' is provided then the default 'contentType' of the client will be treated as the 'contentType' of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download "url", "fileName" and "fileType" in the download object of the request body while creating the content.
 
 ### HTTP Request
 
@@ -480,22 +501,25 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter      | Default  | Description                                                                                                                                                                                                                                                                                  |
-| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| contentId      | required | Content Id by which the Content has been registered on the Client CMS                                                                                                                                                                                                                        |
-| title          | required | Title of the Content                                                                                                                                                                                                                                                                         |
-| price          | optional | Content Price for pay-per-use pricing                                                                                                                                                                                                                                                        |
-| currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
-| url            | required | URL where the content is available on your website                                                                                                                                                                                                                                           |
-| duration       | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
-| authorId       | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
-| authorName     | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
-| contentType    | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
-| category       | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                             |
+| Parameter   | Default  | Description                                                                                                                                                                                                                                                                                  |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| contentId   | required | Content Id by which the Content has been registered on the Client CMS                                                                                                                                                                                                                        |
+| title       | required | Title of the Content                                                                                                                                                                                                                                                                         |
+| price       | optional | Content Price for pay-per-use pricing                                                                                                                                                                                                                                                        |
+| currency    | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
+| url         | required | URL where the content is available on your website                                                                                                                                                                                                                                           |
+| duration    | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
+| authorId    | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
+| authorName  | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
+| contentType | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
+| category    | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
+
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document |
+
+| download | optional | Object containing the "url", "fileName" and "fileType". All download parameters must be provided if the content is downloadable on purchase. Also, the "fileType" is an ENUM and only accepts "PDF" currently. |
 
 <aside class="notice">
-Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing)
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing). Lastly, you can pass the download object with the required fields for the content to be downloaded on purchase by a user. 
 </aside>
 
 ## Edit Content
@@ -540,6 +564,11 @@ curl_setopt_array($curl, array(
                 "price": 0
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Edited Name",
+      "fileType": "PDF"
     }
 }',
   CURLOPT_HTTPHEADER => array(
@@ -582,6 +611,11 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
                 "price": 0
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Edited Name",
+      "fileType": "PDF"
     }
 }'
 ```
@@ -602,6 +636,11 @@ var data = JSON.stringify({
       { name: "IN", price: 1 },
       { name: "US", price: 0 },
     ],
+  },
+  download: {
+    url: "https://yourdownloadurl.com",
+    fileName: "Download File - Edited Name",
+    fileType: "PDF",
   },
 });
 
@@ -658,12 +697,18 @@ axios(config)
           "price": 0
         }
       ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Edited Name",
+      "fileType": "PDF",
+      "s3Key": "KeyForDownloadedFileOnS3"
     }
   }
 }
 ```
 
-This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, and category . Content ID CANNOT be edited!
+This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, download and category . Content ID CANNOT be edited!
 
 ### HTTP Request
 
@@ -681,21 +726,24 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter      | Default  | Description                                                                                                                                                                                                                                                                                  |
-| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| title          | optional | Title of the Content                                                                                                                                                                                                                                                                         |
-| price          | optional | Content Price for Pay-per-use pricing                                                                                                                                                                                                                                                        |
-| currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
-| url            | optional | URL where the content is available on your website                                                                                                                                                                                                                                           |
-| duration       | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
-| authorId       | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
-| authorName     | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
-| contentType    | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
-| category       | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                             |
+| Parameter   | Default  | Description                                                                                                                                                                                                                                                                                  |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title       | optional | Title of the Content                                                                                                                                                                                                                                                                         |
+| price       | optional | Content Price for Pay-per-use pricing                                                                                                                                                                                                                                                        |
+| currency    | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
+| url         | optional | URL where the content is available on your website                                                                                                                                                                                                                                           |
+| duration    | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                      |
+| authorId    | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                         |
+| authorName  | optional | Name of the Author of the content                                                                                                                                                                                                                                                            |
+| contentType | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
+| category    | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
+
+| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document  
+ |
+| download | optional | Object containing the "url", "fileName" and "fileType". All download parameters must be provided if the content is downloadable on purchase. Also, the "fileType" is an ENUM and only accepts "PDF" currently.
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType, category and download - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 
 ## View All Content
@@ -785,7 +833,13 @@ axios(config)
       "currency": "INR",
       "duration": 2,
       "url": "https://www.yoursite.com/yourcontent",
-      "contentType": "STORY"
+      "contentType": "STORY",
+      "download": {
+        "url": "https://yourdownloadurl.com",
+        "fileName": "Download File - Name",
+        "fileType": "PDF",
+        "s3Key": "KeyForDownloadedFileOnS3"
+      }
     }
   ],
   "pagination": {
@@ -1072,7 +1126,7 @@ axios(config)
 }
 ```
 
-This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. The value of 'totalRevenueGenerated' in the response if given in "INR" by default. 
+This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days' consumption. However, the client can pass the 'from' and 'to' dates as optional query parameters to get aggregated stats for any range that they choose. The value of 'totalRevenueGenerated' in the response if given in "INR" by default.
 
 ### HTTP Request
 
