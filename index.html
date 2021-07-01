@@ -879,15 +879,21 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
 </tr>
 <tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
+<tr>
+<td>download</td>
+<td>optional</td>
+<td>Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently.</td>
+</tr>
+<tr>
 <td>category</td>
 <td>optional</td>
 <td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
 </tr>
 </tbody></table>
-
-<p>| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document |</p>
-
-<p>| download | optional | Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently. |</p>
 
 <aside class="notice">
 Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing). Lastly, you can pass the download object with the required fields for the content to be downloaded on purchase by a user. 
@@ -1135,15 +1141,21 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
 </tr>
 <tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
+<tr>
+<td>download</td>
+<td>optional</td>
+<td>Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently</td>
+</tr>
+<tr>
 <td>category</td>
 <td>optional</td>
-<td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
+<td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides</td>
 </tr>
 </tbody></table>
-
-<p>| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document<br>
- |
-| download | optional | Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently.</p>
 
 <aside class="notice">
 Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType, category and download - can be edited. Only pass the fields you wish to edit in the request body. 
