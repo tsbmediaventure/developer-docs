@@ -686,6 +686,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
                 "price": 7
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Name",
+      "fileType": "PDF"
     }
   }'</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
@@ -725,6 +730,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
                 "price": 7
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Name",
+      "fileType": "PDF"
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
@@ -742,6 +752,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">5</span> <span class="p">},</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">7</span> <span class="p">},</span>
     <span class="p">],</span>
+  <span class="p">},</span>
+  <span class="na">download</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://yourdownloadurl.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">fileName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Download File - Name</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">fileType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PDF</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
 
@@ -795,11 +810,17 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
           </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"download"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourdownloadurl.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Download File - Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PDF"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"s3Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KeyForDownloadedFileOnS3"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price &amp; priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null);</p>
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Lastly, the price &amp; priceOverrides of the content can only be set as a distinct value chosen by the client - which can be any out of [0, 0.01, 1, 2, 3, 5, 7, 10]. These prices are in INR and ONLY these values can be set as the price of the content - otherwise the API call for creating the content will throw a 400 (Bad Request) Error. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot; in the download object of the request body while creating the content.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -862,15 +883,14 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>optional</td>
 <td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
 </tr>
-<tr>
-<td>priceOverrides</td>
-<td>optional</td>
-<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
-</tr>
 </tbody></table>
 
+<p>| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document |</p>
+
+<p>| download | optional | Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently. |</p>
+
 <aside class="notice">
-Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing)
+Remember — A content must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content, or a pre-defined category to determine the pricing of the content. If neither of these are provided, the content price will be determined on the default price parameters set for the client. (Blanket Pricing). Lastly, you can pass the download object with the required fields for the content to be downloaded on purchase by a user. 
 </aside>
 <h2 id='edit-content'>Edit Content</h2>
 <blockquote>
@@ -913,6 +933,11 @@ Replace the {contentId} in the API path with your actual Content Id</p>
                 "price": 0
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Edited Name",
+      "fileType": "PDF"
     }
 }'</span><span class="p">,</span>
   <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
@@ -952,6 +977,11 @@ Replace the {contentId} in the API path with your actual Content Id</p>
                 "price": 0
             }
         ]
+    },
+    "download": {
+      "url": "https://yourdownloadurl.com",
+      "fileName": "Download File - Edited Name",
+      "fileType": "PDF"
     }
 }'</span>
 </code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
@@ -969,6 +999,11 @@ Replace the {contentId} in the API path with your actual Content Id</p>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
     <span class="p">],</span>
+  <span class="p">},</span>
+  <span class="na">download</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://yourdownloadurl.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">fileName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Download File - Edited Name</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">fileType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PDF</span><span class="dl">"</span><span class="p">,</span>
   <span class="p">},</span>
 <span class="p">});</span>
 
@@ -1024,11 +1059,17 @@ Replace the {contentId} in the API path with your actual Content Id</p>
           </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"download"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourdownloadurl.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Download File - Edited Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PDF"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"s3Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KeyForDownloadedFileOnS3"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, and category . Content ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, download and category . Content ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/content/{contentId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -1098,15 +1139,14 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>optional</td>
 <td>The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
 </tr>
-<tr>
-<td>priceOverrides</td>
-<td>optional</td>
-<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
-</tr>
 </tbody></table>
 
+<p>| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document<br>
+ |
+| download | optional | Object containing the &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot;. All download parameters must be provided if the content is downloadable on purchase. Also, the &quot;fileType&quot; is an ENUM and only accepts &quot;PDF&quot; currently.</p>
+
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType, category and download - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content'>View All Content</h2>
 <blockquote>
@@ -1187,7 +1227,13 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="w">
+      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"download"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourdownloadurl.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Download File - Name"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PDF"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"s3Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KeyForDownloadedFileOnS3"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1453,7 +1499,7 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
   </span><span class="nl">"totalRevenueGenerated"</span><span class="p">:</span><span class="w"> </span><span class="mf">29.6</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default. </p>
+<p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default.</p>
 <h3 id='http-request-6'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
 <h3 id='authorization-5'>Authorization</h3>
