@@ -339,6 +339,20 @@
               </ul>
           </li>
           <li>
+            <a href="#client-content-bundles" class="toc-h1 toc-link" data-title="Client Content Bundles">Client Content Bundles</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-content-bundle" class="toc-h2 toc-link" data-title="Create Content Bundle">Create Content Bundle</a>
+                  </li>
+                  <li>
+                    <a href="#edit-content-bundle" class="toc-h2 toc-link" data-title="Edit Content Bundle">Edit Content Bundle</a>
+                  </li>
+                  <li>
+                    <a href="#view-all-content-bundles" class="toc-h2 toc-link" data-title="View All Content Bundles">View All Content Bundles</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#validate-content-consumption" class="toc-h1 toc-link" data-title="Validate Content Consumption">Validate Content Consumption</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1376,6 +1390,584 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <aside class="notice">
 API to retrieve the details of an individual content registered by the client on ConsCent. 
 </aside>
+<h1 id='client-content-bundles'>Client Content Bundles</h1><h2 id='create-content-bundle'>Create Content Bundle</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/bundle"</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "contentId" : "Client Content Bundle 1",
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality",
+    "price" : 10,
+    "currency": "INR",
+    "url": "www.google.com",
+    contentType: "STORY",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    },
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+  }'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
+    <span class="s2">"Content-Type: application/json"</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'{API_URL}/api/v1/content/bundle'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality",
+    "price" : 10,
+    "currency": "INR",
+    contentType: "STORY",
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    },
+}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">contentId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Client Content Bundle 1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">bundleContentIds</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Content Id 1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Content Id 2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Content Id 3</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">duration</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content bundle for API functionality</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">price</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">5</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">7</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/bundle</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content Created!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content bundle for API functionality"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content bundle, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client&#39;s contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/content/bundle</code></p>
+<h3 id='authorization-5'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='request-body-3'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contentId</td>
+<td>required</td>
+<td>Unique Content Id by which the Content Bundle will be determined and registered</td>
+</tr>
+<tr>
+<td>bundleContentIds</td>
+<td>required</td>
+<td>Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle</td>
+</tr>
+<tr>
+<td>title</td>
+<td>required</td>
+<td>Title of the Content Bundle</td>
+</tr>
+<tr>
+<td>price</td>
+<td>optional</td>
+<td>Content Bundle Price</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>optional</td>
+<td>Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>required</td>
+<td>URL where the content bundle is available on your website</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>optional</td>
+<td>Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);</td>
+</tr>
+<tr>
+<td>contentType</td>
+<td>optional</td>
+<td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
+</tr>
+<tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
+<tr>
+<td>category</td>
+<td>optional</td>
+<td>The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Remember — A content bundle must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the accurate array of bundleContentIds, title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content bundle, or a pre-defined category to determine the pricing of the content bundle. If neither of these are provided, the content bundle price will be determined on the default price parameters set for the client. (Blanket Pricing).
+</aside>
+<h2 id='edit-content-bundle'>Edit Content Bundle</h2>
+<blockquote>
+<p>Please ensure you URL encode the contentId in the Path Parameters
+Replace the {contentId} in the API path with your actual Content Id</p>
+</blockquote>
+<div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/bundle/Client%20Content%20Bundle%2011"</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"PATCH"</span><span class="p">,</span>
+   <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
+    "currency": "INR",
+    "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    },
+
+}'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span><span class="p">,</span>
+    <span class="s2">"Content-Type: application/json"</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH <span class="s1">'{API_URL}/api/v1/content/bundle/{contentId}'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
+    "currency": "INR",
+    "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    },
+}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">contentId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Client Content Bundle 1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">bundleContentIds</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Content Id 1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Content Id 2</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Content Id 3</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">duration</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content bundle for API functionality Edited</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">price</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">US</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">0</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">patch</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/bundle/{contentId}</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Content Edited Successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"editedContent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content bundle for API functionality Edited"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to Edit their Registered Content Bundle on ConsCent - with the editable fields being the bundleContentIds as well as the bundle title, price, currency, priceOverrides, URL, duration, contentType and category. The Bundle Content ID CANNOT be edited!</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>PATCH {API_URL}/api/v1/content/bundle/{contentId}</code></p>
+<h3 id='authorization-6'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='url-parameters-4'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>contentId</td>
+<td>The ID of the Content Bundle you wish to edit ( Ensure it is URL Encoded)</td>
+</tr>
+</tbody></table>
+<h3 id='request-body-4'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>optional</td>
+<td>Title of the Content Bundle</td>
+</tr>
+<tr>
+<td>bundleContentIds</td>
+<td>optional</td>
+<td>Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle</td>
+</tr>
+<tr>
+<td>price</td>
+<td>optional</td>
+<td>Content Bundle Price</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>optional</td>
+<td>Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>optional</td>
+<td>URL where the content bundle is available on your website</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>optional</td>
+<td>Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);</td>
+</tr>
+<tr>
+<td>contentType</td>
+<td>optional</td>
+<td>Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT</td>
+</tr>
+<tr>
+<td>priceOverrides</td>
+<td>optional</td>
+<td>Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document</td>
+</tr>
+<tr>
+<td>category</td>
+<td>optional</td>
+<td>The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
+</aside>
+<h2 id='view-all-content-bundles'>View All Content Bundles</h2>
+<blockquote>
+<p>API to retrieve all of the client&#39;s content bundles registered on ConsCent.</p>
+</blockquote>
+<div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s2">"</span><span class="si">{</span><span class="nv">API_URL</span><span class="si">}</span><span class="s2">/api/v1/content/bundles"</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s2">"GET"</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/content/bundles'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/content/bundles</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle Edit 2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 5"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content bundle for API functionality"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to view their entire collection of Registered Content Bundles on ConsCent. With each retrieved content bundle containing the following details - bundleContentIds, Title, Price, URL, Content ID and duration.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>GET {API_URL}/api/v1/content/bundles</code></p>
+<h3 id='authorization-7'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='url-parameters-5'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pageNumber</td>
+<td>optional</td>
+<td>Pagination Parameters - which page of the content bundles list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY.</td>
+</tr>
+<tr>
+<td>pageSize</td>
+<td>optional</td>
+<td>Pagination Parameters - the number of individual content bundles to retrieve on each page (default = 20).</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content bundles that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+</aside>
+
+<hr>
 <h1 id='validate-content-consumption'>Validate Content Consumption</h1><h2 id='validate-content-details-by-consumption-id'>Validate Content Details By Consumption ID</h2>
 <blockquote>
 <p>Replace the {consumptionId} in the API path with the actual value/string of the consumptionId recieved</p>
@@ -1433,11 +2025,11 @@ API to retrieve the details of an individual content registered by the client on
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to Validate the Content Details anytime a User Purchases any Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content/consumption/{consumptionId}</code></p>
 
 <p>The client will recieve a payload when any content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.</p>
-<h3 id='url-parameters-4'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1512,9 +2104,9 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
-<h3 id='authorization-5'>Authorization</h3>
+<h3 id='authorization-8'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
