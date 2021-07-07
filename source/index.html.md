@@ -968,6 +968,528 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 API to retrieve the details of an individual content registered by the client on ConsCent. 
 </aside>
 
+# Client Content Bundles
+
+## Create Content Bundle
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/bundle",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS =>'{
+    "contentId" : "Client Content Bundle 1",
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality",
+    "price" : 10,
+    "currency": "INR",
+    "url": "www.google.com",
+    contentType: "STORY",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    },
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+  }',
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X POST '{API_URL}/api/v1/content/bundle' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality",
+    "price" : 10,
+    "currency": "INR",
+    contentType: "STORY",
+    "url": "www.google.com",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 3
+            },
+            {
+                "name": "IN",
+                "price": 5
+            },
+            {
+                "name": "US",
+                "price": 7
+            }
+        ]
+    },
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({
+  contentId: "Client Content Bundle 1",
+  bundleContentIds: ["Content Id 1", "Content Id 2", "Content Id 3"],
+  duration: 30,
+  title: "Test content bundle for API functionality",
+  price: 10,
+  currency: "INR",
+  url: "www.google.com",
+  contentType: "STORY",
+  priceOverrides: {
+    country: [
+      { name: "GL", price: 3 },
+      { name: "IN", price: 5 },
+      { name: "US", price: 7 },
+    ],
+  },
+});
+
+var config = {
+  method: "post",
+  url: "{API_URL}/api/v1/content/bundle",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "New Content Created!",
+  "content": {
+    "title": "Test content bundle for API functionality",
+    "price": 10,
+    "currency": "INR",
+    "contentId": "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration": 30,
+    "url": "www.google.com",
+    "contentType": "STORY",
+    "priceOverrides": {
+      "country": [
+        {
+          "_id": "605b25824646e9233aef61b4",
+          "name": "GL",
+          "price": 3
+        },
+        {
+          "_id": "605b25824646e9233aef61b5",
+          "name": "IN",
+          "price": 5
+        },
+        {
+          "_id": "605b25824646e9233aef61b6",
+          "name": "US",
+          "price": 7
+        }
+      ]
+    }
+  }
+}
+```
+
+This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no 'contentType' is provided then the default 'contentType' of the client will be treated as the 'contentType' of the content being registered. While category based pricing can be used for any content bundle, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client's contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/content/bundle`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### Request Body
+
+| Parameter        | Default  | Description                                                                                                                                                                                                                                                                                         |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| contentId        | required | Unique Content Id by which the Content Bundle will be determined and registered                                                                                                                                                                                                                     |
+| bundleContentIds | required | Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle                                                                                                                                                             |
+| title            | required | Title of the Content Bundle                                                                                                                                                                                                                                                                         |
+| price            | optional | Content Bundle Price                                                                                                                                                                                                                                                                                |
+| currency         | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                                   |
+| url              | required | URL where the content bundle is available on your website                                                                                                                                                                                                                                           |
+| duration         | optional | Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);                                                                                                                                                                                      |
+| contentType      | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                            |
+| priceOverrides   | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                                    |
+| category         | optional | The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
+
+<aside class="notice">
+Remember — A content bundle must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the accurate array of bundleContentIds, title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content bundle, or a pre-defined category to determine the pricing of the content bundle. If neither of these are provided, the content bundle price will be determined on the default price parameters set for the client. (Blanket Pricing).
+</aside>
+
+## Edit Content Bundle
+
+> Please ensure you URL encode the contentId in the Path Parameters
+> Replace the {contentId} in the API path with your actual Content Id
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/bundle/Client%20Content%20Bundle%2011",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "PATCH",
+   CURLOPT_POSTFIELDS =>'{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
+    "currency": "INR",
+    "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    },
+
+}',
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type: application/json"
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl -X PATCH '{API_URL}/api/v1/content/bundle/{contentId}' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
+-H 'Content-Type: application/json' \
+-d '{
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "duration" : 30,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
+    "currency": "INR",
+    "url": "www.google.com",
+    "contentType": "PREMIUM CONTENT",
+    "priceOverrides": {
+        "country": [
+            {
+                "name": "GL",
+                "price": 2
+            },
+            {
+                "name": "IN",
+                "price": 1
+            },
+            {
+                "name": "US",
+                "price": 0
+            }
+        ]
+    },
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({
+  contentId: "Client Content Bundle 1",
+  bundleContentIds: ["Content Id 1", "Content Id 2", "Content Id 3"],
+  duration: 30,
+  title: "Test content bundle for API functionality Edited",
+  price: 15,
+  currency: "INR",
+  url: "www.google.com",
+  contentType: "PREMIUM CONTENT",
+  priceOverrides: {
+    country: [
+      { name: "GL", price: 2 },
+      { name: "IN", price: 1 },
+      { name: "US", price: 0 },
+    ],
+  },
+});
+
+var config = {
+  method: "patch",
+  url: "{API_URL}/api/v1/content/bundle/{contentId}",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "Content Edited Successfully",
+  "editedContent": {
+    "title": "Test content bundle for API functionality Edited",
+    "contentId": "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "price": 15,
+    "currency": "INR",
+    "duration": 30,
+    "url": "https://www.yoursite.com/yournewcontent",
+    "contentType": "PREMIUM CONTENT",
+    "priceOverrides": {
+      "country": [
+        {
+          "_id": "605b25824646e9233aef61b4",
+          "name": "GL",
+          "price": 2
+        },
+        {
+          "_id": "605b25824646e9233aef61b5",
+          "name": "IN",
+          "price": 1
+        },
+        {
+          "_id": "605b25824646e9233aef61b6",
+          "name": "US",
+          "price": 0
+        }
+      ]
+    }
+  }
+}
+```
+
+This endpoint allows the Client to Edit their Registered Content Bundle on ConsCent - with the editable fields being the bundleContentIds as well as the bundle title, price, currency, priceOverrides, URL, duration, contentType and category. The Bundle Content ID CANNOT be edited!
+
+### HTTP Request
+
+`PATCH {API_URL}/api/v1/content/bundle/{contentId}`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter | Description                                                               |
+| --------- | ------------------------------------------------------------------------- |
+| contentId | The ID of the Content Bundle you wish to edit ( Ensure it is URL Encoded) |
+
+### Request Body
+
+| Parameter        | Default  | Description                                                                                                                                                                                                                                                                                        |
+| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title            | optional | Title of the Content Bundle                                                                                                                                                                                                                                                                        |
+| bundleContentIds | optional | Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle                                                                                                                                                            |
+| price            | optional | Content Bundle Price                                                                                                                                                                                                                                                                               |
+| currency         | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                                  |
+| url              | optional | URL where the content bundle is available on your website                                                                                                                                                                                                                                          |
+| duration         | optional | Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);                                                                                                                                                                                     |
+| contentType      | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                           |
+| priceOverrides   | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                                   |
+| category         | optional | The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides |
+
+<aside class="notice">
+Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
+</aside>
+
+## View All Content Bundles
+
+> API to retrieve all of the client's content bundles registered on ConsCent.
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "{API_URL}/api/v1/content/bundles",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=="
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+curl -X GET '{API_URL}/api/v1/content/bundles' \
+-H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/content/bundles",
+  headers: {
+    Authorization:
+      "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "content": [
+    {
+      "title": "Client Content Bundle Edit 2",
+      "contentId": "Client Content Bundle 2",
+      "bundleContentIds": ["Content Id 4", "Content Id 5"],
+      "price": 10,
+      "currency": "INR",
+      "duration": 2,
+      "url": "https://www.yoursite.com/yourcontent",
+      "contentType": "STORY",
+      "priceOverrides": {
+        "country": [
+          {
+            "_id": "605b25824646e9233aef61b4",
+            "name": "GL",
+            "price": 2
+          }
+        ]
+      }
+    },
+    {
+      "title": "Test content bundle for API functionality",
+      "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+      "contentId": "Client Content Bundle 1",
+      "price": 15,
+      "currency": "INR",
+      "duration": 30,
+      "url": "https://www.yoursite.com/yourcontent",
+      "contentType": "STORY"
+    }
+  ],
+  "pagination": {
+    "pageNumber": 1,
+    "pageSize": 20,
+    "totalRecords": 2,
+    "totalPages": 1
+  }
+}
+```
+
+This endpoint allows the Client to view their entire collection of Registered Content Bundles on ConsCent. With each retrieved content bundle containing the following details - bundleContentIds, Title, Price, URL, Content ID and duration.
+
+### HTTP Request
+
+`GET {API_URL}/api/v1/content/bundles`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter  | Default  | Description                                                                                                                                                        |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| pageNumber | optional | Pagination Parameters - which page of the content bundles list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
+| pageSize   | optional | Pagination Parameters - the number of individual content bundles to retrieve on each page (default = 20).                                                                 |
+
+<aside class="notice">
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content bundles that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+</aside>
+
+---
+
 # Validate Content Consumption
 
 ## Validate Content Details By Consumption ID
