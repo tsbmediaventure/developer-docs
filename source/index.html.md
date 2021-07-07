@@ -1147,24 +1147,24 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### Request Body
 
-| Parameter        | Default  | Description                                                                                                                                                                                                                                                                                  |
-| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| contentId        | required | Unique Content Id by which the Content Bundle will be determined and registered                                                                                                                                                                                                              |
-| bundleContentIds | required | Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle                                                                                                                                                      |
-| title            | required | Title of the Content Bundle                                                                                                                                                                                                                                                                  |
-| price            | optional | Content Bundle Price                                                                                                                                                                                                                                                                         |
-| currency         | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
+| Parameter        | Default  | Description                                                                                                                                                                                                                                                                                         |
+| ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| contentId        | required | Unique Content Id by which the Content Bundle will be determined and registered                                                                                                                                                                                                                     |
+| bundleContentIds | required | Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle                                                                                                                                                             |
+| title            | required | Title of the Content Bundle                                                                                                                                                                                                                                                                         |
+| price            | optional | Content Bundle Price                                                                                                                                                                                                                                                                                |
+| currency         | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                                   |
 | url              | required | URL where the content bundle is available on your website                                                                                                                                                                                                                                           |
 | duration         | optional | Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);                                                                                                                                                                                      |
-| contentType      | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                     |
-| priceOverrides   | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                             |
+| contentType      | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                            |
+| priceOverrides   | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                                    |
 | category         | optional | The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides. |
 
 <aside class="notice">
 Remember — A content bundle must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the content - including the Content ID with which the content is registered on your Client CMS as well as the accurate array of bundleContentIds, title and content URL. Moreover, depending on the pricing model you wish to use - you must either pass a price and currency associated with the content bundle, or a pre-defined category to determine the pricing of the content bundle. If neither of these are provided, the content bundle price will be determined on the default price parameters set for the client. (Blanket Pricing).
 </aside>
 
-## Edit Content
+## Edit Content Bundle
 
 > Please ensure you URL encode the contentId in the Path Parameters
 > Replace the {contentId} in the API path with your actual Content Id
@@ -1175,7 +1175,7 @@ Remember — A content bundle must be registered by including all the required f
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/content/Client%20Content%20Id%2011",
+  CURLOPT_URL => "{API_URL}/api/v1/content/bundle/Client%20Content%20Bundle%2011",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -1184,10 +1184,11 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PATCH",
    CURLOPT_POSTFIELDS =>'{
-    "contentId" : "testingID For Client Content",
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
     "duration" : 30,
-    "title" : "Test content for API functionality Edited",
-    "price" : 1,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
@@ -1207,11 +1208,7 @@ curl_setopt_array($curl, array(
             }
         ]
     },
-    "download": {
-      "url": "https://yourdownloadurl.com",
-      "fileName": "Download File - Edited Name",
-      "fileType": "PDF"
-    }
+
 }',
   CURLOPT_HTTPHEADER => array(
     "Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
@@ -1227,14 +1224,15 @@ echo $response;
 ```
 
 ```shell
-curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
+curl -X PATCH '{API_URL}/api/v1/content/bundle/{contentId}' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==' \
 -H 'Content-Type: application/json' \
 -d '{
-    "contentId" : "testingID For Client Content",
+    "contentId" : "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
     "duration" : 30,
-    "title" : "Test content for API functionality Edited",
-    "price" : 1,
+    "title" : "Test content bundle for API functionality Edited",
+    "price" : 15,
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
@@ -1254,21 +1252,17 @@ curl -X PATCH '{API_URL}/api/v1/content/{contentId}' \
             }
         ]
     },
-    "download": {
-      "url": "https://yourdownloadurl.com",
-      "fileName": "Download File - Edited Name",
-      "fileType": "PDF"
-    }
 }'
 ```
 
 ```javascript
 var axios = require("axios");
 var data = JSON.stringify({
-  contentId: "testingID For Client Content",
+  contentId: "Client Content Bundle 1",
+  bundleContentIds: ["Content Id 1", "Content Id 2", "Content Id 3"],
   duration: 30,
-  title: "Test content for API functionality Edited",
-  price: 1,
+  title: "Test content bundle for API functionality Edited",
+  price: 15,
   currency: "INR",
   url: "www.google.com",
   contentType: "PREMIUM CONTENT",
@@ -1279,16 +1273,11 @@ var data = JSON.stringify({
       { name: "US", price: 0 },
     ],
   },
-  download: {
-    url: "https://yourdownloadurl.com",
-    fileName: "Download File - Edited Name",
-    fileType: "PDF",
-  },
 });
 
 var config = {
   method: "patch",
-  url: "{API_URL}/api/v1/content/{contentId}",
+  url: "{API_URL}/api/v1/content/bundle/{contentId}",
   headers: {
     Authorization:
       "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWjnJL877NJSjnkHSk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
@@ -1312,15 +1301,14 @@ axios(config)
 {
   "message": "Content Edited Successfully",
   "editedContent": {
-    "title": "Client Content Id Test Edited",
-    "contentId": "testingID For Client Content",
-    "price": 1,
+    "title": "Test content bundle for API functionality Edited",
+    "contentId": "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "price": 15,
     "currency": "INR",
     "duration": 30,
     "url": "https://www.yoursite.com/yournewcontent",
     "contentType": "PREMIUM CONTENT",
-    "authorName": "changed-author-name",
-    "authorId": "changed-unique-author-id",
     "priceOverrides": {
       "country": [
         {
@@ -1339,22 +1327,16 @@ axios(config)
           "price": 0
         }
       ]
-    },
-    "download": {
-      "url": "https://yourdownloadurl.com",
-      "fileName": "Download File - Edited Name",
-      "fileType": "PDF",
-      "s3Key": "KeyForDownloadedFileOnS3"
     }
   }
 }
 ```
 
-This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, download and category . Content ID CANNOT be edited!
+This endpoint allows the Client to Edit their Registered Content Bundle on ConsCent - with the editable fields being the bundleContentIds as well as the bundle title, price, currency, priceOverrides, URL, duration, contentType and category. The Bundle Content ID CANNOT be edited!
 
 ### HTTP Request
 
-`PATCH {API_URL}/api/v1/content/{contentId}`
+`PATCH {API_URL}/api/v1/content/bundle/{contentId}`
 
 ### Authorization
 
@@ -1362,33 +1344,31 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### URL Parameters
 
-| Parameter | Description                                                        |
-| --------- | ------------------------------------------------------------------ |
-| contentId | The ID of the Content you wish to edit ( Ensure it is URL Encoded) |
+| Parameter | Description                                                               |
+| --------- | ------------------------------------------------------------------------- |
+| contentId | The ID of the Content Bundle you wish to edit ( Ensure it is URL Encoded) |
 
 ### Request Body
 
-| Parameter      | Default  | Description                                                                                                                                                                                                                                                                                 |
-| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| title          | optional | Title of the Content                                                                                                                                                                                                                                                                        |
-| price          | optional | Content Price for Pay-per-use pricing                                                                                                                                                                                                                                                       |
-| currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                           |
-| url            | optional | URL where the content is available on your website                                                                                                                                                                                                                                          |
-| duration       | optional | Free content access time for user once the user has purchased the content. (Standard Practice - 1 Day);                                                                                                                                                                                     |
-| authorId       | optional | Id of the Author of the content - Mandatory if authorName is present                                                                                                                                                                                                                        |
-| authorName     | optional | Name of the Author of the content                                                                                                                                                                                                                                                           |
-| contentType    | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                    |
-| priceOverrides | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                            |
-| download       | optional | Object containing the "url", "fileName" and "fileType". All download parameters must be provided if the content is downloadable on purchase. Also, the "fileType" is an ENUM and only accepts "PDF" currently                                                                               |
-| category       | optional | The category of the content, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides |
+| Parameter        | Default  | Description                                                                                                                                                                                                                                                                                        |
+| ---------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title            | optional | Title of the Content Bundle                                                                                                                                                                                                                                                                        |
+| bundleContentIds | optional | Array of ContentIds - which have been registered on ConsCent by the client and are to be grouped together for purchase - in this bundle                                                                                                                                                            |
+| price            | optional | Content Bundle Price                                                                                                                                                                                                                                                                               |
+| currency         | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                                  |
+| url              | optional | URL where the content bundle is available on your website                                                                                                                                                                                                                                          |
+| duration         | optional | Free content access time for user once the user has purchased the content bundle. (Standard Practice - 1 Day);                                                                                                                                                                                     |
+| contentType      | optional | Must be an ENUM from one of the following - STORY, VIDEO, SONG, PODCAST, PREMIUM CONTENT                                                                                                                                                                                                           |
+| priceOverrides   | optional | Price Overrides for any particular country with the relevant country code as the name and the ENUM value in the price. The country code list is located the end of this document                                                                                                                   |
+| category         | optional | The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn't have a price). Each registered category will have an associated price, currency, duration and priceOverrides |
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType, category and download - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 
-## View All Content
+## View All Content Bundles
 
-> API to retrieve all of the client's content registered on ConsCent.
+> API to retrieve all of the client's content bundles registered on ConsCent.
 
 ```php
 <?php
@@ -1396,7 +1376,7 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "{API_URL}/api/v1/content/client",
+  CURLOPT_URL => "{API_URL}/api/v1/content/bundles",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -1418,7 +1398,7 @@ echo $response;
 ```
 
 ```shell
-curl -X GET '{API_URL}/api/v1/content/client' \
+curl -X GET '{API_URL}/api/v1/content/bundles' \
 -H 'Authorization: Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw=='
 ```
 
@@ -1427,7 +1407,7 @@ var axios = require("axios");
 
 var config = {
   method: "get",
-  url: "{API_URL}/api/v1/content/client",
+  url: "{API_URL}/api/v1/content/bundles",
   headers: {
     Authorization:
       "Basic RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3TVpRWkdTWkVGVjZYUk5TS1E4RDZXN1Y4UU1ORzRXWUNRWDlCUDJCOEU3QjZLRw==",
@@ -1449,9 +1429,10 @@ axios(config)
 {
   "content": [
     {
-      "title": "Client Content Id Test Edit 1",
-      "contentId": "Client Content Id 11",
-      "price": 1,
+      "title": "Client Content Bundle Edit 2",
+      "contentId": "Client Content Bundle 2",
+      "bundleContentIds": ["Content Id 4", "Content Id 5"],
+      "price": 10,
       "currency": "INR",
       "duration": 2,
       "url": "https://www.yoursite.com/yourcontent",
@@ -1467,19 +1448,14 @@ axios(config)
       }
     },
     {
-      "title": "Test content for API functionality",
-      "contentId": "testingID for Client Content",
-      "price": 3,
+      "title": "Test content bundle for API functionality",
+      "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+      "contentId": "Client Content Bundle 1",
+      "price": 15,
       "currency": "INR",
-      "duration": 2,
+      "duration": 30,
       "url": "https://www.yoursite.com/yourcontent",
-      "contentType": "STORY",
-      "download": {
-        "url": "https://yourdownloadurl.com",
-        "fileName": "Download File - Name",
-        "fileType": "PDF",
-        "s3Key": "KeyForDownloadedFileOnS3"
-      }
+      "contentType": "STORY"
     }
   ],
   "pagination": {
@@ -1491,11 +1467,11 @@ axios(config)
 }
 ```
 
-This endpoint allows the Client to view their entire collection of Registered Content on ConsCent. With each retrieved content containing the following details - Title, Price, URL, Content ID and duration.
+This endpoint allows the Client to view their entire collection of Registered Content Bundles on ConsCent. With each retrieved content bundle containing the following details - bundleContentIds, Title, Price, URL, Content ID and duration.
 
 ### HTTP Request
 
-`GET {API_URL}/api/v1/content/client`
+`GET {API_URL}/api/v1/content/bundles`
 
 ### Authorization
 
@@ -1505,11 +1481,11 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 | Parameter  | Default  | Description                                                                                                                                                        |
 | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| pageNumber | optional | Pagination Parameters - which page of the contents list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
-| pageSize   | optional | Pagination Parameters - the number of individual contents to retrieve on each page (default = 20).                                                                 |
+| pageNumber | optional | Pagination Parameters - which page of the content bundles list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
+| pageSize   | optional | Pagination Parameters - the number of individual content bundles to retrieve on each page (default = 20).                                                                 |
 
 <aside class="notice">
-Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content that isn't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
+Remember — Pagination parameters are optional. The dafault values are - pageNumber = 1 & pageSize = 20. If you would like to access more content in a single call then you will have to pass the value as a query parameter (pageSize). Max. value for pageSize is 499. Moreover, if you would like to access content bundles that aren't included in the first page - then you will have to pass the pageNumber as a query parameter for any of the subsequent pages.
 </aside>
 
 ---
