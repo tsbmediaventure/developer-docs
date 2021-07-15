@@ -503,7 +503,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 | Parameter      | Default  | Description                                                                                                                                                                                                                                                                                  |
 | -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| contentId      | required | Content Id by which the Content has been registered on the Client CMS                                                                                                                                                                                                                        |
+| contentId      | required | Content Id by which the Content has been registered on the Client CMS. Please ensure that the content ID is at most 32 characters and can only contain letters, numbers, underscores and dashes.                                                                                             |
 | title          | required | Title of the Content                                                                                                                                                                                                                                                                         |
 | price          | optional | Content Price for pay-per-use pricing                                                                                                                                                                                                                                                        |
 | currency       | optional | Currency in which price is determined. Must be an ISO 4217 supported - 3 Digit currency Code. INR is used as the default if no value is provided.                                                                                                                                            |
@@ -1479,8 +1479,8 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 
 ### URL Parameters
 
-| Parameter  | Default  | Description                                                                                                                                                        |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Parameter  | Default  | Description                                                                                                                                                               |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | pageNumber | optional | Pagination Parameters - which page of the content bundles list you would like to retrieve (default = 1). Since each page will have 20 (default) individual contents ONLY. |
 | pageSize   | optional | Pagination Parameters - the number of individual content bundles to retrieve on each page (default = 20).                                                                 |
 
