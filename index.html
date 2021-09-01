@@ -353,6 +353,17 @@
               </ul>
           </li>
           <li>
+            <a href="#donations" class="toc-h1 toc-link" data-title="Donations">Donations</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-donation" class="toc-h2 toc-link" data-title="Create Donation">Create Donation</a>
+                  </li>
+                  <li>
+                    <a href="#get-client-donations" class="toc-h2 toc-link" data-title="Get Client Donations">Get Client Donations</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#validate-content-consumption" class="toc-h1 toc-link" data-title="Validate Content Consumption">Validate Content Consumption</a>
               <ul class="toc-list-h2">
                   <li>
@@ -2146,6 +2157,322 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 </aside>
 
 <hr>
+<h1 id='donations'>Donations</h1><h2 id='create-donation'>Create Donation</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/donation/'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "content": {
+        "id": "7943789",
+        "title": "donation",
+        "url": "https://www.testurl.com"
+    },
+    "receiver": {
+        "name": "testname",
+        "id": "537526324",
+        "pitchMessage": "msg 1",
+        "thankyouMessage": "msg 2",
+        "avatarUrl": "https://www.avturl.com",
+        "posts": "35",
+        "views": "74784"
+    },
+    "clientId": "601a8ea4f2149f64hrt64ybh",
+    "deepLink": "deeplinkforappredredirect"
+}'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Content-Type: application/json'</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'{API_URL}/api/v1/donation/'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+    "content": {
+        "id": "7943789",
+        "title": "donation",
+        "url": "https://www.testurl.com"
+    },
+    "receiver": {
+        "name": "testname",
+        "id": "537526324",
+        "pitchMessage": "msg 1",
+        "thankyouMessage": "msg 2",
+        "avatarUrl": "https://www.avturl.com",
+        "posts": "35",
+        "views": "74784"
+    },
+    "clientId": "601a8ea4f2149f75h4hd678j",
+    "deepLink": "deeplinkforappredredirect"
+}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">content</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">7943789</span><span class="dl">"</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">donation</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.testurl.com</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="na">receiver</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testname</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">537526324</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">pitchMessage</span><span class="p">:</span> <span class="dl">"</span><span class="s2">msg 1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">thankyouMessage</span><span class="p">:</span> <span class="dl">"</span><span class="s2">msg 2</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">avatarUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.avturl.com</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">posts</span><span class="p">:</span> <span class="dl">"</span><span class="s2">35</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">views</span><span class="p">:</span> <span class="dl">"</span><span class="s2">74784</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">clientId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">601a8ea4f2149f5jhf83hfyt</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">deepLink</span><span class="p">:</span> <span class="dl">"</span><span class="s2">deeplinkforappredredirect</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/donation/</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Donation created successfully"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"donation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INITIATED"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612f10d26bdd7b7a82eeaf68"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"deepLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deeplinkforappredredirect"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7943789"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"donation"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.testurl.com"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"receiver"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testname"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"537526324"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"pitchMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"msg 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"thankyouMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"msg 2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"avatarUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.avturl.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"35"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"views"</span><span class="p">:</span><span class="w"> </span><span class="s2">"74784"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"601a8ea4f2149f5jhf83hfyt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-01T05:34:10.688Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-01T05:34:10.688Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to create a donation in the &#39;INITIATED&#39; state - with the receiver details (id, name, pitchMessage, thankyouMessage, avatarUrl, posts count and view count), the content details (id, title, url) and the associated ConsCent clientId of your platform. The successfully created donation provides you with a &#39;_id&#39; field in the donation object of the response, which is the unique donation ID and must be passed to ConsCent to implement the donation flow.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/donation</code></p>
+<h3 id='request-body-5'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clientId</td>
+<td>required</td>
+<td>your platforms ConsCent client ID - which can be found on the ConsCent client dashboard, in the SDK integration section.</td>
+</tr>
+<tr>
+<td>receiver.name</td>
+<td>required</td>
+<td>Name of the individual that created the content and will be receiving the donation</td>
+</tr>
+<tr>
+<td>receiver.avatarUrl</td>
+<td>required</td>
+<td>Url for an image/gif which the receiver chooses to be shown on the first donation screen</td>
+</tr>
+<tr>
+<td>receiver.id</td>
+<td>optional</td>
+<td>ID of the receiver</td>
+</tr>
+<tr>
+<td>receiver.pitchMessage</td>
+<td>optional</td>
+<td>Message chosen by the receiver to be shown on the first donation screen</td>
+</tr>
+<tr>
+<td>receiver.thankyouMessage</td>
+<td>optional</td>
+<td>Message chosen by the receiver to be shown to the user on making a successfull donation</td>
+</tr>
+<tr>
+<td>receiver.posts</td>
+<td>optional</td>
+<td>The count of posts that the receiver has contributed to the platform</td>
+</tr>
+<tr>
+<td>receiver.views</td>
+<td>optional</td>
+<td>The number of views that have occured on the particular content;</td>
+</tr>
+<tr>
+<td>content.id</td>
+<td>optional</td>
+<td>ID of the associated content</td>
+</tr>
+<tr>
+<td>content.title</td>
+<td>optional</td>
+<td>Title of the associated content</td>
+</tr>
+<tr>
+<td>content.url</td>
+<td>optional</td>
+<td>URL of the associated content - where the content will be available</td>
+</tr>
+<tr>
+<td>deepLink</td>
+<td>optional</td>
+<td>Deep Link for redirecting back to the app after donation flow is completed - on iOS/Android</td>
+</tr>
+</tbody></table>
+<h2 id='get-client-donations'>Get Client Donations</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"itemizedDonations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612ccd403ef4d528dd03bf79"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Client"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-30T12:21:20.610Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612ccbd83ef4d528dd03bf77"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Client"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-30T12:15:20.277Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"totalDonations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"totalSpend"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows you to fetch all the donations made by users on the clients platform, with the &#39;itemizedDonations&#39; array containing the details of each individual donation and the &#39;totalDonations&#39; object giving the aggregated data for the donations (total count &amp; amount) for the defined time period.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/client/donations</code></p>
+<h3 id='authorization-8'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='url-parameters-6'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>optional</td>
+<td>The date after (and including) which all donations that are made should be returned (default is 1 month ago from current Date/Time)</td>
+</tr>
+<tr>
+<td>to</td>
+<td>optional</td>
+<td>The date before which all donations that are made should be returned (default is current Date/Time)</td>
+</tr>
+<tr>
+<td>receiverName</td>
+<td>optional</td>
+<td>Filter the donations by a particular receiver (name)</td>
+</tr>
+<tr>
+<td>contentTitle</td>
+<td>optional</td>
+<td>Filter the donations by a particular content (title)</td>
+</tr>
+</tbody></table>
 <h1 id='validate-content-consumption'>Validate Content Consumption</h1><h2 id='validate-content-details-by-consumption-id'>Validate Content Details By Consumption ID</h2>
 <blockquote>
 <p>Replace the {consumptionId} in the API path with the actual value/string of the consumptionId recieved</p>
@@ -2203,11 +2530,11 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to Validate the Content Details anytime a User Purchases any Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content/consumption/{consumptionId}</code></p>
 
 <p>The client will recieve a payload when any content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.</p>
-<h3 id='url-parameters-6'>URL Parameters</h3>
+<h3 id='url-parameters-7'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2282,9 +2609,9 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
-<h3 id='authorization-8'>Authorization</h3>
+<h3 id='authorization-9'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
