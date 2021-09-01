@@ -1660,6 +1660,277 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 
 ---
 
+# Donations
+
+## Create Donation
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '{API_URL}/api/v1/donation/',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+    "content": {
+        "id": "7943789",
+        "title": "donation",
+        "url": "https://www.testurl.com"
+    },
+    "receiver": {
+        "name": "testname",
+        "id": "537526324",
+        "pitchMessage": "msg 1",
+        "thankyouMessage": "msg 2",
+        "avatarUrl": "https://www.avturl.com",
+        "posts": "35",
+        "views": "74784"
+    },
+    "clientId": "601a8ea4f2149f64hrt64ybh"
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+```
+
+```shell
+curl --location --request POST '{API_URL}/api/v1/donation/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "content": {
+        "id": "7943789",
+        "title": "donation",
+        "url": "https://www.testurl.com"
+    },
+    "receiver": {
+        "name": "testname",
+        "id": "537526324",
+        "pitchMessage": "msg 1",
+        "thankyouMessage": "msg 2",
+        "avatarUrl": "https://www.avturl.com",
+        "posts": "35",
+        "views": "74784"
+    },
+    "clientId": "601a8ea4f2149f75h4hd678j"
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({
+  content: { id: "7943789", title: "donation", url: "https://www.testurl.com" },
+  receiver: {
+    name: "testname",
+    id: "537526324",
+    pitchMessage: "msg 1",
+    thankyouMessage: "msg 2",
+    avatarUrl: "https://www.avturl.com",
+    posts: "35",
+    views: "74784",
+  },
+  clientId: "601a8ea4f2149f5jhf83hfyt",
+});
+
+var config = {
+  method: "post",
+  url: "{API_URL}/api/v1/donation/",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "Donation created successfully",
+  "donation": {
+    "status": "INITIATED",
+    "_id": "612f10d26bdd7b7a82eeaf68",
+    "content": {
+      "id": "7943789",
+      "title": "donation",
+      "url": "https://www.testurl.com"
+    },
+    "receiver": {
+      "name": "testname",
+      "id": "537526324",
+      "pitchMessage": "msg 1",
+      "thankyouMessage": "msg 2",
+      "avatarUrl": "https://www.avturl.com",
+      "posts": "35",
+      "views": "74784"
+    },
+    "clientId": "601a8ea4f2149f5jhf83hfyt",
+    "createdAt": "2021-09-01T05:34:10.688Z",
+    "updatedAt": "2021-09-01T05:34:10.688Z",
+    "__v": 0
+  }
+}
+```
+
+This endpoint allows you to create a donation in the 'INITIATED' state - with the receiver details (id, name, pitchMessage, thankyouMessage, avatarUrl, posts count and view count), the content details (id, title, url) and the associated ConsCent clientId of your platform. The successfully created donation provides you with a '\_id' field in the donation object of the response, which is the unique donation ID and must be passed to ConsCent to implement the donation flow.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/donation`
+
+### Request Body
+
+| Parameter                | Default  | Description                                                                                                              |
+| ------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| clientId                 | required | your platforms ConsCent client ID - which can be found on the ConsCent client dashboard, in the SDK integration section. |
+| receiver.name            | required | Name of the individual that created the content and will be receiving the donation                                       |
+| receiver.avatarUrl       | required | Url for an image/gif which the receiver chooses to be shown on the first donation screen                                 |
+| receiver.id              | optional | ID of the receiver                                                                                                       |
+| receiver.pitchMessage    | optional | Message chosen by the receiver to be shown on the first donation screen                                                  |
+| receiver.thankyouMessage | optional | Message chosen by the receiver to be shown to the user on making a successfull donation                                  |
+| receiver.posts           | optional | The count of posts that the receiver has contributed to the platform                                                     |
+| receiver.views           | optional | The number of views that have occured on the particular content;                                                         |
+| content.id               | optional | ID of the associated content                                                                                             |
+| content.title            | optional | Title of the associated content                                                                                          |
+| content.url              | optional | URL of the associated content - where the content will be available                                                      |
+
+## Get Client Donations
+
+```php
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+```
+
+```shell
+curl --location --request GET '{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z' \
+--header 'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z",
+  headers: {
+    Authorization:
+      "Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "itemizedDonations": [
+    {
+      "_id": "612ccd403ef4d528dd03bf79",
+      "clientId": {
+        "name": "Test Client"
+      },
+      "createdAt": "2021-08-30T12:21:20.610Z",
+      "amount": 11,
+      "priceDetails": {
+        "amount": 11,
+        "currency": "INR"
+      },
+      "userAccount": {
+        "phoneNumber": "9999999999"
+      }
+    },
+    {
+      "_id": "612ccbd83ef4d528dd03bf77",
+      "clientId": {
+        "name": "Test Client"
+      },
+      "createdAt": "2021-08-30T12:15:20.277Z",
+      "amount": 21,
+      "priceDetails": {
+        "amount": 21,
+        "currency": "INR"
+      },
+      "userAccount": {
+        "phoneNumber": "9999999999"
+      }
+    }
+  ],
+  "totalDonations": {
+    "totalSpend": 32,
+    "count": 2
+  }
+}
+```
+
+This endpoint allows you to fetch all the donations made by users on the clients platform, with the 'itemizedDonations' array containing the details of each individual donation and the 'totalDonations' object giving the aggregated data for the donations (total count & amount) for the defined time period.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/client/donations`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### URL Parameters
+
+| Parameter    | Default  | Description                                                                                                                         |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| from         | optional | The date after (and including) which all donations that are made should be returned (default is 1 month ago from current Date/Time) |
+| to           | optional | The date before which all donations that are made should be returned (default is current Date/Time)                                 |
+| receiverName | optional | Filter the donations by a particular receiver (name)                                                                                |
+| contentTitle | optional | Filter the donations by a particular content (title)                                                                                |
+
 # Validate Content Consumption
 
 ## Validate Content Details By Consumption ID
