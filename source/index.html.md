@@ -1694,7 +1694,8 @@ curl_setopt_array($curl, array(
         "posts": "35",
         "views": "74784"
     },
-    "clientId": "601a8ea4f2149f64hrt64ybh"
+    "clientId": "601a8ea4f2149f64hrt64ybh",
+    "deepLink": "deeplinkforappredredirect"
 }',
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json'
@@ -1726,7 +1727,8 @@ curl --location --request POST '{API_URL}/api/v1/donation/' \
         "posts": "35",
         "views": "74784"
     },
-    "clientId": "601a8ea4f2149f75h4hd678j"
+    "clientId": "601a8ea4f2149f75h4hd678j",
+    "deepLink": "deeplinkforappredredirect"
 }'
 ```
 
@@ -1744,6 +1746,7 @@ var data = JSON.stringify({
     views: "74784",
   },
   clientId: "601a8ea4f2149f5jhf83hfyt",
+  deepLink: "deeplinkforappredredirect",
 });
 
 var config = {
@@ -1772,6 +1775,7 @@ axios(config)
   "donation": {
     "status": "INITIATED",
     "_id": "612f10d26bdd7b7a82eeaf68",
+    "deepLink": "deeplinkforappredredirect",
     "content": {
       "id": "7943789",
       "title": "donation",
@@ -1815,6 +1819,7 @@ This endpoint allows you to create a donation in the 'INITIATED' state - with th
 | content.id               | optional | ID of the associated content                                                                                             |
 | content.title            | optional | Title of the associated content                                                                                          |
 | content.url              | optional | URL of the associated content - where the content will be available                                                      |
+| deepLink                 | optional | Deep Link for redirecting back to the app after donation flow is completed - on iOS/Android                              |
 
 ## Get Client Donations
 
