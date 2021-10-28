@@ -2047,6 +2047,95 @@ Remember — The Consumption ID is unique and once it is used it will expire. Cl
 
 # Client Stats
 
+## Specific Content Stats
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+
+curl -X GET '{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z' \
+-H 'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='
+
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&to=2021-02-13T05:45:41.389Z",
+  headers: {
+    Authorization:
+      "Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "count": 53,
+  "amount": 588.74,
+  "currency": "INR"
+}
+```
+
+This endpoint allows our partners to get purchase count and purchase amount for a particular content id. Please pass the date-range as ISO-date strings in the from and to query parameters. Also pass the content id as a path parameter. By default this API provides details of all time consumption.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/client/stats/content/:replace-with-contentid`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### Query Parameters
+
+| Parameter | Default  | Description                                                           |
+| --------- | -------- | --------------------------------------------------------------------- |
+| from      | optional | ISO date string from which the aggregated stats have to be calculated |
+| to        | optional | ISO date string till which the aggregated stats have to be calculated |
+
+<aside class="notice">
+Providing aggregated statistics of a content to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
+</aside>
+
 ## Daily Content Stats
 
 ```php
