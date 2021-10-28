@@ -375,6 +375,9 @@
             <a href="#client-stats" class="toc-h1 toc-link" data-title="Client Stats">Client Stats</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#specific-content-stats" class="toc-h2 toc-link" data-title="Specific Content Stats">Specific Content Stats</a>
+                  </li>
+                  <li>
                     <a href="#daily-content-stats" class="toc-h2 toc-link" data-title="Daily Content Stats">Daily Content Stats</a>
                   </li>
               </ul>
@@ -695,7 +698,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "price" : 1,
     "currency": "INR",
     "url": "www.google.com",
-    contentType: "STORY",
+    "contentType": "STORY",
+    "tags": ["tag1", "tag2"],
     "priceOverrides": {
         "country": [
             {
@@ -759,7 +763,8 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "title" : "Test content for API functionality",
     "price" : 1,
     "currency": "INR",
-    contentType: "STORY",
+    "tags": ["tag1", "tag2"],
+    "contentType": "STORY",
     "url": "www.google.com",
     "priceOverrides": {
         "country": [
@@ -813,6 +818,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">tag2</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
@@ -880,6 +886,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag2"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -929,7 +936,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Analytics Pixels (Facebook and Google), Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot; in the download object of the request body while creating the content. Finally, the client can pass a &#39;pixels&#39; object in the request body which can contain either/or facebook and google pixel data - to ensure that the client&#39;s pixel events are fired on particular occurances relating to the content (Page View or Purchase of the Content). The pixel object must be passed in accordance with the format provided in the sample requests. Please note that the pixels are NOT fired when a user has blocked 3rd party cookies.</p>
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Tags, Analytics Pixels (Facebook and Google), Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot; in the download object of the request body while creating the content. Finally, the client can pass a &#39;pixels&#39; object in the request body which can contain either/or facebook and google pixel data - to ensure that the client&#39;s pixel events are fired on particular occurances relating to the content (Page View or Purchase of the Content). The pixel object must be passed in accordance with the format provided in the sample requests. Please note that the pixels are NOT fired when a user has blocked 3rd party cookies.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -1007,6 +1014,11 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <td>optional</td>
 <td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gtag throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
 </tr>
+<tr>
+<td>tags</td>
+<td>optional</td>
+<td>Array of tags associated with the content</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
@@ -1038,6 +1050,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
+    "tags": ["tag3"],
     "priceOverrides": {
         "country": [
             {
@@ -1101,6 +1114,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "title" : "Test content for API functionality Edited",
     "price" : 1,
     "currency": "INR",
+    "tags": ["tag3"],
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
@@ -1153,6 +1167,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content for API functionality Edited</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag3</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
@@ -1220,6 +1235,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
@@ -1273,7 +1289,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, URL, duration, contentType, download, category and pixels . Content ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, tags, URL, duration, contentType, download, category and pixels . Content ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/content/{contentId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -1358,10 +1374,15 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>optional</td>
 <td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gtag throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
 </tr>
+<tr>
+<td>tags</td>
+<td>optional</td>
+<td>Array of tags associated with the content</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, authorName, authorId, contentType, category, download and pixels - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, tags, authorName, authorId, contentType, category, download and pixels - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content'>View All Content</h2>
 <blockquote>
@@ -1423,6 +1444,7 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag2"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1440,6 +1462,7 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
       </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID for Client Content"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
@@ -1542,6 +1565,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
@@ -1600,7 +1624,8 @@ API to retrieve the details of an individual content registered by the client on
     "price" : 10,
     "currency": "INR",
     "url": "www.google.com",
-    contentType: "STORY",
+    "tags": ["tag4", "tag5"],
+    "contentType": "STORY",
     "priceOverrides": {
         "country": [
             {
@@ -1640,7 +1665,8 @@ API to retrieve the details of an individual content registered by the client on
     "title" : "Test content bundle for API functionality",
     "price" : 10,
     "currency": "INR",
-    contentType: "STORY",
+    "tags": ["tag4", "tag5"],
+    "contentType": "STORY",
     "url": "www.google.com",
     "priceOverrides": {
         "country": [
@@ -1667,6 +1693,7 @@ API to retrieve the details of an individual content registered by the client on
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content bundle for API functionality</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag4</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">tag5</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
@@ -1708,6 +1735,7 @@ API to retrieve the details of an individual content registered by the client on
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag5"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
@@ -1733,7 +1761,7 @@ API to retrieve the details of an individual content registered by the client on
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content bundle, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client&#39;s contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.</p>
+<p>This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, Tags, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content bundle, by passing the category field on registering the content - as long as the category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client&#39;s contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content/bundle</code></p>
 <h3 id='authorization-5'>Authorization</h3>
@@ -1796,6 +1824,11 @@ API to retrieve the details of an individual content registered by the client on
 <td>optional</td>
 <td>The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides.</td>
 </tr>
+<tr>
+<td>tags</td>
+<td>optional</td>
+<td>Array of tags associated with the content bundle</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
@@ -1825,6 +1858,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "duration" : 30,
     "title" : "Test content bundle for API functionality Edited",
     "price" : 15,
+    "tags": ["tag7"],
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
@@ -1867,6 +1901,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "title" : "Test content bundle for API functionality Edited",
     "price" : 15,
     "currency": "INR",
+    "tags": ["tag7"],
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
@@ -1896,6 +1931,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag7</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
@@ -1936,6 +1972,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag7"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2030,10 +2067,15 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>optional</td>
 <td>The category of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered category will have an associated price, currency, duration and priceOverrides</td>
 </tr>
+<tr>
+<td>tags</td>
+<td>optional</td>
+<td>Array of tags associated with the content bundle</td>
+</tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType and category - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType, tags and category - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content-bundles'>View All Content Bundles</h2>
 <blockquote>
@@ -2096,6 +2138,7 @@ Remember — Either/All of the fields of a content bundle - bundleContentIds, ti
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag7"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2552,7 +2595,92 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 <aside class="notice">
 Remember — The Consumption ID is unique and once it is used it will expire. Clients can use this endpoint to ensure the unique transactions that occur on any of their premium content registered with ConsCent. 
 </aside>
-<h1 id='client-stats'>Client Stats</h1><h2 id='daily-content-stats'>Daily Content Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<h1 id='client-stats'>Client Stats</h1><h2 id='specific-content-stats'>Specific Content Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Authorization: Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ=='</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/client/stats/content/your-content-id?from=2021-02-12T05:45:41.389Z&amp;to=2021-02-13T05:45:41.389Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic WTE3UkdRSy1RMlQ0UEo5LU4zWVNSWEotRFNSNERZTTpQUkVTVDdTRTZSTUNXWVBaNjRZQzdXUlA2UEpEWTE3UkdRS1EyVDRQSjlOM1lTUlhKRFNSNERZTQ==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">53</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">588.74</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows our partners to get purchase count and purchase amount for a particular content id. Please pass the date-range as ISO-date strings in the from and to query parameters. Also pass the content id as a path parameter. By default this API provides details of all time consumption.</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/client/stats/content/:replace-with-contentid</code></p>
+<h3 id='authorization-9'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>from</td>
+<td>optional</td>
+<td>ISO date string from which the aggregated stats have to be calculated</td>
+</tr>
+<tr>
+<td>to</td>
+<td>optional</td>
+<td>ISO date string till which the aggregated stats have to be calculated</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Providing aggregated statistics of a content to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
+</aside>
+<h2 id='daily-content-stats'>Daily Content Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
 <span class="cp">&lt;?php</span>
 
 <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
@@ -2609,11 +2737,11 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default.</p>
-<h3 id='http-request-11'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
-<h3 id='authorization-9'>Authorization</h3>
+<h3 id='authorization-10'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
