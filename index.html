@@ -380,6 +380,9 @@
                   <li>
                     <a href="#daily-content-stats" class="toc-h2 toc-link" data-title="Daily Content Stats">Daily Content Stats</a>
                   </li>
+                  <li>
+                    <a href="#current-subscriber-stats" class="toc-h2 toc-link" data-title="Current Subscriber Stats">Current Subscriber Stats</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -2763,6 +2766,106 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 
 <aside class="notice">
 Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
+</aside>
+<h2 id='current-subscriber-stats'>Current Subscriber Stats</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/subscription/client/list'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'{API_URL}/api/v1/subscription/client/list'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/subscription/client/list</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"617a78b780033b289c552298"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4792"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chattarpur"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110074"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ifelneddckjlj"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Delhi"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Delhi"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Name"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9847473843"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"usertesting@email.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">96.5</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bengaluru (nagashettyhalli)"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-28T10:17:27.354Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription 2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"operatingSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-28T10:17:27.359Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to get the list of all currently active subscriptions via ConsCent. Including the details of each subscription purchased, such as the title, price, the amount and currency paid by the user, the type of subscription, date of purchase, date of expiry, renewal and free trial booleans, as well as the user details - phone number, email, addressm , OS, device and location.</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/subscription/client/list</code></p>
+<h3 id='authorization-11'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+
+<aside class="notice">
+Providing list of currently active subscriptions - via ConsCent - to the client. Along with the details relating to each of these purchases. 
 </aside>
 <h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
 <p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>.</p>
