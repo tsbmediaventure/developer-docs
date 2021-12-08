@@ -2224,6 +2224,122 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Providing aggregated statistics to the client - for the previous days' (default) or provided date ranges' consumption of their content by users via ConsCent.
 </aside>
 
+## Current Subscriber Stats
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => '{API_URL}/api/v1/subscription/client/list',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+
+curl --location --request GET '{API_URL}/api/v1/subscription/client/list' \
+--header 'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='
+
+```
+
+```javascript
+var axios = require("axios");
+
+var config = {
+  method: "get",
+  url: "{API_URL}/api/v1/subscription/client/list",
+  headers: {
+    Authorization:
+      "Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==",
+  },
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "subscriptions": [
+        {
+            "renewSubscription": false,
+            "freeTrial": false,
+            "_id": "617a78b780033b289c552298",
+            "userAccount": {
+                "address": {
+                    "apartment": "4792",
+                    "area": "Chattarpur",
+                    "pincode": "110074",
+                    "landmark": "ifelneddckjlj",
+                    "city": "New Delhi",
+                    "state": "Delhi",
+                    "country": "IN"
+                },
+                "name": "Test Name",
+                "phoneNumber": "9847473843",
+                "email": "usertesting@email.com"
+            },
+            "buyingPrice": 96.5,
+            "price": 100,
+            "country": "IN",
+            "city": "bengaluru (nagashettyhalli)",
+            "expiryDate": "2022-01-28T10:17:27.354Z",
+            "priceDetails": {
+                "price": 100,
+                "currency": "INR"
+            },
+            "subscriptionTitle": "Subscription 2",
+            "operatingSystem": "Mac OS",
+            "device": "desktop",
+            "subscriptionType": {
+                "physical": false,
+                "digital": true
+            },
+            "createdAt": "2021-10-28T10:17:27.359Z"
+        }
+    ]
+```
+
+This endpoint allows the Client to get the list of all currently active subscriptions via ConsCent. Including the details of each subscription purchased, such as the title, price, the amount and currency paid by the user, the type of subscription, date of purchase, date of expiry, renewal and free trial booleans, as well as the user details - phone number, email, addressm , OS, device and location.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/subscription/client/list`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+<aside class="notice">
+Providing list of currently active subscriptions - via ConsCent - to the client. Along with the details relating to each of these purchases. 
+</aside>
+
 # Deprecated Integration Documentation
 
 To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs).
