@@ -510,7 +510,9 @@ csc('init', {
   buttonMode,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
-  fullScreenMode: 'false', // if set to true, the entire screen will be covered
+  fullScreenMode: 'false', // if set to true, the entire screen will be covered,
+  phoneNumber: 9898989898,
+  email: test@email.com
 })
 </code></pre></div>
 <blockquote>
@@ -556,6 +558,8 @@ csc('init', {
 <li><p>&#39;wrappingElementId&#39; is a mandatory string which is the id of an element (e.g. a div with absolute positioning on your website) within which you want the paywall to be embedded. Your element should have a minimum width of 320 pixels and a minimum height of 550 pixels for the conscent paywall to fit properly.</p></li>
 <li><p>&#39;buttonMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the &#39;button&#39; paywall can be styled from the client dashboard directly - by passing the required CSS there.</p></li>
 <li><p>&#39;fullScreenMode&#39; can be set to &#39;true&#39; or &#39;false&#39; (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don&#39;t want the premium content page to be visible at all once the user proceeds with the payment.</p></li>
+<li><p>The &#39;phoneNumber&#39; of the user, if already available with the client, can be passed to ConsCent to initilise the user, and prefill their data in the required fields.</p></li>
+<li><p>The &#39;email&#39; of the user, if already available with the client, can be passed to ConsCent to initilise the user, and prefill their data in the required fields.</p></li>
 </ul>
 
 <p><p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a &#39;successCallback&#39; function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p></p>
