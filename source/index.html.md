@@ -124,7 +124,9 @@ csc('init', {
   buttonMode,
   successCallback: yourSuccessCallbackFunction,
   wrappingElementId: 'csc-paywall',
-  fullScreenMode: 'false', // if set to true, the entire screen will be covered
+  fullScreenMode: 'false', // if set to true, the entire screen will be covered,
+  phoneNumber: 9898989898,
+  email: test@email.com
 })
 ```
 
@@ -178,6 +180,10 @@ We import the initalisation script using the unique '\_csc' identifier and run t
 - 'buttonMode' can be set to 'true' or 'false' (boolean) -- if true, the paywall will appear only as a button. This may be useful for content such as videos, songs and podcasts. Moreover, the 'button' paywall can be styled from the client dashboard directly - by passing the required CSS there.
 
 - 'fullScreenMode' can be set to 'true' or 'false' (strings) -- if true, the first screen of the paywall will cover the entire webpage. This is useful if you don't want the premium content page to be visible at all once the user proceeds with the payment.
+
+- The 'phoneNumber' of the user, if already available with the client, can be passed to ConsCent to initilise the user, and prefill their data in the required fields.
+
+- The 'email' of the user, if already available with the client, can be passed to ConsCent to initilise the user, and prefill their data in the required fields.
 
  <p class = 'instruction-bg'>Once the ConsCent Paywall has been initalised and the user has gone through the necessary steps needed to purchase the content via ConsCent - you need to implement a 'successCallback' function which will recieve a response containing a validationObject shown below - indicating whether the user has purchased the content, or if the user has access to the content already since they have purchased it before, or whether the transaction has failed and the user has not purchased the content. </p>
 
