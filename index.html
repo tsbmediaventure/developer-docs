@@ -3050,7 +3050,7 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to migrate a user&#39;s subscription to ConsCent, including the details of the user, subscription and the purchase on their platform - with the userPhoneNumber, userEmail, userName, clientUserId, expiryDate, purchaseDate. utmParameters, userAddress (address, city, state, postcode), country, and other client specific subscriptionDetails - title, priceDetails (price &amp; currency), subscriptionType (digital &amp; physical), and internalSubscriptionId.</p>
+<p>This endpoint allows the Client to migrate a user&#39;s subscription to ConsCent, including the details of the user, subscription and the purchase on their platform - with the userPhoneNumber, userEmail, userName, clientUserId, expiryDate, purchaseDate. utmParameters, userAddress (address, city, state, postcode), country, and other client specific subscriptionDetails - title, priceDetails (price &amp; currency), subscriptionType (digital &amp; physical), and internalSubscriptionId. It is required to pass either the &#39;userPrimaryEmail&#39; or the &#39;userPrimaryPhone&#39; - as the primary login of the user on ConsCent.</p>
 <h3 id='http-request-14'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/subscription/migrate</code></p>
 <h3 id='authorization-12'>Authorization</h3>
@@ -3064,9 +3064,24 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 </tr>
 </thead><tbody>
 <tr>
-<td>userEmail</td>
-<td>required</td>
-<td>The email of the user for whom the purchased subscription is being migrated</td>
+<td>userPrimaryEmail</td>
+<td>optional</td>
+<td>The email of the user for whom the purchased subscription is being migrated (used as primary login method)</td>
+</tr>
+<tr>
+<td>userPrimaryPhone</td>
+<td>optional</td>
+<td>The phone number of the user for whom the purchased subscription is being migrated provided. (used as primary login method is no primary email is provided)</td>
+</tr>
+<tr>
+<td>userSecondaryEmail</td>
+<td>optional</td>
+<td>The alternate email of the user for whom the purchased subscription is being migrated (not used for login and provided in webhooks/data exports for the client)</td>
+</tr>
+<tr>
+<td>userSecondaryPhone</td>
+<td>optional</td>
+<td>The phone number of the user for whom the purchased subscription is being migrated provided. (not used for login and provided in webhooks/data exports for the client)</td>
 </tr>
 <tr>
 <td>expiryDate</td>
@@ -3082,11 +3097,6 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 <td>country</td>
 <td>required</td>
 <td>The country of the user that purchased the subscription (must be an ISO Alpha-2 code from the list provided below)</td>
-</tr>
-<tr>
-<td>userPhoneNumber</td>
-<td>optional</td>
-<td>The phone number of the user for whom the purchased subscription is being migrated provided.</td>
 </tr>
 <tr>
 <td>userName</td>
@@ -3116,7 +3126,7 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 </tbody></table>
 
 <aside class="notice">
-Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). 
+Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
 <h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
 <p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>.</p>
