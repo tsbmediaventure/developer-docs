@@ -386,6 +386,14 @@
               </ul>
           </li>
           <li>
+            <a href="#client-subscriptions" class="toc-h1 toc-link" data-title="Client Subscriptions">Client Subscriptions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#migrate-user-and-purchased-subscription" class="toc-h2 toc-link" data-title="Migrate User and Purchased Subscription">Migrate User and Purchased Subscription</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#deprecated-integration-documentation" class="toc-h1 toc-link" data-title="Deprecated Integration Documentation">Deprecated Integration Documentation</a>
           </li>
           <li>
@@ -2870,6 +2878,245 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET <s
 
 <aside class="notice">
 Providing list of currently active subscriptions - via ConsCent - to the client. Along with the details relating to each of these purchases. 
+</aside>
+<h1 id='client-subscriptions'>Client Subscriptions</h1><h2 id='migrate-user-and-purchased-subscription'>Migrate User and Purchased Subscription</h2><div class="highlight"><pre class="highlight php tab-php"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
+
+<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'http://localhost:3001/api/v1/subscription/migrate'</span><span class="p">,</span>
+  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
+  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
+  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
+    "userEmail": "testemail@test.com",
+    "userPhoneNumber": "9545734678",
+    "userName": "testUser",
+    "expiryDate": "2022-01-25T12:39:28.337Z",
+    "purchaseDate": "2022-01-25T12:39:28.337Z",
+    "country": "IN",
+    "clientUserId": "9342793972792",
+    "userAddress": {
+        "address": "test address line 1",
+        "city": "New Delhi",
+        "state": "DELHI",
+        "postcode": "110001"
+    },
+    "utmParameters": {
+        "utm_source": "website",
+        "utm_medium": "facebook"
+    },
+    "subscriptionDetails": {
+        "title": "Migrated Subscription 1",
+        "priceDetails": {
+            "price": 200,
+            "currency": "INR"
+        },
+        "subscriptionType": {
+            "physical": false,
+            "digital": true
+        },
+        "internalSubscriptionId": "89432923924792792379"
+    }
+}'</span><span class="p">,</span>
+  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTF7942mx974727929TUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span><span class="p">,</span>
+    <span class="s1">'Content-Type: application/json'</span>
+  <span class="p">),</span>
+<span class="p">));</span>
+
+<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+
+<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
+
+
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'http://localhost:3001/api/v1/subscription/migrate'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFU73474977942792SlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+    "userEmail": "testemail@test.com",
+    "userPhoneNumber": "9545734678",
+    "userName": "testUser",
+    "expiryDate": "2022-01-25T12:39:28.337Z",
+    "purchaseDate": "2022-01-25T12:39:28.337Z",
+    "country": "IN",
+    "clientUserId": "9342793972792",
+    "userAddress": {
+        "address": "test address line 1",
+        "city": "New Delhi",
+        "state": "DELHI",
+        "postcode": "110001"
+    },
+    "utmParameters": {
+        "utm_source": "website",
+        "utm_medium": "facebook"
+    },
+    "subscriptionDetails": {
+        "title": "Migrated Subscription 1",
+        "priceDetails": {
+            "price": 200,
+            "currency": "INR"
+        },
+        "subscriptionType": {
+            "physical": false,
+            "digital": true
+        },
+        "internalSubscriptionId": "89432923924792792379"
+    }
+}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="na">userEmail</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testemail@test.com</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">userPhoneNumber</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9545734678</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">userName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testUser</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">expiryDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2022-01-25T12:39:28.337Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">purchaseDate</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2022-01-25T12:39:28.337Z</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">country</span><span class="p">:</span> <span class="dl">"</span><span class="s2">IN</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">clientUserId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9342793972792</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">userAddress</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">test address line 1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">city</span><span class="p">:</span> <span class="dl">"</span><span class="s2">New Delhi</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">state</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DELHI</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">postcode</span><span class="p">:</span> <span class="dl">"</span><span class="s2">110001</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">utmParameters</span><span class="p">:</span> <span class="p">{</span> <span class="na">utm_source</span><span class="p">:</span> <span class="dl">"</span><span class="s2">website</span><span class="dl">"</span><span class="p">,</span> <span class="na">utm_medium</span><span class="p">:</span> <span class="dl">"</span><span class="s2">facebook</span><span class="dl">"</span> <span class="p">},</span>
+  <span class="na">subscriptionDetails</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Migrated Subscription 1</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">priceDetails</span><span class="p">:</span> <span class="p">{</span> <span class="na">price</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span> <span class="p">},</span>
+    <span class="na">subscriptionType</span><span class="p">:</span> <span class="p">{</span> <span class="na">physical</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">digital</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+    <span class="na">internalSubscriptionId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">89432923924792792379</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">http://localhost:3001/api/v1/subscription/migrate</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">Authorization</span><span class="p">:</span>
+      <span class="dl">"</span><span class="s2">Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWj7479m2x7924792x297TVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+  <span class="p">});</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Content Created!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test content bundle for API functionality"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag5"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b4"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GL"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b5"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"605b25824646e9233aef61b6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint allows the Client to migrate a user&#39;s subscription to ConsCent, including the details of the user, subscription and the purchase on their platform - with the userPhoneNumber, userEmail, userName, clientUserId, expiryDate, purchaseDate. utmParameters, userAddress (address, city, state, postcode), country, and other client specific subscriptionDetails - title, priceDetails (price &amp; currency), subscriptionType (digital &amp; physical), and internalSubscriptionId.</p>
+<h3 id='http-request-14'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/subscription/migrate</code></p>
+<h3 id='authorization-12'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='request-body-6'>Request Body</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userEmail</td>
+<td>required</td>
+<td>The email of the user for whom the purchased subscription is being migrated</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>required</td>
+<td>Array of ContentIds - The date on which the migrated subscription will expire for the user (must be an ISO Date String)</td>
+</tr>
+<tr>
+<td>purchaseDate</td>
+<td>required</td>
+<td>The Date on which the user purchased the subscription on the client&#39;s platform (must be an ISO Date String)</td>
+</tr>
+<tr>
+<td>country</td>
+<td>required</td>
+<td>The country of the user that purchased the subscription (must be an ISO Alpha-2 code from the list provided below)</td>
+</tr>
+<tr>
+<td>userPhoneNumber</td>
+<td>optional</td>
+<td>The phone number of the user for whom the purchased subscription is being migrated provided.</td>
+</tr>
+<tr>
+<td>userName</td>
+<td>optional</td>
+<td>The name of the user for whom the purchased subscription is being migrated</td>
+</tr>
+<tr>
+<td>clientUserId</td>
+<td>optional</td>
+<td>The userID of the associated user in the client&#39;s platform - will be returned in relevant webhooks to the client for matching the details/purchases of the user accurately;</td>
+</tr>
+<tr>
+<td>userAddress</td>
+<td>optional</td>
+<td>REQUIRED for a physical subscription - address of the user for whom the purchased subscription is being migrated - must be passed as an object containing the fields - address, city, state, postcode.</td>
+</tr>
+<tr>
+<td>subscriptionDetails</td>
+<td>required</td>
+<td>Details of the subscription being migrated. Must be passed as an object containing the fields - title, priceDetails: {price: number, currency: string}, subscriptionType: {physical: boolean, digital: boolean}, internalSubscriptionId - where the subscriptionType is a required field, and must be passed; while all other fields are optional.</td>
+</tr>
+<tr>
+<td>utmParameters</td>
+<td>optional</td>
+<td>The UTM parameters associated with the subscription being migrated. Must be passed as an object containing the fields - utm_source &amp; utm_source - both of which are optional</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). 
 </aside>
 <h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
 <p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>.</p>
