@@ -2366,8 +2366,10 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_POSTFIELDS =>'{
-    "userEmail": "testemail@test.com",
-    "userPhoneNumber": "9545734678",
+    "userPrimaryEmail": "testemail@test.com",
+    "userPrimaryPhone": "9545734678",
+    "userSecondaryEmail": "testemailsecond@test.com",
+    "userSecondaryPhone": "9545732228",
     "userName": "testUser",
     "expiryDate": "2022-01-25T12:39:28.337Z",
     "purchaseDate": "2022-01-25T12:39:28.337Z",
@@ -2415,8 +2417,10 @@ curl -X POST 'http://localhost:3001/api/v1/subscription/migrate' \
 --header 'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFU73474977942792SlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "userEmail": "testemail@test.com",
-    "userPhoneNumber": "9545734678",
+    "userPrimaryEmail": "testemail@test.com",
+    "userPrimaryPhone": "9545734678",
+    "userSecondaryEmail": "testemailsecond@test.com",
+    "userSecondaryPhone": "9545732228",
     "userName": "testUser",
     "expiryDate": "2022-01-25T12:39:28.337Z",
     "purchaseDate": "2022-01-25T12:39:28.337Z",
@@ -2450,8 +2454,10 @@ curl -X POST 'http://localhost:3001/api/v1/subscription/migrate' \
 ```javascript
 var axios = require("axios");
 var data = JSON.stringify({
-  userEmail: "testemail@test.com",
-  userPhoneNumber: "9545734678",
+  userPrimaryEmail: "testemail@test.com",
+  userPrimaryPhone: "9545734678",
+  userSecondaryEmail: "testemailsecond@test.com",
+  userSecondaryPhone: "9545732228",
   userName: "testUser",
   expiryDate: "2022-01-25T12:39:28.337Z",
   purchaseDate: "2022-01-25T12:39:28.337Z",
@@ -2496,36 +2502,65 @@ axios(config)
 
 ```json
 {
-  "message": "New Content Created!",
-  "content": {
-    "title": "Test content bundle for API functionality",
-    "price": 10,
-    "currency": "INR",
-    "contentId": "Client Content Bundle 1",
-    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
-    "tags": ["tag4", "tag5"],
-    "duration": 30,
-    "url": "www.google.com",
-    "contentType": "STORY",
-    "priceOverrides": {
-      "country": [
-        {
-          "_id": "605b25824646e9233aef61b4",
-          "name": "GL",
-          "price": 3
-        },
-        {
-          "_id": "605b25824646e9233aef61b5",
-          "name": "IN",
-          "price": 5
-        },
-        {
-          "_id": "605b25824646e9233aef61b6",
-          "name": "US",
-          "price": 7
-        }
-      ]
-    }
+  "message": "Subscription migrated successfully",
+  "migratedSubscription": {
+    "gstComponents": {
+      "physical": 0,
+      "digital": 0
+    },
+    "inrGstComponents": {
+      "physical": 0,
+      "digital": 0
+    },
+    "migratedSubscriptionDetails": {
+      "priceDetails": {
+        "price": 200,
+        "currency": "INR"
+      },
+      "subscriptionType": {
+        "physical": false,
+        "digital": true
+      },
+      "title": "Migrated Subscription 1",
+      "internalSubscriptionId": "89432923924792792379"
+    },
+    "manuallyRenewed": false,
+    "renewSubscription": false,
+    "availedOffers": [],
+    "promotional": false,
+    "tags": [],
+    "bundle": false,
+    "bundleContentIds": [],
+    "paymentType": [],
+    "freeTrial": false,
+    "migrated": true,
+    "_id": "61f25e0a9d50b5d6b90479eb",
+    "clientId": "601a8ea4f2149f089782814f",
+    "userAccount": "61f25e0a9d50b5d6b90479e8",
+    "price": 0,
+    "buyingPrice": 0,
+    "priceDetails": {
+      "price": 0,
+      "currency": "INR"
+    },
+    "type": "SUBSCRIPTION",
+    "subscriptionTitle": "Migrated Subscription 1",
+    "subscriptionType": {
+      "physical": false,
+      "digital": true
+    },
+    "subscriptionId": "61eff7907acd46480c5259d8",
+    "createdAt": "2022-01-27T08:55:38.786Z",
+    "migratedCreatedAt": "2022-01-25T12:39:28.337Z",
+    "expiryDate": "2022-01-25T12:39:28.337Z",
+    "country": "IN",
+    "userCountry": "IN",
+    "utmParameters": {
+      "utm_source": "website",
+      "utm_medium": "facebook"
+    },
+    "updatedAt": "2022-01-27T08:55:38.786Z",
+    "__v": 0
   }
 }
 ```
