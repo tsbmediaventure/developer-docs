@@ -2346,6 +2346,219 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Providing list of currently active subscriptions - via ConsCent - to the client. Along with the details relating to each of these purchases. 
 </aside>
 
+# Client Subscriptions
+
+## Migrate User and Purchased Subscription
+
+```php
+
+<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost:3001/api/v1/subscription/migrate',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+    "userEmail": "testemail@test.com",
+    "userPhoneNumber": "9545734678",
+    "userName": "testUser",
+    "expiryDate": "2022-01-25T12:39:28.337Z",
+    "purchaseDate": "2022-01-25T12:39:28.337Z",
+    "country": "IN",
+    "clientUserId": "9342793972792",
+    "userAddress": {
+        "address": "test address line 1",
+        "city": "New Delhi",
+        "state": "DELHI",
+        "postcode": "110001"
+    },
+    "utmParameters": {
+        "utm_source": "website",
+        "utm_medium": "facebook"
+    },
+    "subscriptionDetails": {
+        "title": "Migrated Subscription 1",
+        "priceDetails": {
+            "price": 200,
+            "currency": "INR"
+        },
+        "subscriptionType": {
+            "physical": false,
+            "digital": true
+        },
+        "internalSubscriptionId": "89432923924792792379"
+    }
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTF7942mx974727929TUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==',
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+
+
+```
+
+```shell
+curl -X POST 'http://localhost:3001/api/v1/subscription/migrate' \
+--header 'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFU73474977942792SlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userEmail": "testemail@test.com",
+    "userPhoneNumber": "9545734678",
+    "userName": "testUser",
+    "expiryDate": "2022-01-25T12:39:28.337Z",
+    "purchaseDate": "2022-01-25T12:39:28.337Z",
+    "country": "IN",
+    "clientUserId": "9342793972792",
+    "userAddress": {
+        "address": "test address line 1",
+        "city": "New Delhi",
+        "state": "DELHI",
+        "postcode": "110001"
+    },
+    "utmParameters": {
+        "utm_source": "website",
+        "utm_medium": "facebook"
+    },
+    "subscriptionDetails": {
+        "title": "Migrated Subscription 1",
+        "priceDetails": {
+            "price": 200,
+            "currency": "INR"
+        },
+        "subscriptionType": {
+            "physical": false,
+            "digital": true
+        },
+        "internalSubscriptionId": "89432923924792792379"
+    }
+}'
+```
+
+```javascript
+var axios = require("axios");
+var data = JSON.stringify({
+  userEmail: "testemail@test.com",
+  userPhoneNumber: "9545734678",
+  userName: "testUser",
+  expiryDate: "2022-01-25T12:39:28.337Z",
+  purchaseDate: "2022-01-25T12:39:28.337Z",
+  country: "IN",
+  clientUserId: "9342793972792",
+  userAddress: {
+    address: "test address line 1",
+    city: "New Delhi",
+    state: "DELHI",
+    postcode: "110001",
+  },
+  utmParameters: { utm_source: "website", utm_medium: "facebook" },
+  subscriptionDetails: {
+    title: "Migrated Subscription 1",
+    priceDetails: { price: 200, currency: "INR" },
+    subscriptionType: { physical: false, digital: true },
+    internalSubscriptionId: "89432923924792792379",
+  },
+});
+
+var config = {
+  method: "post",
+  url: "http://localhost:3001/api/v1/subscription/migrate",
+  headers: {
+    Authorization:
+      "Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWj7479m2x7924792x297TVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==",
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "message": "New Content Created!",
+  "content": {
+    "title": "Test content bundle for API functionality",
+    "price": 10,
+    "currency": "INR",
+    "contentId": "Client Content Bundle 1",
+    "bundleContentIds": ["Content Id 1", "Content Id 2", "Content Id 3"],
+    "tags": ["tag4", "tag5"],
+    "duration": 30,
+    "url": "www.google.com",
+    "contentType": "STORY",
+    "priceOverrides": {
+      "country": [
+        {
+          "_id": "605b25824646e9233aef61b4",
+          "name": "GL",
+          "price": 3
+        },
+        {
+          "_id": "605b25824646e9233aef61b5",
+          "name": "IN",
+          "price": 5
+        },
+        {
+          "_id": "605b25824646e9233aef61b6",
+          "name": "US",
+          "price": 7
+        }
+      ]
+    }
+  }
+}
+```
+
+This endpoint allows the Client to migrate a user's subscription to ConsCent, including the details of the user, subscription and the purchase on their platform - with the userPhoneNumber, userEmail, userName, clientUserId, expiryDate, purchaseDate. utmParameters, userAddress (address, city, state, postcode), country, and other client specific subscriptionDetails - title, priceDetails (price & currency), subscriptionType (digital & physical), and internalSubscriptionId.
+
+### HTTP Request
+
+`POST {API_URL}/api/v1/subscription/migrate`
+
+### Authorization
+
+Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
+
+### Request Body
+
+| Parameter           | Default  | Description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| userEmail           | required | The email of the user for whom the purchased subscription is being migrated                                                                                                                                                                                                                                                                        |
+| expiryDate          | required | Array of ContentIds - The date on which the migrated subscription will expire for the user (must be an ISO Date String)                                                                                                                                                                                                                            |
+| purchaseDate        | required | The Date on which the user purchased the subscription on the client's platform (must be an ISO Date String)                                                                                                                                                                                                                                        |
+| country             | required | The country of the user that purchased the subscription (must be an ISO Alpha-2 code from the list provided below)                                                                                                                                                                                                                                 |
+| userPhoneNumber     | optional | The phone number of the user for whom the purchased subscription is being migrated provided.                                                                                                                                                                                                                                                       |
+| userName            | optional | The name of the user for whom the purchased subscription is being migrated                                                                                                                                                                                                                                                                         |
+| clientUserId        | optional | The userID of the associated user in the client's platform - will be returned in relevant webhooks to the client for matching the details/purchases of the user accurately;                                                                                                                                                                        |
+| userAddress         | optional | REQUIRED for a physical subscription - address of the user for whom the purchased subscription is being migrated - must be passed as an object containing the fields - address, city, state, postcode.                                                                                                                                             |
+| subscriptionDetails | required | Details of the subscription being migrated. Must be passed as an object containing the fields - title, priceDetails: {price: number, currency: string}, subscriptionType: {physical: boolean, digital: boolean}, internalSubscriptionId - where the subscriptionType is a required field, and must be passed; while all other fields are optional. |
+| utmParameters       | optional | The UTM parameters associated with the subscription being migrated. Must be passed as an object containing the fields - utm_source & utm_source - both of which are optional                                                                                                                                                                       |
+
+<aside class="notice">
+Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). 
+</aside>
+
 # Deprecated Integration Documentation
 
 To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs).
