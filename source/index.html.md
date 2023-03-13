@@ -150,7 +150,7 @@ async function yourSuccessCallbackFunction(validationObject: any) {
     // verifying that the validation received matches the backend data
     if (
       validationObject.consumptionId === backendConfirmationData.consumptionId &&
-      validationObject.payloadclientId === backendConfirmationData.payload.clientId &&
+      validationObject.payload.clientId === backendConfirmationData.payload.clientId &&
       validationObject.payload.contentId === backendConfirmationData.payload.contentId
     ) {
       // Validation successful
