@@ -16,21 +16,21 @@ code_clipboard: true
 
 # Getting Started
 
-Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for.
+Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for, logging to your account via authorised credentials.
 
-You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent).
+<!-- You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent). -->
 
 # Registration
 
 The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email & password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the 'price', 'duration' and optionally geolocation overrides if the client wants geo-fenced pricing options. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn't register the content with ConsCent via API. (Price values are in INR)
 
-By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://client.conscent.in/dashboard/integration). You will be able to view your active ClientId, API Key and API Secret.
+Note : By logging in to your ConsCent Client Dashboard and navigating to the [Integrations Page](https://client.conscent.in/client/dashboard/Configure) in 'Documentation Tab', you will be able to view your active ClientId, API Key and API Secret.
 
 # Using ConsCent
 
 - In order to start creating content on ConsCent you need to ensure you follow the [Authentication Guidelines](#authentication). ConsCent will only allow authorised clients to create, view and edit content. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.
 
-Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you're operating in.
+Note : Whenever you're utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you're operating in.
 
 <ul class = 'instruction-bg-url'>
   <li>
@@ -292,12 +292,12 @@ Call the [Validate Story Read](#validate-story-read) API using the recieved "rea
 Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.
 
 <p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
-
+<!-- 
 # API Introduction
 
-Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc.
-
-We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc. -->
+<!-- 
+We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right. -->
 
 # Authentication
 
@@ -1690,7 +1690,68 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 
 ---
 
-# Donations
+# Login
+
+Integrating ConsCent on your Website is a simple and direct process. The following steps explain how to create credentials for your project. Your applications can then use the credentials to access APIs that you have enabled for that project. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
+You can get your ConsCent Client Id from the Client Integration Page ​​of the ConsCent Client Dashboard - as mentioned in the Registration Section.
+Including this regular script in the header section allows the ConsCent Login to be initalised and further used whenever user requires to login.
+Finally, In order to ensure that the ConsCent Login appears on your site. You need to implement the 'csc_init' function on the content page - included on the right hand side of the ConsCent Login and enables a user to login through ConsCent on your website. Please ensure that you call this function anytime you want the ConsCent Login to show up on your content page.
+We import the initalisation script using the unique '_csc' identifier and run the 'csc_init' function by passing a number of parameters.
+
+##   Add this code to the head section of your website
+
+> ConsCent Login Script:
+
+
+This script can be called anywhere as you already have the SDK script to your header section. 
+
+``````jsx
+const csc = window._csc as any;
+    csc('conscent-login', {
+      debug: true,
+      clientId: clientId,
+      defaultEmail: defaultEmail || '',
+      defaultName: defaultName || '',
+      defaultPhone: defaultPhone || '',
+      wrappingElementId: 'embed',
+      successCallback: async (userDetailsObject: any) => {
+        console.log('Success callback received from conscent login', userDetailsObject);
+        setUserDetails(userDetailsObject);
+        props.setShowLoginModal(false)
+      },
+      onCrossBtnClickSuccess: async () => {
+        console.log('cross btn click successfully');
+        props.setShowLoginModal(false)
+      },
+      unauthorizedCallback: () => {
+        console.log('unauthorized callback called');
+      },
+    });
+    
+``````
+### Logout Script :
+
+``````jsx
+//call this method on login button click
+const callLogoutBtn = () => {
+    const csc = window._csc as any;
+    csc('logout', {
+      debug: true,
+      clientId: clientId,
+      wrappingElementId: 'logout',
+      logoutCallback: async () => {
+        console.log('yyy');
+      },
+      unauthorizedCallback: () => {
+        console.log('unauthorized callback called');
+      },
+    });
+  };
+```
+
+
+
+<!-- # Donations
 
 ## Create Donation
 
@@ -1964,7 +2025,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 | from         | optional | The date after (and including) which all donations that are made should be returned (default is 1 month ago from current Date/Time) |
 | to           | optional | The date before which all donations that are made should be returned (default is current Date/Time)                                 |
 | receiverName | optional | Filter the donations by a particular receiver (name)                                                                                |
-| contentTitle | optional | Filter the donations by a particular content (title)                                                                                |
+| contentTitle | optional | Filter the donations by a particular content (title)                                                                                | -->
 
 # Validate Content Consumption
 
@@ -2596,11 +2657,11 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
 
-# Deprecated Integration Documentation
+<!-- # Deprecated Integration Documentation
 
 To view the deprecated integration documentation containing the Story APIs - [Click here](https://tsbmediaventure.github.io/deprecated-docs).
 
-Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have.
+Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have. -->
 
 # Country Code List
 
