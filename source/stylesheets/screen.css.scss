@@ -48,7 +48,7 @@ html, body {
 }
 
 .instruction-bg {
-  background-color: #e1f9fb;
+  background-color: #046ad40f;
   color: black; 
   padding: 15px !important;
 }
@@ -184,8 +184,8 @@ html, body {
 
   // this is parent links of the currently selected ToC entry
   .toc-link.active-parent {
-    background-color: #fff;
-    color: #046ad4;
+    background-color: #046ad4;
+    color: #ffffff;
   }
 
   .toc-list-h2 {
@@ -197,7 +197,7 @@ html, body {
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
     font-size: 12px;
-    background-color: #fff;
+    background-color: #549ed3;
   }
 
   .toc-footer {
