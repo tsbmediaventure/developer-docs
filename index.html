@@ -279,7 +279,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-cb15f79f.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-71f83137.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-ec00d1ce.js"></script>
 
@@ -287,8 +287,7 @@
       $(function() { setupCodeCopy(); });
     </script>
   </head>
-
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;php&quot;]">
+<body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -296,7 +295,7 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-8f2fe33c.png" class="logo" alt="" />
+      <img src="images/FINAL_CONSCENTLOGO-c90618e5.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="javascript">javascript</a>
@@ -314,9 +313,6 @@
           </li>
           <li>
             <a href="#web-integration" class="toc-h1 toc-link" data-title="Web Integration">Web Integration</a>
-          </li>
-          <li>
-            <a href="#api-introduction" class="toc-h1 toc-link" data-title="API Introduction">API Introduction</a>
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
@@ -353,17 +349,6 @@
               </ul>
           </li>
           <li>
-            <a href="#donations" class="toc-h1 toc-link" data-title="Donations">Donations</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#create-donation" class="toc-h2 toc-link" data-title="Create Donation">Create Donation</a>
-                  </li>
-                  <li>
-                    <a href="#get-client-donations" class="toc-h2 toc-link" data-title="Get Client Donations">Get Client Donations</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#validate-content-consumption" class="toc-h1 toc-link" data-title="Validate Content Consumption">Validate Content Consumption</a>
               <ul class="toc-list-h2">
                   <li>
@@ -394,7 +379,7 @@
               </ul>
           </li>
           <li>
-            <a href="#deprecated-integration-documentation" class="toc-h1 toc-link" data-title="Deprecated Integration Documentation">Deprecated Integration Documentation</a>
+            <a href="#login123" class="toc-h1 toc-link" data-title="Login123">Login123</a>
           </li>
           <li>
             <a href="#country-code-list" class="toc-h1 toc-link" data-title="Country Code List">Country Code List</a>
@@ -408,19 +393,19 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='getting-started'>Getting Started</h1>
-<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for.</p>
+<p>Welcome to ConsCent! This documentation covers all the steps for you to get set up - from optionally registering your premium content with ConsCent - which priced for a Pay per View basis, followed by integrating the paywall on your content pages and initialising the overlay to ensure all premium content is paid for, logging to your account via authorised credentials.</p>
 
-<p>You can get started by following the steps mentioned on the <a href="#using-conscent">Using ConsCent Page</a>.</p>
+<!-- You can get started by following the steps mentioned on the [Using ConsCent Page](#using-conscent). -->
 <h1 id='registration'>Registration</h1>
 <p>The first step is registering your client with ConsCent. This is done by the ConsCent Team internally and your administrator will recieve the login credenitals (email &amp; password) for the ConsCent Client Dashboard on the email they chose to register with. The client must provide a default value for the &#39;price&#39;, &#39;duration&#39; and optionally geolocation overrides if the client wants geo-fenced pricing options. This will ensure that all the premium content on the clients website/app is micro-priced - even if the client doesn&#39;t register the content with ConsCent via API. (Price values are in INR)</p>
 
-<p>By logging in to your ConsCent Client Dashboard and navigating to the <a href="https://client.conscent.in/dashboard/integration">Integrations Page</a>. You will be able to view your active ClientId, API Key and API Secret.</p>
+<p>Note : By logging in to your ConsCent Client Dashboard and navigating to the <a href="https://client.conscent.in/client/dashboard/Configure">Integrations Page</a> in &#39;Documentation Tab&#39;, you will be able to view your active ClientId, API Key and API Secret.</p>
 <h1 id='using-conscent'>Using ConsCent</h1>
 <ul>
 <li>In order to start creating content on ConsCent you need to ensure you follow the <a href="#authentication">Authentication Guidelines</a>. ConsCent will only allow authorised clients to create, view and edit content. For using these client APIs, the Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</li>
 </ul>
 
-<p>Whenever you&#39;re utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you&#39;re operating in.</p>
+<p>Note : Whenever you&#39;re utilising the Web Integration Code or Calling any ConsCent APIs - you to update the API_URL and SDK_URL variables based on the environment you&#39;re operating in.</p>
 
 <ul class = 'instruction-bg-url'>
   <li>
@@ -543,7 +528,7 @@ csc('init', {
     <span class="c1">// verifying that the validation received matches the backend data</span>
     <span class="k">if</span> <span class="p">(</span>
       <span class="n">validationObject</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payloadclientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
+      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
       <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span>
     <span class="p">)</span> <span class="p">{</span>
       <span class="c1">// Validation successful</span>
@@ -678,10 +663,14 @@ Call the [Validate Story Read](#validate-story-read) API using the recieved "rea
 Lastly, once the transaction has been validated by the Client - whether they choose to do it in the frontend or the backend - the client needs to show the premium content purchased by the User. You can do this on the same screen, or in another screencontaining the full content of the premium story. In the screen where you show the premium content, you MUST also show the ConsCent floating action button, you can do this by including the &lt;Conscent.Fab&gt; component anywhere in your view.
 
 <p class='instruction-bg'>The ConsCent floating action button must be visible when displaying your premium content that is priced on ConsCent. Do so by  including the &lt;Conscent.Fab&gt; component anywhere in your view</p> -->
-<h1 id='api-introduction'>API Introduction</h1>
-<p>Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc.</p>
 
-<p>We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<!-- 
+# API Introduction
+
+Welcome to the ConsCent Client API! You can use our APIs to access ConsCent Client API endpoints, which can help you get information on various tasks such as how to create content, verify payment for any content etc. -->
+
+<!-- 
+We have language bindings in Shell (cURL), PHP, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right. -->
 <h1 id='authentication'>Authentication</h1>
 <p>ConsCent uses API keys to allow access to the API for the Client to Create and Register any Content with ConsCent. You can view your API Key and Secret by logging in to your ConsCent Client Dashboard and navigating to the Integrations Page <a href="https://client.conscent.in/dashboard/integration">Client Integrations Page</a>. Please contact your administrator for the Login Credentials to access the ConsCent Client Dashboard - provided on the official email address registered with ConsCent.</p>
 
@@ -714,7 +703,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "STORY",
-    "tags": ["tag1", "tag2"],
+    "categories": ["category1", "category2"],
     "priceOverrides": {
         "country": [
             {
@@ -778,7 +767,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "title" : "Test content for API functionality",
     "price" : 1,
     "currency": "INR",
-    "tags": ["tag1", "tag2"],
+    "categories": ["category1", "category2"],
     "contentType": "STORY",
     "url": "www.google.com",
     "priceOverrides": {
@@ -833,7 +822,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">tag2</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">categories</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">category1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">category2</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
@@ -901,7 +890,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag2"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"category2"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -951,7 +940,7 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Tags, Analytics Pixels (Facebook and Google), Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the priceCategory field on registering the content - as long as the price category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot; in the download object of the request body while creating the content. Finally, the client can pass a &#39;pixels&#39; object in the request body which can contain either/or facebook and google pixel data - to ensure that the client&#39;s pixel events are fired on particular occurances relating to the content (Page View or Purchase of the Content). The pixel object must be passed in accordance with the format provided in the sample requests. Please note that the pixels are NOT fired when a user has blocked 3rd party cookies.</p>
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, categories, Analytics Pixels (Facebook and Google), Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the Client can also set the duration of a content - which means that if a content if purchased by a user on ConsCent, then that user can have free access to the content for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the priceCategory field on registering the content - as long as the price category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Moreover, if the content is downloadable on purchase, then the client can pass the download &quot;url&quot;, &quot;fileName&quot; and &quot;fileType&quot; in the download object of the request body while creating the content. Finally, the client can pass a &#39;pixels&#39; object in the request body which can contain either/or facebook and google pixel data - to ensure that the client&#39;s pixel events are fired on particular occurances relating to the content (Page View or Purchase of the Content). The pixel object must be passed in accordance with the format provided in the sample requests. Please note that the pixels are NOT fired when a user has blocked 3rd party cookies.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization'>Authorization</h3>
@@ -1027,12 +1016,12 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
 <tr>
 <td>pixels</td>
 <td>optional</td>
-<td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gtag throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
+<td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gcategory throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
 </tr>
 <tr>
-<td>tags</td>
+<td>categories</td>
 <td>optional</td>
-<td>Array of tags associated with the content</td>
+<td>Array of categories associated with the content</td>
 </tr>
 </tbody></table>
 
@@ -1065,7 +1054,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
-    "tags": ["tag3"],
+    "categories": ["category3"],
     "priceOverrides": {
         "country": [
             {
@@ -1129,7 +1118,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "title" : "Test content for API functionality Edited",
     "price" : 1,
     "currency": "INR",
-    "tags": ["tag3"],
+    "categories": ["category3"],
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
@@ -1182,7 +1171,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content for API functionality Edited</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag3</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">categories</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">category3</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
@@ -1250,7 +1239,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category3"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"authorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"changed-author-name"</span><span class="p">,</span><span class="w">
@@ -1304,7 +1293,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, tags, URL, duration, contentType, download, category and pixels . Content ID CANNOT be edited!</p>
+<p>This endpoint allows the Client to Edit their Registered Content on ConsCent - with the editable fields being the Content title, price, currency, priceOverrides, categories, URL, duration, contentType, download, category and pixels . Content ID CANNOT be edited!</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>PATCH {API_URL}/api/v1/content/{contentId}</code></p>
 <h3 id='authorization-2'>Authorization</h3>
@@ -1387,17 +1376,17 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <tr>
 <td>pixels</td>
 <td>optional</td>
-<td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gtag throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
+<td>A nested object with the optional keys being &quot;facebook&quot; and &quot;google&quot;. With the &quot;google&quot; object only requiring the trackingId - to include the gcategory throughout the platform. However, for the &quot;facebook&quot; object the &quot;pixelId&quot; must be passed along with an &quot;events&quot; array - containing the event name (as configured on the facebook events manager), the eventType (which is an ENUM to be chosen from [&quot;VIEW&quot;, &quot;CONVERSION&quot;]) as well as any data/values associated with the particular event.</td>
 </tr>
 <tr>
-<td>tags</td>
+<td>categories</td>
 <td>optional</td>
-<td>Array of tags associated with the content</td>
+<td>Array of categories associated with the content</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, tags, authorName, authorId, contentType, priceCategory, download and pixels - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content - title, price, currency, priceOverrides, URL, categories, authorName, authorId, contentType, priceCategory, download and pixels - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content'>View All Content</h2>
 <blockquote>
@@ -1459,7 +1448,7 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag2"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"category2"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1477,7 +1466,7 @@ Remember — Either/All of the fields of a content - title, price, currency, pri
       </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testingID for Client Content"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category3"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
@@ -1580,7 +1569,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tesla Tequila"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Id 6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag3"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category3"</span><span class="p">],</span><span class="w">
   </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
@@ -1639,7 +1628,7 @@ API to retrieve the details of an individual content registered by the client on
     "price" : 10,
     "currency": "INR",
     "url": "www.google.com",
-    "tags": ["tag4", "tag5"],
+    "categories": ["category4", "category5"],
     "contentType": "STORY",
     "priceOverrides": {
         "country": [
@@ -1680,7 +1669,7 @@ API to retrieve the details of an individual content registered by the client on
     "title" : "Test content bundle for API functionality",
     "price" : 10,
     "currency": "INR",
-    "tags": ["tag4", "tag5"],
+    "categories": ["category4", "category5"],
     "contentType": "STORY",
     "url": "www.google.com",
     "priceOverrides": {
@@ -1708,7 +1697,7 @@ API to retrieve the details of an individual content registered by the client on
   <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Test content bundle for API functionality</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">price</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag4</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">tag5</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">categories</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">category4</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">category5</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
@@ -1750,7 +1739,7 @@ API to retrieve the details of an individual content registered by the client on
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Content Bundle 1"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Content Id 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Content Id 3"</span><span class="p">],</span><span class="w">
-    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"tag5"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category4"</span><span class="p">,</span><span class="w"> </span><span class="s2">"category5"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"www.google.com"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
@@ -1776,7 +1765,7 @@ API to retrieve the details of an individual content registered by the client on
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, Tags, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content bundle, by passing the priceCategory field on registering the content - as long as the priceCategory has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client&#39;s contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.</p>
+<p>This endpoint allows the Client to Register their Content Bundle on ConsCent - with the Content Title, ContentId, BundleContentIds, Content URL, categories, Price, Currency, as well as any specific Price Overrides for a country - In order to set a different price for the content bundle in the relevant country. Moreover, the Client can also set the duration of a content bundle - which means that if a bundle if purchased by a user on ConsCent, then that user can have free access to all the content in the bundle for {duration} amount of time. By Default we use a 1 Day duration. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content bundle, by passing the priceCategory field on registering the content - as long as the priceCategory has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null); Lastly, the bundleContentIds must be the unique Ids of the client&#39;s contents that have been registered with ConsCent previously. Any mismatch in the bundleContentIds will throw an error - so ensure the contentIds that are to be part of the bundle are registered and passed to the API call correctly.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content/bundle</code></p>
 <h3 id='authorization-5'>Authorization</h3>
@@ -1840,9 +1829,9 @@ API to retrieve the details of an individual content registered by the client on
 <td>The priceCategory of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered priceCategory will have an associated price, currency, duration and priceOverrides.</td>
 </tr>
 <tr>
-<td>tags</td>
+<td>categories</td>
 <td>optional</td>
-<td>Array of tags associated with the content bundle</td>
+<td>Array of categories associated with the content bundle</td>
 </tr>
 </tbody></table>
 
@@ -1873,7 +1862,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "duration" : 30,
     "title" : "Test content bundle for API functionality Edited",
     "price" : 15,
-    "tags": ["tag7"],
+    "categories": ["category7"],
     "currency": "INR",
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
@@ -1916,7 +1905,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     "title" : "Test content bundle for API functionality Edited",
     "price" : 15,
     "currency": "INR",
-    "tags": ["tag7"],
+    "categories": ["category7"],
     "url": "www.google.com",
     "contentType": "PREMIUM CONTENT",
     "priceOverrides": {
@@ -1946,7 +1935,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
   <span class="na">currency</span><span class="p">:</span> <span class="dl">"</span><span class="s2">INR</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">PREMIUM CONTENT</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">tag7</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">categories</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">category7</span><span class="dl">"</span><span class="p">],</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">2</span> <span class="p">},</span>
@@ -1987,7 +1976,7 @@ Replace the {contentId} in the API path with your actual Content Id</p>
     </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag7"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category7"</span><span class="p">],</span><span class="w">
     </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yournewcontent"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PREMIUM CONTENT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2083,14 +2072,14 @@ Replace the {contentId} in the API path with your actual Content Id</p>
 <td>The priceCategory of the content bundle, which has been registered by the client on the ConsCent Client Dashboard - in order to invoke category based pricing (only valid if story doesn&#39;t have a price). Each registered priceCategory will have an associated price, currency, duration and priceOverrides</td>
 </tr>
 <tr>
-<td>tags</td>
+<td>categories</td>
 <td>optional</td>
-<td>Array of tags associated with the content bundle</td>
+<td>Array of categories associated with the content bundle</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
-Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType, tags and priceCategory - can be edited. Only pass the fields you wish to edit in the request body. 
+Remember — Either/All of the fields of a content bundle - bundleContentIds, title, price, currency, priceOverrides, URL, contentType, categories and priceCategory - can be edited. Only pass the fields you wish to edit in the request body. 
 </aside>
 <h2 id='view-all-content-bundles'>View All Content Bundles</h2>
 <blockquote>
@@ -2153,7 +2142,7 @@ Remember — Either/All of the fields of a content bundle - bundleContentIds, ti
       </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"tag7"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"category7"</span><span class="p">],</span><span class="w">
       </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.yoursite.com/yourcontent"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STORY"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2215,322 +2204,6 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 </aside>
 
 <hr>
-<h1 id='donations'>Donations</h1><h2 id='create-donation'>Create Donation</h2><div class="highlight"><pre class="highlight php tab-php"><code>
-<span class="cp">&lt;?php</span>
-
-<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
-
-<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/donation/'</span><span class="p">,</span>
-  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
-  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'POST'</span><span class="p">,</span>
-  <span class="no">CURLOPT_POSTFIELDS</span> <span class="o">=&gt;</span><span class="s1">'{
-    "content": {
-        "id": "7943789",
-        "title": "donation",
-        "url": "https://www.testurl.com"
-    },
-    "receiver": {
-        "name": "testname",
-        "id": "537526324",
-        "pitchMessage": "msg 1",
-        "thankyouMessage": "msg 2",
-        "avatarUrl": "https://www.avturl.com",
-        "posts": "35",
-        "views": "74784"
-    },
-    "clientId": "601a8ea4f2149f64hrt64ybh",
-    "deepLink": "deeplinkforappredredirect"
-}'</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">'Content-Type: application/json'</span>
-  <span class="p">),</span>
-<span class="p">));</span>
-
-<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-
-<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
-
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'{API_URL}/api/v1/donation/'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s1">'{
-    "content": {
-        "id": "7943789",
-        "title": "donation",
-        "url": "https://www.testurl.com"
-    },
-    "receiver": {
-        "name": "testname",
-        "id": "537526324",
-        "pitchMessage": "msg 1",
-        "thankyouMessage": "msg 2",
-        "avatarUrl": "https://www.avturl.com",
-        "posts": "35",
-        "views": "74784"
-    },
-    "clientId": "601a8ea4f2149f75h4hd678j",
-    "deepLink": "deeplinkforappredredirect"
-}'</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-  <span class="na">content</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">7943789</span><span class="dl">"</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">donation</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.testurl.com</span><span class="dl">"</span> <span class="p">},</span>
-  <span class="na">receiver</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">testname</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">537526324</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">pitchMessage</span><span class="p">:</span> <span class="dl">"</span><span class="s2">msg 1</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">thankyouMessage</span><span class="p">:</span> <span class="dl">"</span><span class="s2">msg 2</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">avatarUrl</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.avturl.com</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">posts</span><span class="p">:</span> <span class="dl">"</span><span class="s2">35</span><span class="dl">"</span><span class="p">,</span>
-    <span class="na">views</span><span class="p">:</span> <span class="dl">"</span><span class="s2">74784</span><span class="dl">"</span><span class="p">,</span>
-  <span class="p">},</span>
-  <span class="na">clientId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">601a8ea4f2149f5jhf83hfyt</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">deepLink</span><span class="p">:</span> <span class="dl">"</span><span class="s2">deeplinkforappredredirect</span><span class="dl">"</span><span class="p">,</span>
-<span class="p">});</span>
-
-<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">post</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/donation/</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="dl">"</span><span class="s2">Content-Type</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">application/json</span><span class="dl">"</span><span class="p">,</span>
-  <span class="p">},</span>
-  <span class="na">data</span><span class="p">:</span> <span class="nx">data</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-  <span class="p">});</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Donation created successfully"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"donation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INITIATED"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612f10d26bdd7b7a82eeaf68"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"deepLink"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deeplinkforappredredirect"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7943789"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"donation"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.testurl.com"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"receiver"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testname"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"537526324"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"pitchMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"msg 1"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"thankyouMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"msg 2"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"avatarUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.avturl.com"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"posts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"35"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"views"</span><span class="p">:</span><span class="w"> </span><span class="s2">"74784"</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"601a8ea4f2149f5jhf83hfyt"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-01T05:34:10.688Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-09-01T05:34:10.688Z"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint allows you to create a donation in the &#39;INITIATED&#39; state - with the receiver details (id, name, pitchMessage, thankyouMessage, avatarUrl, posts count and view count), the content details (id, title, url) and the associated ConsCent clientId of your platform. The successfully created donation provides you with a &#39;_id&#39; field in the donation object of the response, which is the unique donation ID and must be passed to ConsCent to implement the donation flow.</p>
-<h3 id='http-request-8'>HTTP Request</h3>
-<p><code>POST {API_URL}/api/v1/donation</code></p>
-<h3 id='request-body-5'>Request Body</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>clientId</td>
-<td>required</td>
-<td>your platforms ConsCent client ID - which can be found on the ConsCent client dashboard, in the SDK integration section.</td>
-</tr>
-<tr>
-<td>receiver.name</td>
-<td>required</td>
-<td>Name of the individual that created the content and will be receiving the donation</td>
-</tr>
-<tr>
-<td>receiver.avatarUrl</td>
-<td>required</td>
-<td>Url for an image/gif which the receiver chooses to be shown on the first donation screen</td>
-</tr>
-<tr>
-<td>receiver.id</td>
-<td>optional</td>
-<td>ID of the receiver</td>
-</tr>
-<tr>
-<td>receiver.pitchMessage</td>
-<td>optional</td>
-<td>Message chosen by the receiver to be shown on the first donation screen</td>
-</tr>
-<tr>
-<td>receiver.thankyouMessage</td>
-<td>optional</td>
-<td>Message chosen by the receiver to be shown to the user on making a successfull donation</td>
-</tr>
-<tr>
-<td>receiver.posts</td>
-<td>optional</td>
-<td>The count of posts that the receiver has contributed to the platform</td>
-</tr>
-<tr>
-<td>receiver.views</td>
-<td>optional</td>
-<td>The number of views that have occured on the particular content;</td>
-</tr>
-<tr>
-<td>content.id</td>
-<td>optional</td>
-<td>ID of the associated content</td>
-</tr>
-<tr>
-<td>content.title</td>
-<td>optional</td>
-<td>Title of the associated content</td>
-</tr>
-<tr>
-<td>content.url</td>
-<td>optional</td>
-<td>URL of the associated content - where the content will be available</td>
-</tr>
-<tr>
-<td>deepLink</td>
-<td>optional</td>
-<td>Deep Link for redirecting back to the app after donation flow is completed - on iOS/Android</td>
-</tr>
-</tbody></table>
-<h2 id='get-client-donations'>Get Client Donations</h2><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-
-<span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
-
-<span class="nb">curl_setopt_array</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-  <span class="no">CURLOPT_URL</span> <span class="o">=&gt;</span> <span class="s1">'{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z'</span><span class="p">,</span>
-  <span class="no">CURLOPT_RETURNTRANSFER</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_ENCODING</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-  <span class="no">CURLOPT_MAXREDIRS</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-  <span class="no">CURLOPT_TIMEOUT</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="no">CURLOPT_FOLLOWLOCATION</span> <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTP_VERSION</span> <span class="o">=&gt;</span> <span class="no">CURL_HTTP_VERSION_1_1</span><span class="p">,</span>
-  <span class="no">CURLOPT_CUSTOMREQUEST</span> <span class="o">=&gt;</span> <span class="s1">'GET'</span><span class="p">,</span>
-  <span class="no">CURLOPT_HTTPHEADER</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
-  <span class="p">),</span>
-<span class="p">));</span>
-
-<span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-
-<span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-<span class="k">echo</span> <span class="nv">$response</span><span class="p">;</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--location</span> <span class="nt">--request</span> GET <span class="s1">'{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Authorization: Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg=='</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">axios</span><span class="dl">"</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">{API_URL}/api/v1/client/donations?from=2021-07-02T05:45:41.389Z</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="na">Authorization</span><span class="p">:</span>
-      <span class="dl">"</span><span class="s2">Basic TVZaVEZKOS1CNTlNNE5LLUczTUMyMDYtTUVFVktDMjozUzNFUkYwWjlBTTFNRkpYNTJDUTRKTUdWSlpNTVZaVEZKOUI1OU00TktHM01DMjA2TUVFVktDMg==</span><span class="dl">"</span><span class="p">,</span>
-  <span class="p">},</span>
-<span class="p">};</span>
-
-<span class="nx">axios</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
-  <span class="p">})</span>
-  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-  <span class="p">});</span>
-</code></pre></div>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"itemizedDonations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612ccd403ef4d528dd03bf79"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Client"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-30T12:21:20.610Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"612ccbd83ef4d528dd03bf77"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Client"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-08-30T12:15:20.277Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"totalDonations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"totalSpend"</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>This endpoint allows you to fetch all the donations made by users on the clients platform, with the &#39;itemizedDonations&#39; array containing the details of each individual donation and the &#39;totalDonations&#39; object giving the aggregated data for the donations (total count &amp; amount) for the defined time period.</p>
-<h3 id='http-request-9'>HTTP Request</h3>
-<p><code>POST {API_URL}/api/v1/client/donations</code></p>
-<h3 id='authorization-8'>Authorization</h3>
-<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
-<h3 id='url-parameters-6'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>from</td>
-<td>optional</td>
-<td>The date after (and including) which all donations that are made should be returned (default is 1 month ago from current Date/Time)</td>
-</tr>
-<tr>
-<td>to</td>
-<td>optional</td>
-<td>The date before which all donations that are made should be returned (default is current Date/Time)</td>
-</tr>
-<tr>
-<td>receiverName</td>
-<td>optional</td>
-<td>Filter the donations by a particular receiver (name)</td>
-</tr>
-<tr>
-<td>contentTitle</td>
-<td>optional</td>
-<td>Filter the donations by a particular content (title)</td>
-</tr>
-</tbody></table>
 <h1 id='validate-content-consumption'>Validate Content Consumption</h1><h2 id='validate-content-details-by-consumption-id'>Validate Content Details By Consumption ID</h2>
 <blockquote>
 <p>Replace the {consumptionId} in the API path with the actual value/string of the consumptionId recieved</p>
@@ -2588,11 +2261,11 @@ Remember — Pagination parameters are optional. The dafault values are - pageNu
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to Validate the Content Details anytime a User Purchases any Content of the Client using ConsCent - with the Client passing the Content ID in the request and recieving details regarding the Content Id and the Date of Purchase of the Content by the User, as well as matching the unique Consumption Id to ensure it cannot be reused.</p>
-<h3 id='http-request-10'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/content/consumption/{consumptionId}</code></p>
 
 <p>The client will recieve a payload when any content is purchased via ConsCent - providing the details of the content such as the ClientId to identify which client the content belongs to as well as the Client Content ID, Transaction Amount and Date of the Transaction. Moroever, they will also recieve a Consumption ID - by passing the Consumption ID in this API request - the Client can verify the authenticity of the transaction and restrict any spillage.</p>
-<h3 id='url-parameters-7'>URL Parameters</h3>
+<h3 id='url-parameters-6'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2668,9 +2341,9 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows our partners to get purchase count and purchase amount for a particular content id. Please pass the date-range as ISO-date strings in the from and to query parameters. Also pass the content id as a path parameter. By default this API provides details of all time consumption.</p>
-<h3 id='http-request-11'>HTTP Request</h3>
+<h3 id='http-request-9'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/content/:replace-with-contentid</code></p>
-<h3 id='authorization-9'>Authorization</h3>
+<h3 id='authorization-8'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
@@ -2752,9 +2425,9 @@ curl <span class="nt">-X</span> GET <span class="s1">'{API_URL}/api/v1/client/st
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to get Aggregate Statistics based on users consumption of their content via ConsCent. By default this API provides details of the previous days&#39; consumption. However, the client can pass the &#39;from&#39; and &#39;to&#39; dates as optional query parameters to get aggregated stats for any range that they choose. The value of &#39;totalRevenueGenerated&#39; in the response if given in &quot;INR&quot; by default.</p>
-<h3 id='http-request-12'>HTTP Request</h3>
+<h3 id='http-request-10'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/client/stats/daily</code></p>
-<h3 id='authorization-10'>Authorization</h3>
+<h3 id='authorization-9'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
@@ -2871,9 +2544,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> GET <s
     </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to get the list of all currently active subscriptions via ConsCent. Including the details of each subscription purchased, such as the title, price, the amount and currency paid by the user, the type of subscription, date of purchase, date of expiry, renewal and free trial booleans, as well as the user details - phone number, email, addressm , OS, device and location.</p>
-<h3 id='http-request-13'>HTTP Request</h3>
+<h3 id='http-request-11'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/subscription/client/list</code></p>
-<h3 id='authorization-11'>Authorization</h3>
+<h3 id='authorization-10'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 
 <aside class="notice">
@@ -3049,7 +2722,7 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
     </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"bundle"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
@@ -3086,11 +2759,11 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint allows the Client to migrate a user&#39;s subscription to ConsCent, including the details of the user, subscription and the purchase on their platform - with the userPhoneNumber, userEmail, userName, clientUserId, expiryDate, purchaseDate. utmParameters, userAddress (address, city, state, postcode), country, and other client specific subscriptionDetails - title, priceDetails (price &amp; currency), subscriptionType (digital &amp; physical), and internalSubscriptionId. It is required to pass either the &#39;userPrimaryEmail&#39; or the &#39;userPrimaryPhone&#39; - as the primary login of the user on ConsCent.</p>
-<h3 id='http-request-14'>HTTP Request</h3>
+<h3 id='http-request-12'>HTTP Request</h3>
 <p><code>POST {API_URL}/api/v1/subscription/migrate</code></p>
-<h3 id='authorization-12'>Authorization</h3>
+<h3 id='authorization-11'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
-<h3 id='request-body-6'>Request Body</h3>
+<h3 id='request-body-5'>Request Body</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3163,10 +2836,53 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 <aside class="notice">
 Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
-<h1 id='deprecated-integration-documentation'>Deprecated Integration Documentation</h1>
-<p>To view the deprecated integration documentation containing the Story APIs - <a href="https://tsbmediaventure.github.io/deprecated-docs">Click here</a>.</p>
+<h1 id='login123'>Login123</h1>
+<p>Integrating ConsCent on your Website is a simple and direct process. The following steps explain how to create credentials for your project. Your applications can then use the credentials to access APIs that you have enabled for that project. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
+You can get your ConsCent Client Id from the Client Integration Page ​​of the ConsCent Client Dashboard - as mentioned in the Registration Section.
+Including this regular script in the header section allows the ConsCent Login to be initalised and further used whenever user requires to login.
+Finally, In order to ensure that the ConsCent Login appears on your site. You need to implement the &#39;csc_init&#39; function on the content page - included on the right hand side of the ConsCent Login and enables a user to login through ConsCent on your website. Please ensure that you call this function anytime you want the ConsCent Login to show up on your content page.
+We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;csc_init&#39; function by passing a number of parameters.</p>
 
-<p>Please not that we no longer provide support for this documentation and it will be removed soon. We urge you to make use of the updated integration documentation. You can email us at support@conscent.in for any queries that you might have.</p>
+<p>This script can be called anywhere as you already have the SDK script to your header section. </p>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
+    <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">conscent-login</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">debug</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
+      <span class="na">defaultEmail</span><span class="p">:</span> <span class="nx">defaultEmail</span> <span class="o">||</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">defaultName</span><span class="p">:</span> <span class="nx">defaultName</span> <span class="o">||</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">defaultPhone</span><span class="p">:</span> <span class="nx">defaultPhone</span> <span class="o">||</span> <span class="dl">''</span><span class="p">,</span>
+      <span class="na">wrappingElementId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">embed</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">successCallback</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="na">userDetailsObject</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Success callback received from conscent login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">userDetailsObject</span><span class="p">);</span>
+        <span class="nx">setUserDetails</span><span class="p">(</span><span class="nx">userDetailsObject</span><span class="p">);</span>
+        <span class="nx">props</span><span class="p">.</span><span class="nx">setShowLoginModal</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="na">onCrossBtnClickSuccess</span><span class="p">:</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">cross btn click successfully</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">props</span><span class="p">.</span><span class="nx">setShowLoginModal</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+      <span class="p">},</span>
+      <span class="na">unauthorizedCallback</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">unauthorized callback called</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+    <span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="c1">//call this method on login button click</span>
+<span class="kd">const</span> <span class="nx">callLogoutBtn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
+    <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">logout</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">debug</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
+      <span class="na">wrappingElementId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">logout</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">logoutCallback</span><span class="p">:</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">yyy</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="na">unauthorizedCallback</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">unauthorized callback called</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+</code></pre></div>
+<hr>
 <h1 id='country-code-list'>Country Code List</h1>
 <p>Afghanistan - AF</p>
 
