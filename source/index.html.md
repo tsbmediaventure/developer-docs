@@ -2320,7 +2320,7 @@ Client API Key and Secret must be passed in Authorization Headers using Basic Au
 Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
 
-# Login123
+# Login
 
 Integrating ConsCent on your Website is a simple and direct process. The following steps explain how to create credentials for your project. Your applications can then use the credentials to access APIs that you have enabled for that project. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
 You can get your ConsCent Client Id from the Client Integration Page ​​of the ConsCent Client Dashboard - as mentioned in the Registration Section.
