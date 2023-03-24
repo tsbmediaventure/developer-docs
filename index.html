@@ -382,6 +382,46 @@
               </ul>
           </li>
           <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sign-up-webhook" class="toc-h2 toc-link" data-title="Sign Up Webhook">Sign Up Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#login-webhook" class="toc-h2 toc-link" data-title="Login Webhook">Login Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#subscription-payment-webhook" class="toc-h2 toc-link" data-title="Subscription Payment Webhook">Subscription Payment Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#subscription-cancelled-webhook" class="toc-h2 toc-link" data-title="Subscription Cancelled Webhook">Subscription Cancelled Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#pass-payment-webhook" class="toc-h2 toc-link" data-title="Pass Payment Webhook">Pass Payment Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#subscription-bundle-payment-webhook" class="toc-h2 toc-link" data-title="Subscription Bundle Payment Webhook">Subscription Bundle Payment Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#review-subscription-webhook" class="toc-h2 toc-link" data-title="Review Subscription Webhook">Review Subscription Webhook</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#api" class="toc-h1 toc-link" data-title="API">API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-user-details-and-subscriptions-information" class="toc-h2 toc-link" data-title="Get user details and subscriptions information">Get user details and subscriptions information</a>
+                  </li>
+                  <li>
+                    <a href="#purchased-subscriptions-endpoint" class="toc-h2 toc-link" data-title="Purchased Subscriptions endpoint">Purchased Subscriptions endpoint</a>
+                  </li>
+                  <li>
+                    <a href="#cancel-active-subscriptions" class="toc-h2 toc-link" data-title="Cancel Active Subscriptions">Cancel Active Subscriptions</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#login" class="toc-h1 toc-link" data-title="Login">Login</a>
           </li>
           <li>
@@ -461,23 +501,23 @@
 <blockquote>
 <p>ConsCent Paywall Initalisation Script:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>&lt;script&gt;
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
   const clientId = '5f92a62013332e0f667794dc';
-  (function (w, d, s, o, f, cid) {
-    if (!w[o]) {
-      w[o] = function () {
-        w[o].q.push(arguments);
-      };
-      w[o].q = [];
-    }
+  (function (w, d, s, o, f, cid) <span class="si">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">w</span><span class="p">[</span><span class="nx">o</span><span class="p">])</span> <span class="p">{</span>
+      <span class="nx">w</span><span class="p">[</span><span class="nx">o</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">w</span><span class="p">[</span><span class="nx">o</span><span class="p">].</span><span class="nx">q</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+      <span class="p">};</span>
+      <span class="nx">w</span><span class="p">[</span><span class="nx">o</span><span class="p">].</span><span class="nx">q</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="si">}</span>
     (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
     js.id = o;
     js.src = f;
     js.async = 1;
     js.title = cid;
     fjs.parentNode.insertBefore(js, fjs);
-  })(window, document, 'script', '_csc', {SDK_URL}, clientId);
-&lt;/script&gt;
+  })(window, document, 'script', '_csc', <span class="si">{</span><span class="nx">SDK_URL</span><span class="si">}</span>, clientId);
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
 <blockquote>
 <p>Ensure you replace the &#39;clientId&#39; with your actual Client ID retrieved from the Conscent Client Dashboard Integration Page and the {SDK_URL} with the sdk url of an environment you want to use, e.g. &#39;https://sandbox-sdk.conscent.in&#39; for sandbox</p>
@@ -494,53 +534,53 @@
 <blockquote>
 <p>Include ConsCent Paywall on Premium Content Content Page:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight plaintext"><code>const csc = window._csc;
-csc('init', {
-  debug: true, // can be set to false to remove sdk non-error log output
-  contentId: contentId,
-  subscriptionUrl: {clientSubscriptionUrl},
-  signInUrl: {clientSignInUrl},
-  clientId: clientId,
-  title: contentTitle,
-  isMobile: 'false',
-  buttonMode,
-  successCallback: yourSuccessCallbackFunction,
-  wrappingElementId: 'csc-paywall',
-  fullScreenMode: 'false', // if set to true, the entire screen will be covered,
-  phoneNumber: 9898989898,
-  email: test@email.com
-})
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span><span class="p">;</span>
+<span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">init</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">debug</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// can be set to false to remove sdk non-error log output</span>
+  <span class="na">contentId</span><span class="p">:</span> <span class="nx">contentId</span><span class="p">,</span>
+  <span class="na">subscriptionUrl</span><span class="p">:</span> <span class="p">{</span><span class="nx">clientSubscriptionUrl</span><span class="p">},</span>
+  <span class="na">signInUrl</span><span class="p">:</span> <span class="p">{</span><span class="nx">clientSignInUrl</span><span class="p">},</span>
+  <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
+  <span class="na">title</span><span class="p">:</span> <span class="nx">contentTitle</span><span class="p">,</span>
+  <span class="na">isMobile</span><span class="p">:</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">buttonMode</span><span class="p">,</span>
+  <span class="na">successCallback</span><span class="p">:</span> <span class="nx">yourSuccessCallbackFunction</span><span class="p">,</span>
+  <span class="na">wrappingElementId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">csc-paywall</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">fullScreenMode</span><span class="p">:</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// if set to true, the entire screen will be covered,</span>
+  <span class="na">phoneNumber</span><span class="p">:</span> <span class="mi">9898989898</span><span class="p">,</span>
+  <span class="na">email</span><span class="p">:</span> <span class="nx">test</span><span class="p">@</span><span class="nd">email</span><span class="p">.</span><span class="nx">com</span>
+<span class="p">})</span>
 </code></pre></div>
 <blockquote>
 <p>Success Callback example:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight hack"><code><span class="k">async</span> <span class="k">function</span> <span class="n">yourSuccessCallbackFunction</span><span class="p">(</span><span class="kt">validationObject</span><span class="o">:</span> <span class="n">any</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">yourSuccessCallbackFunction</span><span class="p">(</span><span class="nx">validationObject</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Function to show the premium content to the User since they have paid for it via ConsCent</span>
   <span class="c1">// Here you should verify the  validationObject with our backend</span>
   <span class="c1">// And then you must provide access to the user for the complete content</span>
 
   <span class="c1">// example verification code:</span>
-  <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'Initiating verification with conscent backend'</span><span class="p">);</span>
-  <span class="k">const</span> <span class="no">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XMLHttpRequest</span><span class="p">();</span> <span class="c1">// using vanilla javascript to make a post request</span>
-  <span class="k">const</span> <span class="no">url</span> <span class="o">=</span> <span class="sb">`${API_URL}/api/v1/content/consumption/${validationObject.consumptionId}`</span><span class="p">;</span>
-  <span class="n">xhttp</span><span class="mf">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Initiating verification with conscent backend</span><span class="dl">'</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span> <span class="c1">// using vanilla javascript to make a post request</span>
+  <span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">API_URL</span><span class="p">}</span><span class="s2">/api/v1/content/consumption/</span><span class="p">${</span><span class="nx">validationObject</span><span class="p">.</span><span class="nx">consumptionId</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+  <span class="nx">xhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
   <span class="c1">// e is the response event</span>
-  <span class="n">xhttp</span><span class="mf">.</span><span class="n">onload</span> <span class="o">=</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">const</span> <span class="no">backendConfirmationData</span> <span class="o">=</span> <span class="no">JSON</span><span class="mf">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">e</span><span class="mf">.</span><span class="n">target</span><span class="mf">.</span><span class="n">response</span><span class="p">);</span>
+  <span class="nx">xhttp</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">backendConfirmationData</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
 
     <span class="c1">// verifying that the validation received matches the backend data</span>
     <span class="k">if</span> <span class="p">(</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">consumptionId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">clientId</span> <span class="o">&amp;&amp;</span>
-      <span class="n">validationObject</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span> <span class="o">===</span> <span class="n">backendConfirmationData</span><span class="mf">.</span><span class="n">payload</span><span class="mf">.</span><span class="n">contentId</span>
+      <span class="nx">validationObject</span><span class="p">.</span><span class="nx">consumptionId</span> <span class="o">===</span> <span class="nx">backendConfirmationData</span><span class="p">.</span><span class="nx">consumptionId</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">validationObject</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">clientId</span> <span class="o">===</span> <span class="nx">backendConfirmationData</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">clientId</span> <span class="o">&amp;&amp;</span>
+      <span class="nx">validationObject</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">contentId</span> <span class="o">===</span> <span class="nx">backendConfirmationData</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">contentId</span>
     <span class="p">)</span> <span class="p">{</span>
       <span class="c1">// Validation successful</span>
-      <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="s1">'successful validation'</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">successful validation</span><span class="dl">'</span><span class="p">);</span>
       <span class="c1">// accessContent would be your function that will do all the actions that need to be done to unlock the entire content</span>
-      <span class="nf">accessContent</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+      <span class="nx">accessContent</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">};</span>
-  <span class="n">xhttp</span><span class="mf">.</span><span class="nf">send</span><span class="p">();</span>
+  <span class="nx">xhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;init&#39; function by passing a number of parameters:</p>
@@ -2839,15 +2879,676 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 <aside class="notice">
 Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
-<h1 id='login'>Login</h1>
-<p>Integrating ConsCent on your Website is a simple and direct process. The following steps explain how to create credentials for your project. Your applications can then use the credentials to access APIs that you have enabled for that project. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
-You can get your ConsCent Client Id from the Client Integration Page ​​of the ConsCent Client Dashboard - as mentioned in the Registration Section.
-Including this regular script in the header section allows the ConsCent Login to be initalised and further used whenever user requires to login.
-Finally, In order to ensure that the ConsCent Login appears on your site. You need to implement the &#39;csc_init&#39; function on the content page - included on the right hand side of the ConsCent Login and enables a user to login through ConsCent on your website. Please ensure that you call this function anytime you want the ConsCent Login to show up on your content page.
-We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;csc_init&#39; function by passing a number of parameters.</p>
+<h1 id='webhooks'>Webhooks</h1><h2 id='sign-up-webhook'>Sign Up Webhook</h2>
+<p>You can register your webhook endpoint for receiving ConsCent user data by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user data anytime the user logins in for the first time on the client&#39;s website or application via ConsCent.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7843y9xm44428xm24x2m0x2xm42"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-email@webhook.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hashedPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7942mey829mxe1238z2ym9zy39my29zy2z9dy24793msy29z2z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hashedEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8392mx30mx2mu8034x02mx802ry2480nyd249yx420xfn20w4y04xm2024"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mi">8359893</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mi">7438734</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="mi">221993</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS 10.16"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"browser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chrome"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAgent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7923492 Apartment1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Area"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"389023"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test landmark"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New York City"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New York"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"clientTierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestTierID1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11003289298"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='description'>Description</h3>
+<p>This event occurs when the user logs in to the platform very first time.</p>
 
-<p>This script can be called anywhere as you already have the SDK script to your header section. </p>
-<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h3 id='security'>Security</h3>
+<p>You will either get the user&#39;s email or phoneNumber field and accordingly only one of hashedPhoneNumber or hashedEmail. This hash is generated by using jwt.sign and passing the api secret as the secret. Learn more about jwt here. You can verify this by using jwt.verify for security purposes.</p>
+
+<p>Alternately, you can check the authorization headers. Every request to the webhook uses Basic authorization with the api key as the username and the api secret as the password.</p>
+
+<p>-Do note that you will receive either the phoneNumber or the email depending on what the user chooses to log in with.</p>
+<h2 id='login-webhook'>Login Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-email@webhook.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7843y9xm44428xm24x2m0x2xm42"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hashedPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7942mey829mxe1238z2ym9zy39my29zy2z9dy24793msy29z2z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hashedEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8392mx30mx2mu8034x02mx802ry2480nyd249yx420xfn20w4y04xm2024"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mi">8359893</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mi">7438734</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="mi">221993</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS 10.16"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"browser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chrome"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAgent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7923492 Apartment1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Area"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"389023"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test landmark"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New York City"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New York"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"clientTierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestTierID1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11003289298"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving ConsCent user data by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user data (name, email, phone number, hashed email &amp; phone number, city, location, address &amp; country of the user) anytime the user logins in on the client&#39;s website or application via ConsCent.</p>
+<h3 id='description-2'>Description</h3>
+<p>This event occurs when the user logs in to the platform everytime.</p>
+<h3 id='security-2'>Security</h3>
+<p>You will either get the user&#39;s email or phoneNumber field and accordingly only one of hashedPhoneNumber or hashedEmail. This hash is generated by using jwt.sign and passing the api secret as the secret. Learn more about jwt here. You can verify this by using jwt.verify for security purposes.</p>
+
+<p>Alternately, you can check the authorization headers. Every request to the webhook uses Basic authorization with the api key as the username and the api secret as the password.</p>
+
+<p>Your api key / api secret is visible in the SDK part of the Integration section of the client dashboard</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h2 id='subscription-payment-webhook'>Subscription Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61b9cf42f5d1f54797aaf14f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7843y9xm44428xm24x2m0x2xm42"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"purchaseId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4932228982489248928208024"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"manuallyRenewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"renewalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61efb40a672c7f15840e803c"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"renewalDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"bundle"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"NETWORK"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61b9cefbf5d1f54797aaf149"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"601a8ea4f2149f089782814f"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">289.5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bengaluru (nagashettyhalli)"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.0411</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">77.5702</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560056"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-15T11:19:30.897Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUBSCRIPTION"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription 5"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c044"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c045"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-15T11:19:30.914Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-15T11:19:30.914Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11003289298"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"chosenTier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"clientTierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Tier ID"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee437485"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"offers"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"inrGstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"17973 Octane Drive"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sun Valley"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"90210"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Los Angeles"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"California"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"renewedSubscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"renewalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rzpSubscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_Inua2HuuV2lxLG"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nextRenewalDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-06-25T08:38:18.369Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"autoRenew"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving ConsCent purchased subscription data by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s purchased subscription data anytime the user purchases a subscription on the client&#39;s platform or application via ConsCent. Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - ConsCent Client Integration. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='description-3'>Description</h3>
+<p>This event occurs whenever the user buys any subscription.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h2 id='subscription-cancelled-webhook'>Subscription Cancelled Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"cancelledSubscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"renewalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rzpSubscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_InvqpVxG0vu7n8"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELLED"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin1@seed.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9869779647"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7843y9xm44428xm24x2m0x2xm42"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"11003289298"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"recommended"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"benefits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"benefit ewiowe, benefit 2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"couponsEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"adminCoupon"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"usedCouponNumbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c044"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"601a8ea4f2149f089782814f"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription 5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"iconUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conscent-subscriptions.s3.ap-south-1.amazonaws.com/local/Samakshs-MacBook-Pro-2.local/Screenshot%202021-07-22%20at%209.05.01%20PM.png"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tiers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"priceOverrides"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"basePrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"offers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c045"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"couponCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-20T11:28:54.143Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-01-19T06:45:18.634Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"lastPurchaseDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.0411</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">77.5702</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560056"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"inrGstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"manuallyRenewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"bundle"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"REPEAT"</span><span class="p">,</span><span class="w"> </span><span class="s2">"NETWORK"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"601a8ea4f2149f089782814f"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">289.5</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bengaluru (nagashettyhalli)"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"userCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-25T09:52:52.814Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUBSCRIPTION"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription 5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"operatingSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c044"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"616ffd76621d69c5ee43c045"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"renewalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61efc865acb0d82962e2ad14"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"renewalDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving data whenever a user cancels their subscription via ConsCent - by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s cancelled subscription data, along with the details of the subscription and the last purchase/renewal of the user for the particular subscription - anytime the user cancels a client&#39;s subscription via ConsCent. Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - ConsCent Client Integration. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='description-4'>Description</h3>
+<p>This event occurs whenever the user cancels the auto renew enabled subscription from ConsCent Dashboard.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h2 id='pass-payment-webhook'>Pass Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"inrGstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"manuallyRenewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"bundle"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"NEW"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"628b76941ed3d9c772be2626"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"628b765e16d01ac4721e1676"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"628b6c2cbf5053737a28a63a"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bengaluru (nagashettyhalli)"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">13.0411</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">77.5702</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560056"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-23T18:57:07.989Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"passTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"qwe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"operatingSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-23T11:57:08.061Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-05-23T11:57:08.061Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"628b765e16d01ac4721e1676"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9276278392"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving data whenever a user pays for their pass via ConsCent - by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s pass payment data, along with the details of the pass and the last purchase/renewal of the user for the particular pass - anytime the user purchases a client&#39;s pass via ConsCent. Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - ConsCent Client Integration. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='descrption'>Descrption:</h3>
+<p>This event occurs when the user buys the Pass.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h2 id='subscription-bundle-payment-webhook'>Subscription Bundle Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"purchaseId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62d02f1bf3299d7b21d4a235"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"623b1204ff6e065272e3530b"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asd@asd.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543211"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asdasdasd"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIKKIM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asdsa"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asdasdasdas"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"110089"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userGender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MALE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userEmploymentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL_TIME"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"utmParameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"utm_source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KJ007"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"utm_medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medium"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"utm_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"bundleBuyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">332</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bundlePrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">369</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bundlePriceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">369</span><span class="p">,</span><span class="w"> </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"subscriptionsDetail"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currencySymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"₹"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">90.00</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"100.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test Client TSB media venture a"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currencySymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"₹"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">242.10</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"269.00"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test client b"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving data whenever a user pays for their subscription bundle via ConsCent - by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s subscription bundle payment data, along with the details of the bundle - anytime the user purchases a client&#39;s subscription bundle via ConsCent. Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - ConsCent Client Integration. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='description-5'>Description</h3>
+<p>This event occurs when the user buys bundle subscription.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h2 id='review-subscription-webhook'>Review Subscription Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+   </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9847598673"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6345116cb9beaf3033c065cc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hashedPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiJ9.OTg0NzU5ODY3Mw.7tvT8abeu_sGEWSfKdgYRRo7oZ65qBwatyFIF1VOhGY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"defence colony"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.5714</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">77.2327</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"browser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chrome"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAgent"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9847598673"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"subscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61e951161a563d0729652d21"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61e951161a563d0729652d23"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AD Free"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving ConsCent review subscription data i.e.(dropoff users) by logging in to your ConsCent Client Dashboard and navigating to the <a href="https://client.conscent.in/dashboard/webhook">Webhook Page</a>. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s review subscription data, anytime the user makes the payment for buying a subscription and comes to the review page on the client&#39;s platform or application via ConsCent.The review subscription webhook lets us keep the records of drop off users.Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - <a href="https://client.conscent.in/dashboard/integration">ConsCent Client Integration</a>. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='description-6'>Description</h3>
+<p>This event occurs just before the user confirms the payment for buying a subscription on the review page.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+</blockquote>
+<h1 id='api'>API</h1><h2 id='get-user-details-and-subscriptions-information'>Get user details and subscriptions information</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userdetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AKHIL"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testmail51@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"secondaryPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9832748888"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"secondaryEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"dateOfBirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1999-01-01T09:50:21.951Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ouy"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"029384kdsjf"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"530009"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fj"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8732489"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"promotionalOptIn"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastPurchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-08T11:37:31.667Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"wallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$numberDecimal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50.00"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"userSubscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62273ffbd5c69afcd7c05349"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Outlook"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-08T11:37:31.537Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Subscription test physical"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-04-08T11:37:31.518Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"benefits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Easy access to contents"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conscent-public.s3.ap-south-1.amazonaws.com/stage/Outlook/banners/Outlook%20-%20brandLogo"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rzpSubscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_J4a4NYpUc0qDMU"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61a49984fabe8d7705a2cabd"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"subscriptionDurationInMonths"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionPriceInInr"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowCancellation"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cancellationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:3000/consumption?subscription=62273ffbd5c69afcd7c05349"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowRenewal"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"renewalUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get the user Details and subscriptions</p>
+<h3 id='http-request-13'>HTTP Request</h3>
+<p><code>GET {API_URL}/user/user-and-subscription-details</code></p>
+
+<p><code>Auth required : NO</code></p>
+<h3 id='mandatory-query-parameters'>Mandatory query Parameters</h3>
+<p><code>clientId: Pass clientId</code></p>
+
+<p><code>userId: Pass conscent&#39;s user Id to get the user details</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+<h2 id='purchased-subscriptions-endpoint'>Purchased Subscriptions endpoint</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"manuallyRenewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"617ba48ec3b5066393988f22"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fbe46efbee15f1cebc81515"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">100.36</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">104</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">104</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"subscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"inrPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">104</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-28T12:49:02.844Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61a49855fabe8d7705a2cab4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61a49855fabe8d7705a2cab6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-03T09:13:53.266Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"613720ec6a14e1100bdfb9f5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asdf@sdf.co"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"129347792"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asdf"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234234612"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"manuallyRenewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"renewSubscription"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client Story Id 1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fbe46efbee15f1cebc81515"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">193.97</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"subscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"inrPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-04-25T08:00:12.714Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"617a718d04ab353a12d84d30"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6180db518634ae0b03c136b5"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5fca03a52185f150382ff144"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test+stagetest@test.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9999999999"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"India"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"India"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123423"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"India"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ANDHRA PRADESH"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"clientSpecificUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"234234612"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"paginationInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"recordsReturned"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get the details of previously purchased subscriptions</p>
+<h3 id='http-request-14'>HTTP Request</h3>
+<p><code>GET {API_URL}/client/purchases/subscriptions</code></p>
+
+<p><code>Auth required : YES</code></p>
+
+<p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
+<h3 id='mandatory-query-parameters-2'>Mandatory query Parameters</h3>
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
+
+<p><code>userId: Pass conscent&#39;s user Id to filter purchases for one particular user</code></p>
+
+<p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
+
+<p><code>pageNumber: The page number</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+<h2 id='cancel-active-subscriptions'>Cancel Active Subscriptions</h2>
+<p>The client can cancel the active subscripptions for a user</p>
+<h3 id='http-request-15'>HTTP Request</h3>
+<p><code>POST {API_URL}/client/cancel-subscriptions/{userId}</code></p>
+
+<p>Please pass the ConsCent user id of the user whose subscriptions you wish to cancel</p>
+
+<p><code>Auth required : YES</code></p>
+
+<p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+<h3 id='content-examples'>Content examples</h3>
+<p>{
+    &quot;message&quot;: &quot;Subscriptions Cancelled Successfully&quot;
+}</p>
+<h1 id='login'>Login</h1><div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
     <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">conscent-login</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
       <span class="na">debug</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
       <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
@@ -2869,7 +3570,15 @@ We import the initalisation script using the unique &#39;_csc&#39; identifier an
       <span class="p">},</span>
     <span class="p">});</span>
 
-</code></pre></div><div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="c1">//call this method on login button click</span>
+</code></pre></div>
+<p>Integrating ConsCent on your Website is a simple and direct process. The following steps explain how to create credentials for your project. Your applications can then use the credentials to access APIs that you have enabled for that project. You start by copying the code on the right hand side within the script tags - and adding it to the header section of your Route Index file.
+You can get your ConsCent Client Id from the Client Integration Page ​​of the ConsCent Client Dashboard - as mentioned in the Registration Section.
+Including this regular script in the header section allows the ConsCent Login to be initalised and further used whenever user requires to login.
+Finally, In order to ensure that the ConsCent Login appears on your site. You need to implement the &#39;csc_init&#39; function on the content page - included on the right hand side of the ConsCent Login and enables a user to login through ConsCent on your website. Please ensure that you call this function anytime you want the ConsCent Login to show up on your content page.
+We import the initalisation script using the unique &#39;_csc&#39; identifier and run the &#39;csc_init&#39; function by passing a number of parameters.</p>
+
+<p>This script can be called anywhere as you already have the SDK script to your header section. </p>
+<div class="highlight"><pre class="highlight jsx tab-jsx"><code><span class="c1">//call this method on login button click</span>
 <span class="kd">const</span> <span class="nx">callLogoutBtn</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">csc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">_csc</span> <span class="k">as</span> <span class="nx">any</span><span class="p">;</span>
     <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">logout</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
