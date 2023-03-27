@@ -282,7 +282,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-71f83137.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-e74375e9.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch-ec00d1ce.js"></script>
 
@@ -385,25 +385,25 @@
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#sign-up-webhook" class="toc-h2 toc-link" data-title="Sign Up Webhook">Sign Up Webhook</a>
+                    <a href="#1-sign-up-webhook" class="toc-h2 toc-link" data-title="1. Sign Up Webhook">1. Sign Up Webhook</a>
                   </li>
                   <li>
-                    <a href="#login-webhook" class="toc-h2 toc-link" data-title="Login Webhook">Login Webhook</a>
+                    <a href="#2-login-webhook" class="toc-h2 toc-link" data-title="2. Login Webhook">2. Login Webhook</a>
                   </li>
                   <li>
-                    <a href="#subscription-payment-webhook" class="toc-h2 toc-link" data-title="Subscription Payment Webhook">Subscription Payment Webhook</a>
+                    <a href="#3-subscription-payment-webhook" class="toc-h2 toc-link" data-title="3. Subscription Payment Webhook">3. Subscription Payment Webhook</a>
                   </li>
                   <li>
-                    <a href="#subscription-cancelled-webhook" class="toc-h2 toc-link" data-title="Subscription Cancelled Webhook">Subscription Cancelled Webhook</a>
+                    <a href="#4-subscription-cancelled-webhook" class="toc-h2 toc-link" data-title="4. Subscription Cancelled Webhook">4. Subscription Cancelled Webhook</a>
                   </li>
                   <li>
-                    <a href="#pass-payment-webhook" class="toc-h2 toc-link" data-title="Pass Payment Webhook">Pass Payment Webhook</a>
+                    <a href="#5-pass-payment-webhook" class="toc-h2 toc-link" data-title="5. Pass Payment Webhook">5. Pass Payment Webhook</a>
                   </li>
                   <li>
-                    <a href="#subscription-bundle-payment-webhook" class="toc-h2 toc-link" data-title="Subscription Bundle Payment Webhook">Subscription Bundle Payment Webhook</a>
+                    <a href="#6-subscription-bundle-payment-webhook" class="toc-h2 toc-link" data-title="6. Subscription Bundle Payment Webhook">6. Subscription Bundle Payment Webhook</a>
                   </li>
                   <li>
-                    <a href="#review-subscription-webhook" class="toc-h2 toc-link" data-title="Review Subscription Webhook">Review Subscription Webhook</a>
+                    <a href="#7-review-subscription-webhook" class="toc-h2 toc-link" data-title="7. Review Subscription Webhook">7. Review Subscription Webhook</a>
                   </li>
               </ul>
           </li>
@@ -2879,7 +2879,7 @@ Providing list of currently active subscriptions - via ConsCent - to the client.
 <aside class="notice">
 Remember — A migrated subscription must be registered by including all the required fields mentioned above! Ensure you provide all the required fields for creating the user, subscription and the purchased subscription/access via ConsCent - including the userEmail, expiryDate, purchaseDate, country and subscriptionDetails (subscriptionType). It is required to pass either the 'userPrimaryEmail' or the 'userPrimaryPhone' - as the primary login of the user on ConsCent.
 </aside>
-<h1 id='webhooks'>Webhooks</h1><h2 id='sign-up-webhook'>Sign Up Webhook</h2>
+<h1 id='webhooks'>Webhooks</h1><h2 id='1-sign-up-webhook'>1. Sign Up Webhook</h2>
 <p>You can register your webhook endpoint for receiving ConsCent user data by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user data anytime the user logins in for the first time on the client&#39;s website or application via ConsCent.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
@@ -2924,7 +2924,7 @@ Remember — A migrated subscription must be registered by including all the req
 <p>Alternately, you can check the authorization headers. Every request to the webhook uses Basic authorization with the api key as the username and the api secret as the password.</p>
 
 <p>-Do note that you will receive either the phoneNumber or the email depending on what the user chooses to log in with.</p>
-<h2 id='login-webhook'>Login Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='2-login-webhook'>2. Login Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9818329028"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-email@webhook.com"</span><span class="p">,</span><span class="w">
@@ -2970,7 +2970,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h2 id='subscription-payment-webhook'>Subscription Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='3-subscription-payment-webhook'>3. Subscription Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61b9cf42f5d1f54797aaf14f"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7843y9xm44428xm24x2m0x2xm42"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"purchaseId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4932228982489248928208024"</span><span class="p">,</span><span class="w">
@@ -3067,7 +3067,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h2 id='subscription-cancelled-webhook'>Subscription Cancelled Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='4-subscription-cancelled-webhook'>4. Subscription Cancelled Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"cancelledSubscriptionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"renewalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"rzpSubscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sub_InvqpVxG0vu7n8"</span><span class="p">,</span><span class="w">
@@ -3185,7 +3185,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h2 id='pass-payment-webhook'>Pass Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='5-pass-payment-webhook'>5. Pass Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
@@ -3255,7 +3255,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h2 id='subscription-bundle-payment-webhook'>Subscription Bundle Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='6-subscription-bundle-payment-webhook'>6. Subscription Bundle Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"purchaseId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"62d02f1bf3299d7b21d4a235"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"623b1204ff6e065272e3530b"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asd@asd.com"</span><span class="p">,</span><span class="w">
@@ -3306,7 +3306,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h2 id='review-subscription-webhook'>Review Subscription Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+<h2 id='7-review-subscription-webhook'>7. Review Subscription Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
    </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9847598673"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6345116cb9beaf3033c065cc"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
