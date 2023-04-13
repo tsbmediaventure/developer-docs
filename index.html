@@ -405,6 +405,9 @@
                   <li>
                     <a href="#7-review-subscription-webhook" class="toc-h2 toc-link" data-title="7. Review Subscription Webhook">7. Review Subscription Webhook</a>
                   </li>
+                  <li>
+                    <a href="#8-micro-payment-webhook" class="toc-h2 toc-link" data-title="8. Micro Payment Webhook">8. Micro Payment Webhook</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -3346,7 +3349,74 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 </blockquote>
-<h1 id='api'>API</h1><h2 id='get-user-details-and-subscriptions-information'>Get user details and subscriptions information</h2>
+<h2 id='8-micro-payment-webhook'>8. Micro Payment Webhook</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"inrGstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"adFree"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"bundle"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bundleContentIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"paymentType"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"REPEAT"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6437ade44c60bc0552ad3477"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"642ed4902107e35b19bf29fa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"paywallId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6435427bb0658c70abe7d18d"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-4"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61fa72efb76afa4ce17fde95"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">79.2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deoli"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">28.5025</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">77.2312</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"userCountry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-20T07:23:16.810Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONTENT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"operatingSystem"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mac OS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"device"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desktop"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-13T07:23:16.829Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-13T07:23:16.829Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"642ed4902107e35b19bf29fa"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9488298324"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>You can register your webhook endpoint for receiving ConsCent purchased content data by logging in to your ConsCent Client Dashboard and navigating to the Webhook Page. You will be able to enable/disable and edit your webhook url from this section. Once the webhook URL is registered and the webhook is in the enabled state - the endpoint will recieve user&#39;s purchased content data anytime the user purchases any content on the client&#39;s platform or application via ConsCent. Moreover, the webhook is secured by basic auth using the Clients API Key and API Secret provided by ConsCent on the SDK Integration section of the client dashboard - ConsCent Client Integration. You can optionally choose to keep the endpoint as protected and authenticate using the provided credentials which are passed in the headers of the POST request to the configured webhook endpoint.</p>
+<h3 id='description-7'>Description</h3>
+<p>This event occurs when the user makes the payment for per article/content.</p>
+
+<blockquote>
+<p>The webhook returns a JSON in the request body - structured like this:</p>
+<h1 id='api'>API</h1></blockquote>
+<h2 id='get-user-details-and-subscriptions-information'>Get user details and subscriptions information</h2>
 <blockquote>
 <p>Content Examples:</p>
 </blockquote>
