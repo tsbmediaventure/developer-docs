@@ -414,10 +414,22 @@
             <a href="#api" class="toc-h1 toc-link" data-title="API">API</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-user-details-and-subscriptions-information" class="toc-h2 toc-link" data-title="Get user details and subscriptions information">Get user details and subscriptions information</a>
+                    <a href="#user-details-and-subscriptions-information" class="toc-h2 toc-link" data-title="User Details and Subscriptions Information">User Details and Subscriptions Information</a>
                   </li>
                   <li>
-                    <a href="#purchased-subscriptions-endpoint" class="toc-h2 toc-link" data-title="Purchased Subscriptions endpoint">Purchased Subscriptions endpoint</a>
+                    <a href="#purchased-subscriptions" class="toc-h2 toc-link" data-title="Purchased Subscriptions">Purchased Subscriptions</a>
+                  </li>
+                  <li>
+                    <a href="#user-and-purchase-details" class="toc-h2 toc-link" data-title="User and Purchase Details">User and Purchase Details</a>
+                  </li>
+                  <li>
+                    <a href="#client-purchases" class="toc-h2 toc-link" data-title="Client Purchases">Client Purchases</a>
+                  </li>
+                  <li>
+                    <a href="#client-passes" class="toc-h2 toc-link" data-title="Client Passes">Client Passes</a>
+                  </li>
+                  <li>
+                    <a href="#client-micropayments" class="toc-h2 toc-link" data-title="Client Micropayments">Client Micropayments</a>
                   </li>
                   <li>
                     <a href="#cancel-active-subscriptions" class="toc-h2 toc-link" data-title="Cancel Active Subscriptions">Cancel Active Subscriptions</a>
@@ -750,6 +762,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "url": "www.google.com",
     "contentType": "STORY",
     "categories": ["category1", "category2"],
+    "tags": ["entertainment", "sports"],
+    "sections": ["EDITORIAL"],
+    "authorId": "7589",
     "priceOverrides": {
         "country": [
             {
@@ -814,6 +829,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
     "price" : 1,
     "currency": "INR",
     "categories": ["category1", "category2"],
+    "tags": ["entertainment", "sports"],
+    "sections": ["EDITORIAL"],
+    "authorId": "7589",
     "contentType": "STORY",
     "url": "www.google.com",
     "priceOverrides": {
@@ -869,6 +887,9 @@ You must replace <code>RDZXN1Y4US1NTkc0V1lDLVFYOUJQMkItOEU3QjZLRzpUNFNHSjlISDQ3T
   <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">www.google.com</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">contentType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">STORY</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">categories</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">category1</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">category2</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">tags</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">entertainment</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">sports</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">sections</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">EDITORIAL</span><span class="dl">"</span><span class="p">],</span>
+  <span class="na">authorId</span><span class="p">:</span> <span class="dl">"</span><span class="s2">7589</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">priceOverrides</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">country</span><span class="p">:</span> <span class="p">[</span>
       <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GL</span><span class="dl">"</span><span class="p">,</span> <span class="na">price</span><span class="p">:</span> <span class="mi">3</span> <span class="p">},</span>
@@ -3416,7 +3437,7 @@ Remember — A migrated subscription must be registered by including all the req
 <blockquote>
 <p>The webhook returns a JSON in the request body - structured like this:</p>
 <h1 id='api'>API</h1></blockquote>
-<h2 id='get-user-details-and-subscriptions-information'>Get user details and subscriptions information</h2>
+<h2 id='user-details-and-subscriptions-information'>User Details and Subscriptions Information</h2>
 <blockquote>
 <p>Content Examples:</p>
 </blockquote>
@@ -3490,7 +3511,7 @@ Remember — A migrated subscription must be registered by including all the req
 <p><code>userId: Pass conscent&#39;s user Id to get the user details</code></p>
 
 <p><code>Success Response Code : 200 OK</code></p>
-<h2 id='purchased-subscriptions-endpoint'>Purchased Subscriptions endpoint</h2>
+<h2 id='purchased-subscriptions'>Purchased Subscriptions</h2>
 <blockquote>
 <p>Content Examples:</p>
 </blockquote>
@@ -3591,10 +3612,6 @@ Remember — A migrated subscription must be registered by including all the req
 
 <p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
 <h3 id='mandatory-query-parameters-2'>Mandatory query Parameters</h3>
-<p><code>from: ISODateString, to filter via a starting datetime</code></p>
-
-<p><code>to: ISODateString, to filter via an ending datetime</code></p>
-
 <p><code>userId: Pass conscent&#39;s user Id to filter purchases for one particular user</code></p>
 
 <p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
@@ -3602,9 +3619,457 @@ Remember — A migrated subscription must be registered by including all the req
 <p><code>pageNumber: The page number</code></p>
 
 <p><code>Success Response Code : 200 OK</code></p>
+
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
+<h2 id='user-and-purchase-details'>User and Purchase Details</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"userdetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pushpankar"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9936225088"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"secondaryEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"skdfjn@jnadf.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Flat"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Area"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Zip"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"City"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ANDAMAN &amp; NICOBAR ISLANDS"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"promotionalOptIn"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastPurchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-17T14:01:00.411Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"wallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"$numberDecimal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"userSubscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"63b2b8b938dcac1e9a1d55c6"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">61.01711999999999</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-01-02T10:58:01.603Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Digital"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-02T10:58:01.600Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"adFree"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"benefits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's very good,Very Helpful,Good to read,Good content,50% OFF, 100% OFF"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conscent-public.s3.ap-south-1.amazonaws.com/Static+Assets/Outlook-Logo.png</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6347b644bff071350cfd0f55"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"subscriptionDurationInMonths"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionPriceInInr"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowCancellation"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cancellationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowRenewal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"renewalUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dashboards.tsbdev.co/dashboard/consumption?subscription=63b2b8b938dcac1e9a1d55c6"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"637f9be1837ec364a7fa1683"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">49</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">7.4745972</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-24T16:29:21.159Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionTitle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AD Free-Lite"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-12-24T16:29:21.153Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"adFree"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"benefits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ad-free experience, Digital Access, Premium Content"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://conscent-public.s3.ap-south-1.amazonaws.com/Static+Assets/Outlook-Logo.png</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tierId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61e951161a563d0729652d23"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"subscriptionDurationInMonths"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"subscriptionPriceInInr"</span><span class="p">:</span><span class="w"> </span><span class="mi">49</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowCancellation"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cancellationUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"allowRenewal"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"renewalUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dashboards.tsbdev.co/dashboard/consumption?subscription=637f9be1837ec364a7fa1683"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"passes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"637c710d7153ef201cd8be8f"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">78</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">11.898338399999998</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-22T06:49:49.989Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-22T13:49:49.968Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"payPerUses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"643d511c0dfb996ad37a0f1c"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.525428</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-17T14:01:00.377Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-24T14:01:00.350Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"642bbb2b5a3e9b1441cbb058"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">9999</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">1525.2754572</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-04T05:52:43.823Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-06T05:52:43.810Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64103ec1644c430727a2b654"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.525428</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-14T09:30:41.364Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T09:30:41.345Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"637f9b78837ec364a7fa151c"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gst"</span><span class="p">:</span><span class="w"> </span><span class="mf">2.4406848</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchasedOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-24T16:27:36.304Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-26T16:27:36.294Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"gstComponents"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"physical"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"digital"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get the user Details and subscriptions</p>
+<h3 id='http-request-15'>HTTP Request</h3>
+<p><code>GET {API_URL}/user/user-and-purchase-details</code></p>
+
+<p><code>Auth required : NO</code></p>
+<h3 id='mandatory-query-parameters-3'>Mandatory query Parameters</h3>
+<p><code>clientId: Pass clientId</code></p>
+
+<p><code>userId: Pass conscent&#39;s user Id to get the user details</code></p>
+
+<p><code>email: Pass the email</code></p>
+
+<p><code>phoneNumber: Pass the phoneNumber</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+
+<p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
+
+<p><code>pageNumber: The page number</code></p>
+
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
+<h2 id='client-purchases'>Client Purchases</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"transactionDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"643e49dc2309ab30bc00ccf2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAccount"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8712334265"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bnnnn@gmail.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Demo Client"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story Id 1"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://csc-mock.netlify.app/5f92a62013332e0f667794dc/Client-Story-Id-1"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">319.21</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">399</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASS"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-18T07:42:20.749Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"totalRecords"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get the details of the purchases</p>
+<h3 id='http-request-16'>HTTP Request</h3>
+<p><code>GET {API_URL}/client/purchases</code></p>
+
+<p><code>Auth required : YES</code></p>
+
+<p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
+<h3 id='mandatory-query-parameters-4'>Mandatory query Parameters</h3>
+<p><code>userId: Pass conscent&#39;s user Id to filter purchases for one particular user</code></p>
+
+<p><code>email: Pass the email</code></p>
+
+<p><code>phoneNumber: Pass the phoneNumber</code></p>
+
+<p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
+
+<p><code>pageNumber: The page number</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
+<h2 id='client-passes'>Client Passes</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61fba4adcbcaaf727a00168d"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">319.21</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">399</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">399</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-18T14:42:20.741Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-18T07:42:20.749Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6346608680c2216fe33d84fa"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bnnnn@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8243334265"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kajal"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ggghhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kkkkkhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"922111"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sasshhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jjjjjhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffffffhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iiiiihhh"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"paginationInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"recordsReturned"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Get the details of the passes</p>
+<h3 id='http-request-17'>HTTP Request</h3>
+<p><code>GET {API_URL}/client/purchases/passes</code></p>
+
+<p><code>Auth required : YES</code></p>
+
+<p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
+<h3 id='mandatory-query-parameters-5'>Mandatory query Parameters</h3>
+<p><code>userId: Pass conscent&#39;s user Id to filter purchases for one particular user</code></p>
+
+<p><code>email: Pass the email</code></p>
+
+<p><code>phoneNumber: Pass the phoneNumber</code></p>
+
+<p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
+
+<p><code>pageNumber: The page number</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
+<h2 id='client-micropayments'>Client Micropayments</h2>
+<blockquote>
+<p>Content Examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"purchases"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61fba4adcbcaaf727a00168d"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-15T10:22:57.494Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-04-13T10:22:57.507Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6346608680c2216fe33d84fa"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bnnnn@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8750314176"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kajal"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ggghhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kkkkkhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"922111"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sasshhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jjjjjhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffffffhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iiiiihhh"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-3"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"620b94557bef8873d93bf32b"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-26T06:58:54.416Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-03-16T06:58:54.434Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6346608680c2216fe33d84fa"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bnnnn@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8750334265"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kajal"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ggghhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kkkkkhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"922111"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sasshhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jjjjjhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffffffhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iiiiihhh"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"availedOffers"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"promotional"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="nl">"freeTrial"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"migrated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5f92a62013332e0f667794dc"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"clientContentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client-Story-Id-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"contentId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"61fba4adcbcaaf727a00168d"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"buyingPrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"priceDetails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INR"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-11T07:39:49.821Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-02-09T07:39:49.856Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6346608680c2216fe33d84fa"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bnnnn@gmail.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userPhoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8750334265"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kajal"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"apartment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ggghhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"area"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kkkkkhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"922111"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"landmark"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sasshhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jjjjjhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ffffffhhh"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"iiiiihhh"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"paginationInfo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"pageNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"recordsReturned"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>Get the details of the micro-payments</p>
+<h3 id='http-request-18'>HTTP Request</h3>
+<p><code>GET {API_URL}/client/purchases/micropayments</code></p>
+
+<p><code>Auth required : YES</code></p>
+
+<p>Please pass your api key as username and api secret as password as basic auth to access the endpoint</p>
+<h3 id='mandatory-query-parameters-6'>Mandatory query Parameters</h3>
+<p><code>userId: Pass conscent&#39;s user Id to filter purchases for one particular user</code></p>
+
+<p><code>email: Pass the email</code></p>
+
+<p><code>phoneNumber: Pass the phoneNumber</code></p>
+
+<p><code>pageSize: Max Number of records returned per page - defaults to 500. Max possible value is 2000</code></p>
+
+<p><code>pageNumber: The page number</code></p>
+
+<p><code>Success Response Code : 200 OK</code></p>
+
+<p><code>from: ISODateString, to filter via a starting datetime</code></p>
+
+<p><code>to: ISODateString, to filter via an ending datetime</code></p>
 <h2 id='cancel-active-subscriptions'>Cancel Active Subscriptions</h2>
 <p>The client can cancel the active subscripptions for a user</p>
-<h3 id='http-request-15'>HTTP Request</h3>
+<h3 id='http-request-19'>HTTP Request</h3>
 <p><code>POST {API_URL}/client/cancel-subscriptions/{userId}</code></p>
 
 <p>Please pass the ConsCent user id of the user whose subscriptions you wish to cancel</p>
