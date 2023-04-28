@@ -440,6 +440,14 @@
             <a href="#login" class="toc-h1 toc-link" data-title="Login">Login</a>
           </li>
           <li>
+            <a href="#autologin-functionality" class="toc-h1 toc-link" data-title="AutoLogin Functionality">AutoLogin Functionality</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#implementation" class="toc-h2 toc-link" data-title="Implementation">Implementation</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#country-code-list" class="toc-h1 toc-link" data-title="Country Code List">Country Code List</a>
           </li>
           <li>
@@ -4128,13 +4136,47 @@ We import the initalisation script using the unique &#39;_csc&#39; identifier an
       <span class="p">},</span>
     <span class="p">});</span>
   <span class="p">};</span>
-<span class="s2">```
+</code></pre></div><h1 id='autologin-functionality'>AutoLogin Functionality</h1><div class="highlight"><pre class="highlight jsx tab-jsx"><code> <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">auto-login</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+      <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
+      <span class="na">token</span><span class="p">:</span> <span class="nx">tokenEntered</span><span class="p">,</span>
+      <span class="na">phone</span><span class="p">:</span> <span class="nx">data</span><span class="p">?.</span><span class="nx">phoneNumber</span><span class="p">,</span>
+      <span class="na">email</span><span class="p">:</span> <span class="nx">data</span><span class="p">?.</span><span class="nx">email</span><span class="p">,</span>
+      <span class="na">successCallbackFunction</span><span class="p">:</span> <span class="k">async</span> <span class="p">(</span><span class="na">userDetailsObject</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">setShowLoginDetails</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Success callback received from conscent auto Login</span><span class="dl">'</span><span class="p">,</span> <span class="nx">userDetailsObject</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">login successfull</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="na">errorCallbackFunction</span><span class="p">:</span> <span class="p">(</span><span class="na">errorObject</span><span class="p">:</span> <span class="nx">any</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">errorObject</span><span class="p">);</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">login unsuccessfull</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+      <span class="na">unauthorizedCallback</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">unauthorized callback called</span><span class="dl">'</span><span class="p">);</span>
+      <span class="p">},</span>
+    <span class="p">});</span>
+</code></pre></div>
+<p>AutoLogin is a functionality that enables the client to use his own Login sysytem and get their users validated at ConsCent&#39;s System.</p>
 
----
+<p>A temporary token is generated using an API and this token needs to be stored at Client&#39;s end.</p>
+<h2 id='implementation'>Implementation</h2><h3 id='http-request'>HTTP REQUEST</h3>
+<p><code>POST {API_URL}/client/generate-temp-token</code></p>
 
+<p><code>Auth required : YES</code></p>
+<h3 id='mandatory-query-parameters'>Mandatory query Parameters</h3>
+<p><code>email: Pass email</code></p>
 
+<p><code>phoneNumber: Pass phoneNumber</code></p>
+<h3 id='authorization'>Authorization</h3>
+<p>Client API Key and API Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h3 id='response'>Response</h3>
+<p><code>Success Response Code : 200 OK</code></p>
 
-</span></code></pre></div><h1 id='country-code-list'>Country Code List</h1>
+<p><code> 
+{
+    &quot;tempAuthToken&quot;: &quot;644a2c13ce90df4882d1787a&quot;
+}
+</code></p>
+<h1 id='country-code-list'>Country Code List</h1>
 <p>Afghanistan - AF</p>
 
 <p>Åland Islands - AX</p>
