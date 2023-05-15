@@ -440,6 +440,22 @@
             <a href="#login" class="toc-h1 toc-link" data-title="Login">Login</a>
           </li>
           <li>
+            <a href="#app-integration" class="toc-h1 toc-link" data-title="App Integration">App Integration</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#kotlin" class="toc-h2 toc-link" data-title="Kotlin">Kotlin</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#loyalty-system" class="toc-h1 toc-link" data-title="Loyalty System">Loyalty System</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#post-event-api-from-server" class="toc-h2 toc-link" data-title="Post Event API from Server">Post Event API from Server</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#autologin-functionality" class="toc-h1 toc-link" data-title="AutoLogin Functionality">AutoLogin Functionality</a>
               <ul class="toc-list-h2">
                   <li>
@@ -4136,7 +4152,238 @@ We import the initalisation script using the unique &#39;_csc&#39; identifier an
       <span class="p">},</span>
     <span class="p">});</span>
   <span class="p">};</span>
-</code></pre></div><h1 id='autologin-functionality'>AutoLogin Functionality</h1><div class="highlight"><pre class="highlight jsx tab-jsx"><code> <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">auto-login</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+</code></pre></div><h1 id='app-integration'>App Integration</h1><h2 id='kotlin'>Kotlin</h2><h3 id='conscent-plugin-for-developers'>ConsCent Plugin for developers</h3>
+<p>This is a step by step guide to include ConsCent Plugin in your app. This plugin is developed in Kotlin and supports both Java and Kotlin languages and supports <code>Api 23 (Android 6.0)</code> and above.</p>
+<h3 id='step-1'>Step-1</h3>
+<p>Copy plugin&#39;s aar file to your libs folder and add it in your app level build gradle file.</p>
+<h3 id='step-2'>Step-2</h3>
+<p>In your application build.gradle file, include dependency as below with latest versions:</p>
+
+<p>Retrofit and GSON converter implementation &#39;com.squareup.retrofit2:retrofit:(insert latest version)&#39; implementation &#39;com.squareup.retrofit2:converter-gson:(insert latest version)&#39;</p>
+
+<ul class = 'instruction-bg-url'>
+  <li>
+ Example:
+    <ul>
+      <li>implementation 'com.squareup.retrofit2:retrofit:2.9.0'</li>
+      <li>Simplementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Coroutines implementation &#39;org.jetbrains.kotlinx:kotlinx-coroutines-android:(insert latest version)&#39; Example: implementation &#39;org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2&#39;</p>
+
+<p>Browser implementation &#39;androidx.browser:browser:(insert latest version)&#39;</p>
+
+<ul class = 'instruction-bg-url'>
+  <li>
+ Example:
+    <ul>
+      <li>implementation 'androidx.browser:browser:1.3.0'</li>
+
+    </ul>
+  </li>
+</ul>
+
+<p><code>Let us know the version of your browser, kotlinx-coroutines-android</code></p>
+
+<p><code>Note:</code></p>
+
+<p><code>1. In case of error for Kotlin not enabled, please enable Kotlin for project.</code></p>
+
+<p><code>2. In case of error in Manifest merging, please merge Manifest as per Android Studio support or include line tools:replace=&quot;android:icon,android:roundIcon&quot; inside your application tag in Android Manifest file.</code></p>
+<h3 id='step-3'>Step-3</h3>
+<p>In your application (recommended) or root activity class&#39;s onCreate, pass applicationContext, yourClientId, accentColor, Environment Mode and App Mode to be used in your app as below sample: ConscentWrapper.configure(yourApplicationContext, yourClientId, yourAccentColor, MODE, APP_MODE) Remember to set configuration before you call further callbacks.</p>
+
+<ol>
+<li>yourApplicationContext: Pass your application context here.</li>
+<li>yourClientId: Pass your clientId received from Conscent.</li>
+<li>yourAccentColor: Pass your accentColor for the app.</li>
+<li>Mode can be set as :
+<ul class = 'instruction-bg-url'>
+<li>
+<ul>
+  <li>ConscentConfiguration.MODE.STAGE</li>
+  <li>ConscentConfiguration.MODE.SANDBOX
+</li>
+ <li>ConscentConfiguration.MODE.PRODUCTION
+</li>
+</ul>
+</li>
+</ul></li>
+</ol>
+
+<p>Mode is used for configuration testing of different environments available.</p>
+
+<p>5.APP_MODE can be set as <code>ConsCentConfiguration.APP_MODE.DEBUG</code> <code>ConsCentConfiguration.APP_MODE.PROD</code>
+APP_MODE is basically used for checking debug and production environment of app. If APP_MODE is DEBUG , then all errors will be shown as Toast messages and Logs. If APP_MODE is PROD, only logs will be available for critical errors like Network unavailability, wrong client_id and wrong content_id.</p>
+
+<p>You can later change your clientId also, by calling the following function:</p>
+
+<p>ConscentWrapper.changeClientId(yourClientId), throws &quot;Configure ConscentWrapper first!&quot; if not configured already!</p>
+<h3 id='step-4'>Step-4</h3>
+<p>Create an instance of the ConsCent class for each unique contentId (recommended) for more control over your content flow. Use the below described method:</p>
+<h3 id='kotlin-2'>Kotlin</h3>
+<p><code>val instance = ConscentWrapper.getConscentInstance(
+        yourCallingActivity,
+        yourParentView,
+        yourContainerView,
+        contentId,
+        onConscentListener
+)</code></p>
+<h3 id='java'>Java</h3>
+<p><code>Conscent instance = ConscentWrapper.Companion.getConscentInstance(
+        yourCallingActivity,
+        yourParentView,
+        yourContainerView,
+        contentId,
+        onConscentListener
+);</code></p>
+
+<p><code>All parameter details are given at the bottom.</code></p>
+<h3 id='step-5'>Step-5</h3>
+<p>To check if an article/content is free/paid or a payment needs to be done, in your class, use as below sample: Parameters detail can be checked below for more information.</p>
+<h3 id='kotlin-3'>Kotlin</h3>
+<p><code>instance.checkContentAccess(
+        yourContentTitle,
+        yourSubsUrl,
+        canSubscribe,
+        showClose
+    )</code></p>
+<h3 id='java-2'>Java</h3>
+<p><code>instance.checkContentAccess(
+        yourContentTitle,
+        yourSubsUrl,
+        canSubscribe,
+        showClose
+    );</code></p>
+
+<p>To get all the subscription packages available, in your class, use as below sample: Parameters detail can be checked below for more information.</p>
+<h3 id='kotlin-4'>Kotlin</h3>
+<p><code>instance.checkSubscriptions(
+        yourContentTitle,
+        yourSubsUrl,
+        showClose
+    )</code></p>
+<h3 id='java-3'>Java</h3>
+<p><code>instance.checkSubscriptions(
+        yourContentTitle,
+        yourSubsUrl,
+        showClose
+   );</code></p>
+<h3 id='parameters-detail'>Parameters detail</h3>
+<ul>
+<li><code>yourCallingActivity</code> (Activity): This is your activity content which is calling the methods and where callback will be received.</li>
+<li><code>yourParentView</code> (ConstraintLayout): This will be the parent of your layout. Please keep ConstraintLayout as your root view in your activity xml file. Pass the reference of your root view in checkContent function.</li>
+<li><code>yourContainerView</code> (FrameLayout): This will be a FrameLayout where payment page will be inflated. Create a frameLayout in your xml and pass here as a reference. </li>
+</ul>
+
+<p>For eg:</p>
+
+<p><code>&lt;FrameLayout
+        android:id=&quot;@+id/frame&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot; /&gt;</code>
+</aside></p>
+
+<p><code>Eg: Color.parseColor(&quot;#0087ca&quot;) or ContextCompat.getColor(context, color_from_colors.xml) like ContextCompat.getColor(this, R.color.red)</code></p>
+
+<ul>
+<li><code>contentId</code> (String): This will be your article or content id for which detail needs to be checked.</li>
+<li><code>OnConscentListener</code> : You can pass a listener which will get called after success or failure in processing. If you pass a listener, after successful processing, the success reference will be called and for failed event, failure event will be called. You can implement OnConscentListener in your activity and then pass it as a reference.</li>
+</ul>
+
+<p><code>onSuccess</code>: This is the success callback which will get called for every successful processing. You can pass your method as a reference or a lambda expression which will get called in case of success.</p>
+
+<p><code>onError</code>: This is optional. You can pass it as null. This is the failure callback which will get called for every failed processing. You can pass your method as a reference or a lambda expression and it&#39;ll get called for failed cases. You can implement your code in it for failed cases.</p>
+
+<p><code>onSubscribe</code>: This is optional callback. If you want to inflate subscribe layout, pass a subscribe function which will be called when subscribe button will be clicked inside the payment flow. Passing null will not inflate subscribe layout.</p>
+
+<p><code>onBuyPass</code> : This is optional callback. It will be called when buy-pass button will be clicked inside the payment flow.</p>
+
+<p><code>onSignIn</code> : This is the callback function which will be called when a user clicks on signIn button in payment flow. This will be only visible if subscribe layout has been inflated.</p>
+
+<p><code>onAdFree</code>: This is the callback function which will be called when a user clicks on adfree subscription.</p>
+
+<ul>
+<li><code>yourContentTitle</code> (String - Optional): Title of the content for display purposes.</li>
+<li><code>yourSubsUrl</code> (String - Optional): Url to be used when subscribe button is clicked.</li>
+<li><code>canSubscribe</code> (Boolean - Optional): Pass this as &quot;true&quot; to show subscribe layout else <code>false</code>.</li>
+<li><code>showClose</code> (Boolean - Optional): Pass this as &quot;true&quot; to show close button on the paywall/subscriptions, default value is <code>false</code>.</li>
+</ul>
+<h3 id='step-6'>Step-6</h3>
+<p>In you onActivityResult method, pass below line of code: instance.handledIntent()</p>
+
+<ul>
+<li><p>To get logged in user details:</p>
+<h3 id='kotlin-5'>Kotlin</h3>
+<p><code>ConscentWrapper.INSTANCE?.getUserDetails()</code></p>
+<h3 id='java-4'>Java</h3>
+<p><code>ConscentWrapper.Companion.getUserDetails();</code></p></li>
+<li><p>To get subscription details:</p>
+<h3 id='kotlin-6'>Kotlin</h3>
+<p><code>ConscentWrapper.INSTANCE?.getSubscriptionDetails()</code></p>
+<h3 id='java-5'>Java</h3>
+<p><code>ConscentWrapper.Companion.INSTANCE?.getSubscriptionDetails();</code></p></li>
+<li><p>To get pass details:</p>
+<h3 id='kotlin-7'>Kotlin</h3>
+<p><code>ConscentWrapper.INSTANCE?.getPassDetails()</code></p>
+<h3 id='java-6'>Java</h3>
+<p><code>ConscentWrapper.Companion.INSTANCE?.getPassDetails();</code></p></li>
+<li><p>To logout the user:</p>
+<h3 id='kotlin-8'>Kotlin</h3>
+<p><code>ConscentWrapper.INSTANCE?.logoutUser()</code></p></li>
+</ul>
+<h3 id='java-7'>Java</h3>
+<p><code>ConscentWrapper.Companion.INSTANCE?.logoutUser();</code></p>
+<h1 id='loyalty-system'>Loyalty System</h1><div class="highlight"><pre class="highlight php tab-php"><code><span class="k">const</span> <span class="no">sdk</span> <span class="o">=</span> <span class="k">require</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)(</span><span class="s1">'@conscent/v1.0#5zb7qx16lh0lc3b3'</span><span class="p">);</span>
+
+
+<span class="n">sdk</span><span class="mf">.</span><span class="nf">auth</span><span class="p">(</span><span class="s1">'{API Key}'</span><span class="p">);</span>
+<span class="n">sdk</span><span class="mf">.</span><span class="nf">gettingStartedWithYourApi</span><span class="p">({</span>
+  <span class="n">eventType</span><span class="o">:</span> <span class="s1">'ORDER_PLACED'</span><span class="p">,</span>
+  <span class="n">userId</span><span class="o">:</span> <span class="s1">'42bede01c83fa3947'</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="n">cleint_id</span><span class="o">:</span> <span class="s1">'client_id'</span><span class="p">,</span>
+  <span class="n">accept</span><span class="o">:</span> <span class="s1">'text/plain'</span>
+<span class="p">})</span>
+  <span class="mf">.</span><span class="nf">then</span><span class="p">(({</span> <span class="n">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="mf">.</span><span class="nb">log</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+  <span class="mf">.</span><span class="k">catch</span><span class="p">(</span><span class="n">err</span> <span class="o">=&gt;</span> <span class="n">console</span><span class="mf">.</span><span class="nf">error</span><span class="p">(</span><span class="n">err</span><span class="p">));</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code>const sdk <span class="o">=</span> require<span class="o">(</span><span class="s1">'api'</span><span class="o">)(</span><span class="s1">'@conscent/v1.0#5zb7qx16lh0lc3b3'</span><span class="o">)</span><span class="p">;</span>
+
+
+sdk.auth<span class="o">(</span><span class="s1">'{API Key}'</span><span class="o">)</span><span class="p">;</span>
+sdk.gettingStartedWithYourApi<span class="o">({</span>
+  eventType: <span class="s1">'ORDER_PLACED'</span>,
+  userId: <span class="s1">'42bede01c83fa3947'</span>
+<span class="o">}</span>, <span class="o">{</span>
+  cleint_id: <span class="s1">'client_id'</span>,
+  accept: <span class="s1">'text/plain'</span>
+<span class="o">})</span>
+  .then<span class="o">(({</span> data <span class="o">})</span> <span class="o">=&gt;</span> console.log<span class="o">(</span>data<span class="o">))</span>
+  .catch<span class="o">(</span>err <span class="o">=&gt;</span> console.error<span class="o">(</span>err<span class="o">))</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">sdk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">api</span><span class="dl">'</span><span class="p">)(</span><span class="dl">'</span><span class="s1">@conscent/v1.0#5zb7qx16lh0lc3b3</span><span class="dl">'</span><span class="p">);</span>
+
+
+<span class="nx">sdk</span><span class="p">.</span><span class="nx">auth</span><span class="p">(</span><span class="dl">'</span><span class="s1">{API Key}</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">sdk</span><span class="p">.</span><span class="nx">gettingStartedWithYourApi</span><span class="p">({</span>
+  <span class="na">eventType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ORDER_PLACED</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">userId</span><span class="p">:</span> <span class="dl">'</span><span class="s1">42bede01c83fa3947</span><span class="dl">'</span>
+<span class="p">},</span> <span class="p">{</span>
+  <span class="na">cleint_id</span><span class="p">:</span> <span class="dl">'</span><span class="s1">client_id</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">accept</span><span class="p">:</span> <span class="dl">'</span><span class="s1">text/plain</span><span class="dl">'</span>
+<span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(({</span> <span class="nx">data</span> <span class="p">})</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+
+</code></pre></div><h3 id='post-event-api-from-server'>Post Event API from Server</h3>
+<p>This API is used to Post Events from your server directly to BluePine. This is the recommended way of Posting Event.</p>
+
+<p><code>https://api.conscent.club/reward/{cleint_id}/api/user_event</code></p>
+
+<p>Node.Js API structure:</p>
+<h1 id='autologin-functionality'>AutoLogin Functionality</h1><div class="highlight"><pre class="highlight jsx tab-jsx"><code> <span class="nx">csc</span><span class="p">(</span><span class="dl">'</span><span class="s1">auto-login</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
       <span class="na">clientId</span><span class="p">:</span> <span class="nx">clientId</span><span class="p">,</span>
       <span class="na">token</span><span class="p">:</span> <span class="nx">tokenEntered</span><span class="p">,</span>
       <span class="na">phone</span><span class="p">:</span> <span class="nx">data</span><span class="p">?.</span><span class="nx">phoneNumber</span><span class="p">,</span>
