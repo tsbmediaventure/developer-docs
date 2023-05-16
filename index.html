@@ -445,6 +445,9 @@
                   <li>
                     <a href="#kotlin" class="toc-h2 toc-link" data-title="Kotlin">Kotlin</a>
                   </li>
+                  <li>
+                    <a href="#flutter" class="toc-h2 toc-link" data-title="Flutter">Flutter</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -4274,9 +4277,9 @@ APP_MODE is basically used for checking debug and production environment of app.
    );</code></p>
 <h3 id='parameters-detail'>Parameters detail</h3>
 <ul>
-<li><code>yourCallingActivity</code> (Activity): This is your activity content which is calling the methods and where callback will be received.</li>
-<li><code>yourParentView</code> (ConstraintLayout): This will be the parent of your layout. Please keep ConstraintLayout as your root view in your activity xml file. Pass the reference of your root view in checkContent function.</li>
-<li><code>yourContainerView</code> (FrameLayout): This will be a FrameLayout where payment page will be inflated. Create a frameLayout in your xml and pass here as a reference. </li>
+<li><p><code>yourCallingActivity</code> (Activity): This is your activity content which is calling the methods and where callback will be received.</p></li>
+<li><p><code>yourParentView</code> (ConstraintLayout): This will be the parent of your layout. Please keep ConstraintLayout as your root view in your activity xml file. Pass the reference of your root view in checkContent function.</p></li>
+<li><p><code>yourContainerView</code> (FrameLayout): This will be a FrameLayout where payment page will be inflated. Create a frameLayout in your xml and pass here as a reference. </p></li>
 </ul>
 
 <p>For eg:</p>
@@ -4307,10 +4310,10 @@ APP_MODE is basically used for checking debug and production environment of app.
 <p><code>onAdFree</code>: This is the callback function which will be called when a user clicks on adfree subscription.</p>
 
 <ul>
-<li><code>yourContentTitle</code> (String - Optional): Title of the content for display purposes.</li>
-<li><code>yourSubsUrl</code> (String - Optional): Url to be used when subscribe button is clicked.</li>
-<li><code>canSubscribe</code> (Boolean - Optional): Pass this as &quot;true&quot; to show subscribe layout else <code>false</code>.</li>
-<li><code>showClose</code> (Boolean - Optional): Pass this as &quot;true&quot; to show close button on the paywall/subscriptions, default value is <code>false</code>.</li>
+<li><p><code>yourContentTitle</code> (String - Optional): Title of the content for display purposes.</p></li>
+<li><p><code>yourSubsUrl</code> (String - Optional): Url to be used when subscribe button is clicked.</p></li>
+<li><p><code>canSubscribe</code> (Boolean - Optional): Pass this as &quot;true&quot; to show subscribe layout else <code>false</code>.</p></li>
+<li><p><code>showClose</code> (Boolean - Optional): Pass this as &quot;true&quot; to show close button on the paywall/subscriptions, default value is <code>false</code>.</p></li>
 </ul>
 <h3 id='step-6'>Step-6</h3>
 <p>In you onActivityResult method, pass below line of code: instance.handledIntent()</p>
@@ -4337,6 +4340,120 @@ APP_MODE is basically used for checking debug and production environment of app.
 </ul>
 <h3 id='java-7'>Java</h3>
 <p><code>ConscentWrapper.Companion.INSTANCE?.logoutUser();</code></p>
+<h2 id='flutter'>Flutter</h2><h3 id='conscent-plugin-for-developers-2'>ConsCent Plugin for developers</h3>
+<p>This is a step by step guide to include ConsCent Plugin in your app. This plugin is developed in <code>Flutter</code> and supports both Android and IOS Device.</p>
+<h3 id='step-1-2'>Step-1</h3>
+<p>Use our plugin package as a library</p>
+<h3 id='step-2-2'>Step-2</h3>
+<p>In your application pass client_id, Environment Mode to be used in your app as below sample:</p>
+
+<p><code>ConscentInitializer(&quot;your_client_id&quot;, ENVIRONMENTMODE.SANDBOX);</code></p>
+
+<ol>
+<li><p>ClientId will be received when you would create a ConsCent account, login to client.conscent.in to get access to your clientid</p></li>
+<li><p>Mode can be set as <code>ENVIRONMENTMODE.SANDBOX</code> <code>ENVIRONMENTMODE.PRODUCTION</code>. It is used for configuration testing of different environments available.</p></li>
+</ol>
+
+<p><code>ENVIRONMENTMODE</code> is used for configuration testing of different environments available.</p>
+<h3 id='step-3-2'>Step-3</h3>
+<p>To login into Conscent you need to pass token (token you get from api <code>{{BASE_URL}}/client/generate-temp-token )</code> and email or phone number. You receive 2 arguments after login method</p>
+
+<ul>
+<li>Success {status, userId}</li>
+<li>failure {status, message}</li>
+</ul>
+
+<p class = 'instruction-bg'>String redirectUrl = await ConscentMethods()
+        .prepareAutoLoginUrl([(token),(phone),(email)]);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+          builder: (context) =>  WebViewDefaultApp(
+              redirectUrl: redirectUrl)
+          ),
+      ).then((value) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('$value'),
+        ));
+    });
+  </p>
+
+<p>To logout from Conscent you need to call <code>ConscentMethods().userLogOut()</code></p>
+
+<p class = 'instruction-bg'> TextButton.icon(
+    
+      onPressed: () async {
+        String? logout = await ConscentMethods().userLogOut();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('${logout}'),
+        ));
+    },
+    icon: const Icon(
+      Icons.logout,
+      size: 24.0,
+    ),
+    label: const Text('Logout'),
+  ),
+  </p>
+<h3 id='step-4-2'>Step-4</h3>
+<p>To check if an content is free/paid or a payment needs to be done, in your class, use as below sample: Parameters detail can be checked below for more information.</p>
+<h3 id='payment-formats-for-user'>Payment Formats for User</h3>
+<p>Login to ConsCent from the Paywall, verify your credentials and then purchase access to premium content. There are three types of payments:</p>
+
+<ol>
+<li>CONTENT: Pay-per-use is a system in which users are charged only for the specific premium content they want access to.</li>
+<li>PASS: Gives access to user for all the premium content from 1hr to 14 days, which can be changed from ConsCent’s dashboard.</li>
+<li>SUBSCRIPTION: Gives user access to all the premium content starting from 1 month.</li>
+</ol>
+
+<p><code>ConscentInitializer.setContentId(&#39;your_content_id&#39;);</code></p>
+
+<p class = 'instruction-bg'> bool showContent = false;
+
+ FutureBuilder<bool>(
+  future: ConscentMethods().getContentAccess(),
+  builder: (context, snapshot){
+  
+  if (snapshot.hasData) {
+       var responseData = snapshot.data;
+       showContent = responseData!;
+       
+       return Center(
+             child: Stack(
+               children: <Widget>[
+               
+               if (!showContent)
+               Container(
+                 width: MediaQuery.of(context).size.width,
+                 height: MediaQuery.of(context).size.height,
+                 alignment: Alignment.bottomCenter,
+                 child: Paywall((response) {
+                   showContent = responseData;
+                   setState(() {});
+                 })),
+               ]
+           ),
+        );
+               
+  }else if (snapshot.hasError) {
+    return ShowYourErrorPage();
+  }
+ },
+), 
+  </p>
+<h3 id='parameters-detail-2'>Parameters detail</h3>
+<ul>
+<li>Content Id: This will be your content id for which detail needs to be checked.</li>
+</ul>
+<h3 id='premium-content-registration'>Premium Content Registration</h3>
+<p>Whenever you&#39;re utilising the ConsCent APIs - you to update the API_URL variables based on the environment you&#39;re operating in.</p>
+
+<p>This endpoint allows the Client to Register their Content on ConsCent - with the Content Title, ContentId, Content URL, Tags, Analytics Pixels (Facebook and Google), Price as well as any specific Price Overrides for a country - In order to set a different price for the content in the relevant country. Moreover, the ContentType field is optional - and if no &#39;contentType&#39; is provided then the default &#39;contentType&#39; of the client will be treated as the &#39;contentType&#39; of the content being registered. While category based pricing can be used for any content, by passing the priceCategory field on registering the content - as long as the price category has been registered by the client on the ConsCent dashboard along with its respective price, duration and priceOverrides; however, category based pricing only comes into effect if the content does not have a pre-determined price field (price must be null).</p>
+<h3 id='http-request-20'>HTTP Request</h3>
+<p><code>POST {API_URL}/api/v1/content</code></p>
+<h3 id='authorization-12'>Authorization</h3>
+<p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
 <h1 id='loyalty-system'>Loyalty System</h1><div class="highlight"><pre class="highlight php tab-php"><code><span class="k">const</span> <span class="no">sdk</span> <span class="o">=</span> <span class="k">require</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)(</span><span class="s1">'@conscent/v1.0#5zb7qx16lh0lc3b3'</span><span class="p">);</span>
 
 
