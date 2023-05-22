@@ -448,6 +448,9 @@
                   <li>
                     <a href="#flutter" class="toc-h2 toc-link" data-title="Flutter">Flutter</a>
                   </li>
+                  <li>
+                    <a href="#swift-ios" class="toc-h2 toc-link" data-title="SWIFT (IOS)">SWIFT (IOS)</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -4454,6 +4457,101 @@ APP_MODE is basically used for checking debug and production environment of app.
 <p><code>POST {API_URL}/api/v1/content</code></p>
 <h3 id='authorization-12'>Authorization</h3>
 <p>Client API Key and Secret must be passed in Authorization Headers using Basic Auth. With API Key as the Username and API Secret as the password.</p>
+<h2 id='swift-ios'>SWIFT (IOS)</h2><h3 id='conscent-plugin-integration-guide'>ConsCent Plugin Integration Guide</h3>
+<p>This guide provides step-by-step instructions on how to include the ConsCent Plugin in your iOS app. The ConsCent Plugin is developed in Swift and supports iOS 13.0 and above.</p>
+<h3 id='step-1-integration-setup'>Step 1: Integration Setup</h3><h4 id='step-1-1-adding-the-plugin-framework'>Step 1.1: Adding the Plugin Framework</h4>
+<ol>
+<li><p>Drag the CCPlugin.xcframework folder into your Xcode project.</p></li>
+<li><p>Select your app target and go to the &quot;Frameworks, Libraries, and Embedded Content&quot; section.</p></li>
+<li><p>Change the embed mode for CCPlugin.xcframework to &quot;Embed &amp; Sign&quot;.</p></li>
+<li><p>Clean and build your project to ensure the framework is properly integrated.</p></li>
+</ol>
+<h3 id='step-2-plugin-configuration'>Step 2: Plugin Configuration</h3><h4 id='step-2-1-importing-the-framework'>Step 2.1: Importing the Framework</h4>
+<p>Import the CCPlugin framework into your ViewController class.
+<code>import CCPlugin</code></p>
+<h4 id='step-2-2-configuring-the-plugin'>Step 2.2: Configuring the Plugin</h4>
+<p>In your ViewController class, configure the plugin by providing the client ID and the desired environment mode.</p>
+
+<p><code>CCPlugin.shared.configure(mode: .sandbox, clientID: &quot;your-client-id&quot;)</code></p>
+<h4 id='parameters'>Parameters:</h4>
+<ul>
+<li>contentID: This will be your article or content ID for which details need to be checked.</li>
+<li>The mode parameter specifies the environment mode to be used in your app. You can choose one of the following modes:</li>
+</ul>
+
+<ul class = 'instruction-bg-url'>
+  <li>
+    <ul>
+      <li>ConscentConfiguration.MODE.STAGE</li>
+      <li>ConscentConfiguration.MODE.SANDBOX
+</li>
+     <li>ConscentConfiguration.MODE.PRODUCTION
+</li>
+    </ul>
+  </li>
+</ul>
+<h4 id='step-2-3-customizing-accent-color'>Step 2.3: Customizing Accent Color</h4>
+<p>You can set the accent color for the paywall by accessing the accentColor property of the CCPlugin.shared instance and modifying its value.</p>
+
+<p>Refer below example for setting color.</p>
+
+<p><code>CCPlugin.shared.accentColor = UIColor.red</code></p>
+<h4 id='step-2-4-enabling-debug-mode'>Step 2.4: Enabling Debug Mode</h4>
+<p>The debugMode property of the CCPlugin.shared instance can be set to true or false to enable or disable debug mode. When debug mode is enabled, toasts will be shown if the content ID or client ID entered is incorrect. This is useful for development purposes.</p>
+
+<p><code>CCplugin.shared.debugMode = false</code></p>
+<h3 id='step-3-functions'>Step 3: Functions</h3>
+<p>To check if an article/content is free/paid or a payment needs to be done, in your class, use as below sample: Parameters detail can be checked below for more information.</p>
+<h4 id='step-3-1-paywall-screen'>Step 3.1: PayWall Screen</h4>
+<ol>
+<li>This step is for PayWall Screen</li>
+</ol>
+
+<p><code>CCplugin.shared.showPayWall(contentID: contentID, viewLayout: ViewLayoutInfo(vc: self, view: self.view), completiondelegate: self, subscriberDelegate: self, signInDelegate: self)</code></p>
+
+<ol>
+<li>This step is for Embedded Subscription Screen</li>
+</ol>
+
+<p><code>CCplugin.shared.initSubscriptions(contentID: contentID, viewLayout: ViewLayoutInfo(vc: self, view: self.view), completiondelegate: self)</code></p>
+<h3 id='parameters-details'>Parameters Details:</h3>
+<p><code>contentID</code>: This will be your article or content ID for which details need to be checked.</p>
+
+<p><code>ViewLayoutInfo</code>: This is a struct that has two values, vc (View Controller) and view. Pass the view on which you are going to show your content and the View Controller in which the view is present.</p>
+
+<p><code>delegate</code>: This will be used to handle the success and failure cases. Pass the class as the delegate where you want to handle success or failure. This delegate is of the protocol CCPluginCompletionHandlerDelegate, which has two methods: success and failure that will be triggered in case of success and failure of the process.</p>
+
+<p><code>success</code>: This is the success callback that will be called for every successful processing. The success method will be triggered in the delegate class.</p>
+
+<p><code>failure</code>: This is the failure callback that will be called for every failed processing. The failure method will be triggered in the delegate class.</p>
+
+<p><code>subscriberDelegate</code>: This is an optional callback that will be called if you pass your class as its delegate. It will be triggered when the subscription button is tapped. If you don&#39;t pass it in your delegate, it will not show the subscription view.</p>
+
+<p><code>signInDelegate</code>: This is an optional callback that will be called if you pass your class as its delegate. It will be triggered when the sign-in button is tapped. If you don&#39;t pass it in your delegate, it will not show the sign-in view. </p>
+<h3 id='step-4-final-touches'>Step 4: Final Touches</h3>
+<ul>
+<li>In your Project go to your target and in the URL types add a new one with URL schemes &quot;conscent&quot;.</li>
+<li>This is important to handle redirection or app launches from the browser.</li>
+<li>Call below function inside of openURLContexts scene delegate.</li>
+</ul>
+
+<p class = 'instruction-bg'> func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    if let url = URLContexts.first?.url {
+       CCplugin.shared.handleRelaunchApp(url: url)
+    }
+}
+  </p>
+<h3 id='step-5-important-points'>Step 5: Important Points</h3>
+<ul>
+<li><p>Keep in mind there is only instance of the CCPlugin. So a new function call will override the last function call.</p></li>
+<li><p>Please show or load your content only after the success callback to avoid showing paid content for free in case of server or internet issue.</p></li>
+<li><p>Don&#39;t forget step 4 otherwise you will have to refresh the content screen everytime you make a payment for a paid content.</p></li>
+<li><p>The blocker View supports both portrait and landscape orientation.</p></li>
+<li><p>Make sure the height of the paywall view is more than 600 in portrait and 336 in landscape to avoid any view obstruction, alternatively if you&#39;re not passing the subscriber view you can have the paywall height of 313 in portrait, 336 in landscape.</p></li>
+<li><p>If you don&#39;t have a valid session ID the logIn with Conscent button will not show.</p></li>
+<li><p>If you have valid session you will see the user&#39;s account balance in the paywall.</p></li>
+<li><p>The view automatically center all of its content so it&#39;s fine if you don&#39;t want the subscription view.</p></li>
+</ul>
 <h1 id='loyalty-system'>Loyalty System</h1><div class="highlight"><pre class="highlight php tab-php"><code><span class="k">const</span> <span class="no">sdk</span> <span class="o">=</span> <span class="k">require</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)(</span><span class="s1">'@conscent/v1.0#5zb7qx16lh0lc3b3'</span><span class="p">);</span>
 
 
